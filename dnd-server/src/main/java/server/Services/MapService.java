@@ -19,4 +19,18 @@ public class MapService {
             }
         }
     }
+    public void generateMapRooms(Cell[][] map, int phasesAmount){
+        for (Cell[] row: map) {
+            for(int i=0;i<row.length;i++){
+                if(row[i].isSelected()){
+                    row[i] = CellService.generateCell(phasesAmount);
+                }
+            }
+        }
+        this.map = map;
+    }
+
+    public Cell[][] getMap(){
+        return map;
+    }
 }
