@@ -23,9 +23,6 @@ public class Room {
     private HashMap<RoomDirection, Boolean> roomDirections;
     @Getter
     @Setter
-    private ArrayList<Object> allObjects;
-    @Getter
-    @Setter
     private boolean isVisited;
 
     public Room(){
@@ -33,18 +30,16 @@ public class Room {
         this.level = Integer.parseInt(null);
         this.roomType = null;
         this.roomDirections = null;
-        this.allObjects = null;
         this.isVisited = false;
     }
 
     public Room(int id, int level, RoomType roomType,
                 HashMap<RoomDirection, Boolean> roomDirections,
-                ArrayList<Object> allObjects, boolean isVisited) {
+                boolean isVisited) {
         this.id = id;
         this.level = level;
         this.roomType = roomType;
         this.roomDirections = roomDirections;
-        this.allObjects = allObjects;
         this.isVisited = isVisited;
     }
 }
