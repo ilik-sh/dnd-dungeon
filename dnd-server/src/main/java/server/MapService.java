@@ -28,6 +28,8 @@ public class MapService {
         Room returnRoom = new Room();
         returnRoom.setLevel(generateRoomLevel());
         returnRoom.setRoomType(generateRoomType());
+        returnRoom.setRoomDirections(generateRoomDirections());
+        return returnRoom;
     }
 
     private int generateRoomLevel(){
@@ -65,12 +67,15 @@ public class MapService {
         }
         return RoomType.NEUTRAL;
     }
-    private HashMap<RoomDirection,> generateRoomDirections(){
-        int directionsAmount = (int) (Math.random()+0.1*6);
-        ArrayList<Integer> directions = new ArrayList<>()
-        for(int i = 0 ; i<directionsAmount ; i++){
-
-        }
+    private HashMap<RoomDirection, Boolean> generateRoomDirections(){
+        HashMap<RoomDirection, Boolean> roomDirections = new HashMap<>();
+        roomDirections.put(RoomDirection.TOP, Math.random() > 0.5);
+        roomDirections.put(RoomDirection.TOP_LEFT, Math.random() > 0.5);
+        roomDirections.put(RoomDirection.TOP_RIGHT, Math.random() > 0.5);
+        roomDirections.put(RoomDirection.BOTTOM, Math.random() > 0.5);
+        roomDirections.put(RoomDirection.BOTTOM_LEFT, Math.random() > 0.5);
+        roomDirections.put(RoomDirection.BOTTOM_RIGHT, Math.random() > 0.5);
+        return roomDirections;
     }
 
 }

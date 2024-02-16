@@ -38,7 +38,7 @@ public class Room {
     }
 
     public Room(int id, int level, RoomType roomType,
-                HashMap<String, Boolean> roomDirections,
+                HashMap<RoomDirection, Boolean> roomDirections,
                 ArrayList<Object> allObjects, boolean isVisited) {
         this.id = id;
         this.level = level;
