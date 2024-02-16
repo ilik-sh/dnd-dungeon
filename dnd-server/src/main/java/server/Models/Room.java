@@ -5,7 +5,6 @@ import lombok.Setter;
 import server.RoomDirection;
 import server.RoomType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Room {
@@ -26,8 +25,8 @@ public class Room {
     private boolean isVisited;
 
     public Room(){
-        this.id = Integer.parseInt(null);
-        this.level = Integer.parseInt(null);
+        this.id = 0;
+        this.level = 0;
         this.roomType = null;
         this.roomDirections = null;
         this.isVisited = false;

@@ -10,9 +10,9 @@ import java.util.HashMap;
 
 @Service
 public class RoomService {
-    private int roomsDifficulty = 10;
+    private static int roomsDifficulty = 10;
 
-    private Room generateRoom(){
+    public static Room generateRoom(){
         Room returnRoom = new Room();
         returnRoom.setLevel(generateRoomLevel());
         returnRoom.setRoomType(generateRoomType());
@@ -21,10 +21,10 @@ public class RoomService {
         return returnRoom;
     }
 
-    private int generateRoomLevel(){
+    private static int generateRoomLevel(){
         return (int) (1 + Math.random()* AllConstants.IntegerConstants.MAX_ROOM_LEVEL.getValue());
     }
-    private RoomType generateRoomType(){
+    private static RoomType generateRoomType(){
         if(roomsDifficulty>=0){
             int currentRoomsDifficulty = (int) (Math.random()*roomsDifficulty+0.1);
             if(currentRoomsDifficulty>=0 && currentRoomsDifficulty<=RoomType.LOOT.getValue()){
@@ -56,7 +56,7 @@ public class RoomService {
         }
         return RoomType.NEUTRAL;
     }
-    private HashMap<RoomDirection, Boolean> generateRoomDirections(){
+    private static HashMap<RoomDirection, Boolean> generateRoomDirections(){
         HashMap<RoomDirection, Boolean> roomDirections = new HashMap<>();
         roomDirections.put(RoomDirection.TOP, Math.random() > 0.5);
         roomDirections.put(RoomDirection.TOP_LEFT, Math.random() > 0.5);
