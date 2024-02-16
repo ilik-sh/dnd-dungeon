@@ -6,6 +6,9 @@ import lombok.Setter;
 public class Cell {
     @Getter
     @Setter
+    private int id;
+    @Getter
+    @Setter
     private boolean isSelected;
     @Getter
     @Setter
@@ -15,12 +18,14 @@ public class Cell {
     private Room[] possiblePhases;
 
     public Cell(){
+        this.id = 0;
         this.isSelected = false;
         this.currentPhase = null;
         this.possiblePhases = null;
     }
 
-    public Cell(boolean isSelected, Room currentPhase, Room[] possiblePhases) {
+    public Cell(int id, boolean isSelected, Room currentPhase, Room[] possiblePhases) {
+        this.id = id;
         this.isSelected = isSelected;
         this.currentPhase = currentPhase;
         this.possiblePhases = possiblePhases;
