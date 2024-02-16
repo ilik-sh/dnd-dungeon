@@ -1,39 +1,28 @@
-package server;
+package server.Services;
 
 import org.springframework.stereotype.Service;
+import server.AllConstants;
 import server.Models.Room;
+import server.RoomDirection;
+import server.RoomType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
-public class MapService {
-    private Room[][] map;
+public class RoomService {
     private int roomsDifficulty = 10;
-
-    public void generateMap(){
-        map = new Room[AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue()][];
-        for(int i = 0; i < map.length ; i++){
-            if( i % 2 == 0 ){
-               map[i] = new Room[AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue()-1];
-
-            }
-            if( i % 2 == 1 ){
-                map[i] = new Room[AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue()];
-            }
-        }
-    }
 
     private Room generateRoom(){
         Room returnRoom = new Room();
         returnRoom.setLevel(generateRoomLevel());
         returnRoom.setRoomType(generateRoomType());
         returnRoom.setRoomDirections(generateRoomDirections());
+        returnRoom.setVisited(false);
         return returnRoom;
     }
 
     private int generateRoomLevel(){
-        return (int) (1 + Math.random()*AllConstants.IntegerConstants.MAX_ROOM_LEVEL.getValue());
+        return (int) (1 + Math.random()* AllConstants.IntegerConstants.MAX_ROOM_LEVEL.getValue());
     }
     private RoomType generateRoomType(){
         if(roomsDifficulty>=0){
@@ -77,5 +66,4 @@ public class MapService {
         roomDirections.put(RoomDirection.BOTTOM_RIGHT, Math.random() > 0.5);
         return roomDirections;
     }
-
 }
