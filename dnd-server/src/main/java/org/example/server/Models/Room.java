@@ -1,9 +1,10 @@
-package server.Models;
+package org.example.server.Models;
 
 import lombok.Getter;
 import lombok.Setter;
-import server.RoomDirection;
-import server.RoomType;
+import org.example.server.RoomDirection;
+import org.example.server.RoomDirectionSerializer;
+import org.example.server.RoomType;
 
 import java.util.HashMap;
 

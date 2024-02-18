@@ -1,4 +1,4 @@
-package server;
+package org.example.server;
 
 public enum AllConstants {;
 

@@ -1,10 +1,10 @@
-package server.Services;
+package org.example.server.Services;
 
 import org.springframework.stereotype.Service;
-import server.AllConstants;
-import server.Models.Room;
-import server.RoomDirection;
-import server.RoomType;
+import org.example.server.AllConstants;
+import org.example.server.Models.Room;
+import org.example.server.RoomDirection;
+import org.example.server.RoomType;
 
 import java.util.HashMap;
 

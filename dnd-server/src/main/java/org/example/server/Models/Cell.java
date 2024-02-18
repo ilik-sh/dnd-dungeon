@@ -1,4 +1,4 @@
-package server.Models;
+package org.example.server.Models;
 
 import lombok.Getter;
 import lombok.Setter;

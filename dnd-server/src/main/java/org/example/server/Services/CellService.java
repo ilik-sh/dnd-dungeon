@@ -1,8 +1,8 @@
-package server.Services;
+package org.example.server.Services;
 
 import org.springframework.stereotype.Service;
-import server.Models.Cell;
-import server.Models.Room;
+import org.example.server.Models.Cell;
+import org.example.server.Models.Room;
 
 @Service
 public class CellService {
