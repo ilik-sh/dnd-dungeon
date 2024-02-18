@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
+    private MapService mp = new MapService();
     @GetMapping("/getMap")
+    @ResponseBody
     public Room[][] getMap(){
-        return new Room[0][0];
+        mp.generateMap();
+        mp.generateDungeon();
+
+        return mp.getMap();
     }
 }
