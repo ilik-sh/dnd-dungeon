@@ -2,7 +2,6 @@ package org.example.server.Services;
 
 import org.example.server.MapLoader;
 import org.springframework.stereotype.Service;
-import org.example.server.AllConstants;
 import org.example.server.Models.Room;
 import org.example.server.RoomDirection;
 
@@ -143,6 +142,36 @@ public class MapService {
 //    }
 
     public Room[][] getMap(){
-        return map;
+        Room[][] returnMap = new Room[map.length][];
+        int count = 0;
+        int yCount = 0;
+        for(int i = 0;i< map.length;i++){
+            returnMap[i] = new Room[map[i].length/2];
+            for(int j = 0;j< map[i].length;j++){
+                if(count%2==0){
+                    returnMap[i][yCount] = map[i][j];
+                    yCount++;
+                    count++;
+                }else count --;
+            }
+            if(i%2==0)count=1;
+            else count=0;
+            yCount = 0;
+        }
+        return returnMap;
+    }
+
+    public void setMap(Room[][] map){
+        this.map = new Room[map.length][];
+        for (int i = 0;i < map.length;i++){
+            this.map[i] = new Room[map[i].length*2];
+            for (int j = 0;j<map[i].length;j++){
+                this.map[i][j*2+i%2] = map[i][j];
+            }
+        }
+    }
+
+    public void saveMap() throws IOException {
+        mapLoader.saveMap(map);
     }
 }
