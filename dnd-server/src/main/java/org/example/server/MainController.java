@@ -11,10 +11,16 @@ public class MainController {
     private MapService mp = new MapService();
     @GetMapping("/getMap")
     @ResponseBody
-    public Room[][] getMap(){
-        mp.generateMap();
-        mp.generateDungeon();
-
+    public Room[][] getMap(@RequestParam(name = "mapSize")int mapSize,
+                           @RequestParam(name = "tunnelLength")int tunnelLength,
+                           @RequestParam(name = "crossroadChance")int crossroadChance){
+        mp.generateMap(mapSize,mapSize);
+        mp.generateDungeon(tunnelLength,crossroadChance);
         return mp.getMap();
+    }
+
+    @PostMapping("/saveMap")
+    public void saveMap() throws IOException {
+        mp.saveMap();
     }
 }

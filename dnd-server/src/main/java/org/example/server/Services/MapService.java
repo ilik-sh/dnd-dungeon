@@ -9,17 +9,19 @@ import org.example.server.RoomDirection;
 public class MapService {
     private Room[][] map;
 
-    public void generateMap(){
-        map = new Room[AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue()][];
+
+    public void generateMap(int xSize, int ySize){
+        map = new Room[xSize][];
         for(int i = 0; i < map.length ; i++){
-            map[i] = new Room[AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue()*2];
+            map[i] = new Room[ySize*2];
         }
     }
 
-    public void generateDungeon(){
-        int startX = (int) (Math.random()*AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue());
-        int startY = Math.abs(((int) (Math.random()*AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue()+1))*2-(2-startX%2));
-        generateLabyrinth(startX,startY,4,true,null,null);
+    public void generateDungeon(int maxTunnelLength, int crossroadChance){
+        int startX = (int) (Math.random()*map.length);
+        int startY = Math.abs(((int) (Math.random()*map.length+1))*2-(2-startX%2));
+        this.crossroadChance = crossroadChance;
+        generateLabyrinth(startX,startY,maxTunnelLength,true,null,null);
     }
     private void generateLabyrinth(int x, int y, int tunnelLength, boolean tunnelDividing,
                                    RoomDirection connectionDirection, RoomDirection tunnelDirection) {
@@ -39,7 +41,7 @@ public class MapService {
                     generateLabyrinth(x, y - 2, tunnelLength, false, RoomDirection.BOTTOM, RoomDirection.TOP);
                 }
             }
-            if (y < AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue() * 2 - 2) {
+            if (y < map[0].length - 2) {
                 if (map[x][y].getRoomDirections().get(RoomDirection.BOTTOM)) {
                     generateLabyrinth(x, y + 2, tunnelLength, false, RoomDirection.TOP, RoomDirection.BOTTOM);
                 }
@@ -50,18 +52,18 @@ public class MapService {
                     generateLabyrinth(x - 1, y - 1, tunnelLength, false, RoomDirection.BOTTOM_RIGHT, RoomDirection.TOP_LEFT);
                 }
             }//lefttop
-            if (x < AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue() - 1 && y > 0) {
+            if (x < map.length - 1 && y > 0) {
                 if (map[x][y].getRoomDirections().get(RoomDirection.TOP_RIGHT)) {
                     generateLabyrinth(x + 1, y - 1, tunnelLength, false, RoomDirection.BOTTOM_LEFT, RoomDirection.TOP_RIGHT);
                 }
             }//rigthtop
 
-            if (x > 0 && y < AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue() * 2 - 1) {
+            if (x > 0 && y < map[0].length - 1) {
                 if (map[x][y].getRoomDirections().get(RoomDirection.BOTTOM_LEFT)) {
                     generateLabyrinth(x - 1, y + 1, tunnelLength, false, RoomDirection.TOP_RIGHT, RoomDirection.BOTTOM_LEFT);
                 }
             }//leftbottom
-            if (x < AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue() - 1 && y < AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue() * 2 - 1) {
+            if (x < map.length - 1 && y < map[0].length - 1) {
                 if (map[x][y].getRoomDirections().get(RoomDirection.BOTTOM_RIGHT)) {
                     generateLabyrinth(x + 1, y + 1, tunnelLength, false, RoomDirection.TOP_LEFT, RoomDirection.BOTTOM_RIGHT);
                 }
@@ -80,46 +82,46 @@ public class MapService {
             }
             tunnelLength--;
 
-            boolean currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
+            boolean currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
             if (y > 1) {
                 if (tunnelDirection.equals(RoomDirection.TOP)) {
                     generateLabyrinth(x, y - 2, tunnelLength, currentTunnelDividing, RoomDirection.BOTTOM, RoomDirection.TOP);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
+                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
                 }
             }
-            if (y < AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue() * 2 - 2) {
+            if (y < map[0].length - 2) {
                 if (tunnelDirection.equals(RoomDirection.BOTTOM)) {
                     generateLabyrinth(x, y + 2, tunnelLength, currentTunnelDividing, RoomDirection.TOP, RoomDirection.BOTTOM);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
+                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
                 }
             }
             if (x > 0 && y > 0) {
                 if (tunnelDirection.equals(RoomDirection.TOP_LEFT)) {
                     generateLabyrinth(x - 1, y - 1, tunnelLength, currentTunnelDividing, RoomDirection.BOTTOM_RIGHT, RoomDirection.TOP_LEFT);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
+                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
                 }
             }//lefttop
-            if (x < AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue() - 1 && y > 0) {
+            if (x < map.length - 1 && y > 0) {
                 if (tunnelDirection.equals(RoomDirection.TOP_RIGHT)) {
                     generateLabyrinth(x + 1, y - 1, tunnelLength, currentTunnelDividing, RoomDirection.BOTTOM_LEFT, RoomDirection.TOP_RIGHT);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
+                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
                 }
             }//rigthtop
 
-            if (x > 0 && y < AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue() * 2 - 1) {
+            if (x > 0 && y < map[0].length - 1) {
                 if (tunnelDirection.equals(RoomDirection.BOTTOM_LEFT)) {
                     generateLabyrinth(x - 1, y + 1, tunnelLength, currentTunnelDividing, RoomDirection.TOP_RIGHT, RoomDirection.BOTTOM_LEFT);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
+                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
                 }
             }//leftbottom
-            if (x < AllConstants.IntegerConstants.MAX_MAP_WIDTH.getValue() - 1 && y < AllConstants.IntegerConstants.MAX_MAP_HEIGHT.getValue() * 2 - 1) {
+            if (x < map.length - 1 && y < map[0].length - 1) {
                 if (tunnelDirection.equals(RoomDirection.BOTTOM_RIGHT)) {
                     generateLabyrinth(x + 1, y + 1, tunnelLength, currentTunnelDividing, RoomDirection.TOP_LEFT, RoomDirection.BOTTOM_RIGHT);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < AllConstants.IntegerConstants.TUNNEL_DIVIDING_CHANCE.getValue();
                 }
             }//rightbottom
         }
     }
+
 
 //    public void generateMapRooms(Cell[][] map, int phasesAmount){
 //        for (Cell[] row: map) {
