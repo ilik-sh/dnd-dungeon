@@ -1,13 +1,21 @@
 package org.example.server.Services;
 
+import org.example.server.MapLoader;
 import org.springframework.stereotype.Service;
 import org.example.server.AllConstants;
 import org.example.server.Models.Room;
 import org.example.server.RoomDirection;
 
+import java.io.IOException;
+
 @Service
 public class MapService {
     private Room[][] map;
+    private int crossroadChance;
+    MapLoader mapLoader = new MapLoader();
+
+    public MapService() throws IOException {
+    }
 
 
     public void generateMap(int xSize, int ySize){
