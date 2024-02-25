@@ -1,20 +1,18 @@
-package org.example.server;
+package org.example.server.Controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.example.server.Models.Room;
 import org.example.server.Services.MapService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 
-@Controller
-public class MainController {
+@Controller()
+@RequestMapping("/auto")
+public class AutoController {
     private MapService mp = new MapService();
 
-    public MainController() throws IOException {
+    public AutoController() throws IOException {
     }
 
     @GetMapping("/getMap")
@@ -28,7 +26,10 @@ public class MainController {
     }
 
     @PostMapping("/saveMap")
+    @ResponseBody
     public void saveMap() throws IOException {
         mp.saveMap();
     }
+
+
 }
