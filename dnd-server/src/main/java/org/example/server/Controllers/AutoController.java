@@ -12,17 +12,30 @@ import java.io.IOException;
 public class AutoController {
     private MapService mp = new MapService();
 
-    public AutoController() throws IOException {
+    @GetMapping("/generateMap")
+    @ResponseBody
+    public ResponseEntity generateMap(@RequestParam(name = "mapSize")int mapSize,
+                                        @RequestParam(name = "tunnelLength")int tunnelLength,
+                                        @RequestParam(name = "crossroadChance")int crossroadChance) {
+        ResponseEntity response;
+        try {
+            ValidationService.isValidMapParams(mapSize, tunnelLength, crossroadChance);
+        }catch (MapParamsException error) {
+            response = new ResponseEntity<>(error, HttpStatus.valueOf(500));
+            return response;
+        }
+        mp.generateMap(mapSize, mapSize);
+        mp.generateDungeon(tunnelLength, crossroadChance);
+        response = new ResponseEntity<>(mp.getMap(),HttpStatus.valueOf(200));
+        return response;
     }
 
     @GetMapping("/getMap")
     @ResponseBody
-    public Room[][] getMap(@RequestParam(name = "mapSize")int mapSize,
-                           @RequestParam(name = "tunnelLength")int tunnelLength,
-                           @RequestParam(name = "crossroadChance")int crossroadChance){
-        mp.generateMap(mapSize,mapSize);
-        mp.generateDungeon(tunnelLength,crossroadChance);
-        return mp.getMap();
+    public ResponseEntity getMap() {
+        ResponseEntity response;
+        response = new ResponseEntity<>(mp.getMap(),HttpStatus.valueOf(200));
+        return response;
     }
 
     @PostMapping("/saveMap")
