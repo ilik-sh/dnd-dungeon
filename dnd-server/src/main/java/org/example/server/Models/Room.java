@@ -8,11 +8,12 @@ import org.example.server.RoomDirectionSerializer;
 import org.example.server.RoomType;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Room {
     @Getter
     @Setter
-    private int id;
+    private UUID id;
     @Getter
     @Setter
     private int level;
@@ -28,14 +29,14 @@ public class Room {
     private boolean isVisited;
 
     public Room(){
-        this.id = 0;
+        this.id = UUID.randomUUID();
         this.level = 0;
         this.roomType = null;
         this.roomDirections = new HashMap<>();
         this.isVisited = false;
     }
 
-    public Room(int id, int level, RoomType roomType,
+    public Room(UUID id, int level, RoomType roomType,
                 HashMap<RoomDirection, Boolean> roomDirections,
                 boolean isVisited) {
         this.id = id;
@@ -43,12 +44,5 @@ public class Room {
         this.roomType = roomType;
         this.roomDirections = roomDirections;
         this.isVisited = isVisited;
-    }
-
-    @Override
-    public String toString() {
-        return "["+((roomDirections.get(RoomDirection.TOP))?" t ":"")+((roomDirections.get(RoomDirection.TOP_RIGHT))?" tr ":"")+
-                ((roomDirections.get(RoomDirection.BOTTOM_RIGHT))?" br ":"")+((roomDirections.get(RoomDirection.BOTTOM))?" b ":"")+
-                ((roomDirections.get(RoomDirection.BOTTOM_LEFT))?" bl ":"")+((roomDirections.get(RoomDirection.TOP_LEFT))?" tl ":"")+"]";
     }
 }
