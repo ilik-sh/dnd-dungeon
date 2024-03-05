@@ -1,5 +1,10 @@
 package org.example.server.Controllers;
 
+import lombok.RequiredArgsConstructor;
+import org.example.server.Exceptions.MapParamsException;
+import org.example.server.Services.ValidationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.example.server.Models.Room;
@@ -9,8 +14,9 @@ import java.io.IOException;
 
 @Controller()
 @RequestMapping("/auto")
+@RequiredArgsConstructor
 public class AutoController {
-    private MapService mp = new MapService();
+    private final MapService mp;
 
     @GetMapping("/generateMap")
     @ResponseBody

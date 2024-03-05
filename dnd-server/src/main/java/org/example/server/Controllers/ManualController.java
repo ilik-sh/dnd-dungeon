@@ -1,5 +1,6 @@
 package org.example.server.Controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.example.server.Models.Room;
 import org.example.server.Services.MapService;
 import org.springframework.stereotype.Controller;
@@ -9,11 +10,9 @@ import java.io.IOException;
 
 @Controller()
 @RequestMapping("/manual")
+@RequiredArgsConstructor
 public class ManualController {
-    private MapService mp = new MapService();
-
-    public ManualController() throws IOException {
-    }
+    private final MapService mp = new MapService();
 
     @GetMapping("/getMap")
     @ResponseBody
