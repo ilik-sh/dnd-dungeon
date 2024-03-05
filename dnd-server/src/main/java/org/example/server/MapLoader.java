@@ -1,23 +1,33 @@
 package org.example.server;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.server.Models.Room;
 
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 
 public class MapLoader {
-    FileWriter fout;
     ObjectMapper objectMapper;
 
     public MapLoader() throws IOException {
-        fout = new FileWriter("Maps.txt",true);
         objectMapper = new ObjectMapper();
     }
 
-    public void saveMap(Room[][] map) throws IOException {
-        String mp = objectMapper.writeValueAsString(map);
-        fout.write(mp+"\n");
+    public void saveMap(Room[][] map){
+        try {
+            objectMapper.writeValue(new File("Maps.json"),map);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public Room[][] loadMap(){
+        Room[][] returnMap = null;
+        try {
+            returnMap = objectMapper.readValue(new File("Maps.json"),Room[][].class);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return returnMap;
     }
 }

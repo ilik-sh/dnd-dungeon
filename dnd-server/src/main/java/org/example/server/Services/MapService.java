@@ -1,5 +1,6 @@
 package org.example.server.Services;
 
+import org.apache.tomcat.util.json.ParseException;
 import org.example.server.MapLoader;
 import org.springframework.stereotype.Service;
 import org.example.server.Models.Room;
@@ -11,9 +12,13 @@ import java.io.IOException;
 public class MapService {
     private Room[][] map;
     private int crossroadChance;
-    MapLoader mapLoader = new MapLoader();
-
-    public MapService() throws IOException {
+    MapLoader mapLoader;
+    {
+        try {
+            mapLoader = new MapLoader();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -38,11 +43,11 @@ public class MapService {
         }
         map[x][y] = RoomService.generateRoom();
         map[x][y].getRoomDirections().put(connectionDirection, true);
+        if (tunnelLength == 0) {
+            return;
+        }
+        tunnelLength--;
         if (tunnelDividing) {
-            if (tunnelLength == 0) {
-                return;
-            }
-            tunnelLength--;
             if (y > 1) {
                 if (map[x][y].getRoomDirections().get(RoomDirection.TOP)) {
                     generateLabyrinth(x, y - 2, tunnelLength, false, RoomDirection.BOTTOM, RoomDirection.TOP);
@@ -84,10 +89,7 @@ public class MapService {
             });
             map[x][y].getRoomDirections().put(connectionDirection, true);
             map[x][y].getRoomDirections().put(tunnelDirection, true);
-            if (tunnelLength == 0) {
-                return;
-            }
-            tunnelLength--;
+
 
             boolean currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
             if (y > 1) {
@@ -129,18 +131,6 @@ public class MapService {
         }
     }
 
-
-//    public void generateMapRooms(Cell[][] map, int phasesAmount){
-//        for (Cell[] row: map) {
-//            for(int i=0;i<row.length;i++){
-//                if(row[i].isSelected()){
-//                    row[i] = CellService.generateCell(phasesAmount);
-//                }
-//            }
-//        }
-//        this.map = map;
-//    }
-
     public Room[][] getMap(){
         Room[][] returnMap = new Room[map.length][];
         int count = 0;
@@ -171,7 +161,12 @@ public class MapService {
         }
     }
 
-    public void saveMap() throws IOException {
+    public void saveMap(){
         mapLoader.saveMap(map);
+    }
+
+    public Room[][] loadMap(){
+        map = mapLoader.loadMap();
+        return getMap();
     }
 }
