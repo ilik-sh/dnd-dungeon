@@ -6,7 +6,6 @@ import org.example.server.Services.MapService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 
 @Controller()
 @RequestMapping("/manual")
@@ -28,7 +27,7 @@ public class ManualController {
 
     @PostMapping("/saveMap")
     @ResponseBody
-    public void saveMap() throws IOException {
+    public void saveMap(){
         mp.saveMap();
     }
 }

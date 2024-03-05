@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.example.server.Models.Room;
 import org.example.server.Services.MapService;
 
-import java.io.IOException;
 
 @Controller()
 @RequestMapping("/auto")
@@ -46,7 +45,7 @@ public class AutoController {
 
     @PostMapping("/saveMap")
     @ResponseBody
-    public void saveMap() throws IOException {
+    public void saveMap(){
         mp.saveMap();
     }
 
