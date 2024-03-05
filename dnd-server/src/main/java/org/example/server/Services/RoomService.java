@@ -28,12 +28,12 @@ public class RoomService {
         if(roomsDifficulty>=0){
             int currentRoomsDifficulty = (int) (Math.random()*roomsDifficulty+0.1);
             if(currentRoomsDifficulty>=0 && currentRoomsDifficulty<=RoomType.LOOT.getValue()){
-                roomsDifficulty+=RoomType.LOOT.getValue();
+                roomsDifficulty+=RoomType.EVIL.getValue();
                 return RoomType.LOOT;
             }
             if(currentRoomsDifficulty>RoomType.LOOT.getValue() &&
                     currentRoomsDifficulty <= RoomType.PEACE.getValue()){
-                roomsDifficulty+=RoomType.PEACE.getValue();
+                roomsDifficulty+=RoomType.NEUTRAL.getValue();
                 return RoomType.PEACE;
             }
             if(currentRoomsDifficulty>RoomType.PEACE.getValue() &&

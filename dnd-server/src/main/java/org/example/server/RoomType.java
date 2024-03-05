@@ -1,17 +1,19 @@
 package org.example.server;
 
 public enum RoomType {
-    PEACE(2),
-    EVIL(7),
-    NEUTRAL(5),
     LOOT(1),
-    QUEST( 3);
+    PEACE(3),
+    QUEST( 5),
+    NEUTRAL(8),
+    EVIL(10);
+
 
     private int value;
     RoomType(int i) {
         value = i;
     }
 
+    public void setValue(int value) {this.value = value;}
     public int getValue(){
         return value;
     }
