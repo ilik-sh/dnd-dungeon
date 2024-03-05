@@ -11,9 +11,13 @@ import java.io.IOException;
 public class MapService {
     private Room[][] map;
     private int crossroadChance;
-    MapLoader mapLoader = new MapLoader();
-
-    public MapService() throws IOException {
+    MapLoader mapLoader;
+    {
+        try {
+            mapLoader = new MapLoader();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -161,5 +165,10 @@ public class MapService {
 
     public void saveMap() throws IOException {
         mapLoader.saveMap(map);
+    }
+
+    public Room[][] loadMap(){
+        map = mapLoader.loadMap();
+        return getMap();
     }
 }

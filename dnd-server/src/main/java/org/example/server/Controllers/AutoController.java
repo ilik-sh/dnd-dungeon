@@ -50,5 +50,10 @@ public class AutoController {
         mp.saveMap();
     }
 
+    @GetMapping("/loadMap")
+    @ResponseBody
+    public Room[][] loadMap(){
+        return mp.loadMap();
+    }
 
 }
