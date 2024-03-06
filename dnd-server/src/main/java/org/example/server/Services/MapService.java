@@ -1,6 +1,5 @@
 package org.example.server.Services;
 
-import org.apache.tomcat.util.json.ParseException;
 import org.example.server.MapLoader;
 import org.springframework.stereotype.Service;
 import org.example.server.Models.Room;
