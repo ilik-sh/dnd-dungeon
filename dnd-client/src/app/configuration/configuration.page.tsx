@@ -9,7 +9,6 @@ type Props = {};
 export default function ConfigurationPage({}: Props) {
   return (
     <VerticalContainer>
-      <Typography>CONFIGURATION</Typography>
       <ConfigurationTabs />
     </VerticalContainer>
   );
