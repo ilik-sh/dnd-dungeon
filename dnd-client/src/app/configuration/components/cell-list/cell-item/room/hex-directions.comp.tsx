@@ -1,16 +1,9 @@
 import { Checkbox } from "@mui/material";
-import { amber } from "@mui/material/colors";
 import { RoomFormYup } from "app/configuration/validation-schemas/room-form.schema";
-import { mapSelector } from "app/map/store/map.selector";
 import { Hex } from "components/hex-column/hex-item/hex";
 import { Directions } from "enums/directions.enum";
-import { RoomType } from "enums/room-type.enum";
 import { TypeColors } from "enums/type-colors.enum";
-import { useAppSelector } from "hooks/redux.hooks";
-import React from "react";
 import { Control, useController } from "react-hook-form";
-import { RoomDto } from "types/room.dto";
-import { transform } from "typescript";
 
 type HexDirectionsProps = {
   control: Control<RoomFormYup, any>;

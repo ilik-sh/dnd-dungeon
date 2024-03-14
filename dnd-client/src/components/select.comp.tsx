@@ -6,8 +6,7 @@ import {
   SelectProps as MuiSelectProps,
   styled,
 } from "@mui/material";
-import React from "react";
-import { Control, useController, useWatch } from "react-hook-form";
+import { Control, useController } from "react-hook-form";
 import { camelize } from "utils/camelize";
 
 interface SelectProps extends MuiSelectProps<string> {

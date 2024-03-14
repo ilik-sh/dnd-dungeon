@@ -1,9 +1,5 @@
-import React, { useMemo, useRef } from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, Stack, Typography, styled } from "@mui/material";
+import React from "react";
+import { Box, Stack, styled } from "@mui/material";
 import Room from "./room/room-item.comp";
 import { useAppDispatch } from "hooks/redux.hooks";
 import { TypeColors } from "enums/type-colors.enum";
@@ -14,7 +10,6 @@ import { addRoom } from "app/map/store/map.slice";
 import { v4 } from "uuid";
 import { RoomType } from "enums/room-type.enum";
 import { defaultDirections } from "app/configuration/default-objects/default-directions";
-import { amber } from "@mui/material/colors";
 
 type CellItemProps = {
   cell: CellDto;

@@ -1,5 +1,4 @@
 import { v4 } from "uuid";
-
 import { RoomType } from "enums/room-type.enum";
 import { CellDto } from "../types/cell.dto";
 import { RoomChildDto } from "../types/room-child.dto";

@@ -1,11 +1,9 @@
-import { Box, IconButton, MenuItem, Select, styled } from "@mui/material";
-import { manualGenerationConfigSelector } from "app/configuration/store/manual-generation/manual-generation-config.selector";
+import { Box, IconButton, styled } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import { Close } from "@mui/icons-material";
 import { setSelectedCell } from "app/map/store/map.slice";
 import CellItemComp from "../cell-list/cell-item/cell-item.comp";
 import { mapSelector } from "app/map/store/map.selector";
-import HexItem from "components/hex-column/hex-item/hex-item.comp";
 import { linear2dSearch } from "utils/linear2dSearch";
 
 type Props = {};

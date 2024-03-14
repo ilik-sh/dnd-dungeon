@@ -1,11 +1,5 @@
-import React, { useEffect } from "react";
-import {
-  Box,
-  IconButton,
-  SelectChangeEvent,
-  Typography,
-  styled,
-} from "@mui/material";
+import { useEffect } from "react";
+import { Box, IconButton, styled } from "@mui/material";
 import RoomForm from "./room.form";
 import { RoomChildDto } from "app/configuration/types/room-child.dto";
 import { TypeColors } from "enums/type-colors.enum";
@@ -17,8 +11,6 @@ import { roomFormSchema } from "app/configuration/validation-schemas/room-form.s
 import { useAppDispatch } from "hooks/redux.hooks";
 import { deleteRoom, selectRoom, updateRoom } from "app/map/store/map.slice";
 import { Cancel, CheckCircle } from "@mui/icons-material";
-import { Direction } from "enums/directions.enum";
-import { amber, blueGrey, grey } from "@mui/material/colors";
 
 type Props = {
   room: RoomChildDto;

@@ -1,7 +1,6 @@
 import React from "react";
 import HexItem from "./hex-item/hex-item.comp";
 import { styled } from "@mui/material";
-import { RoomDto } from "types/room.dto";
 import { CellDto } from "app/configuration/types/cell.dto";
 
 type Props = {

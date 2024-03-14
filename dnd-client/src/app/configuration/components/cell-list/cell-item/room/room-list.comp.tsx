@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
 import RoomItem from "./room-item.comp";
 import { Box } from "@mui/material";
-import React from "react";
-import AddRoomButton from "../add-room-button.comp";
-import { RoomChildDto } from "app/configuration/types/room-child.dto";
 import { CellDto } from "app/configuration/types/cell.dto";
 
 type RoomListProps = {

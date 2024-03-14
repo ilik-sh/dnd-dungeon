@@ -1,10 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { MapState } from "../types/map.state";
-import { mockData } from "../mock";
 import { linear2dSearch } from "utils/linear2dSearch";
 import { RoomChildDto } from "app/configuration/types/room-child.dto";
 import { CellDto } from "app/configuration/types/cell.dto";
-import { RoomDto } from "types/room.dto";
 import { ContextMenu } from "../types/context-menu.type";
 
 const initialState: MapState = {

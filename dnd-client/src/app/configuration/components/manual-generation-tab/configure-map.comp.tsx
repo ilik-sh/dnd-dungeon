@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import HexColumn from "components/hex-column/hex-column.comp";
 import { manualGenerationConfigSelector } from "app/configuration/store/manual-generation/manual-generation-config.selector";
 import { mapSelector } from "app/map/store/map.selector";
 import { closeContextMenu, setMap, toggleVisit } from "app/map/store/map.slice";
-import { Menu, MenuItem, styled } from "@mui/material";
+import { MenuItem, styled } from "@mui/material";
 import { generateAbsentCell } from "app/configuration/default-objects/absent-cell";
 import ContextMenu from "components/context-menu.comp";
 

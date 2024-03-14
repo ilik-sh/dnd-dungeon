@@ -1,6 +1,6 @@
 import { Menu } from "@mui/material";
 import { mapSelector } from "app/map/store/map.selector";
-import { openContextMenu, closeContextMenu } from "app/map/store/map.slice";
+import { closeContextMenu } from "app/map/store/map.slice";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import React from "react";
 

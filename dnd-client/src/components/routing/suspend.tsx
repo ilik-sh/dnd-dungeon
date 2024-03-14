@@ -1,4 +1,4 @@
-import { FC, Suspense } from "react";
+import { Suspense } from "react";
 
 type Props = {
   element: any;

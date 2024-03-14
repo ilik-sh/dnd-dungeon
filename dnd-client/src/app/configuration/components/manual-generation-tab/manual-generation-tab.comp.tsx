@@ -1,10 +1,8 @@
-import React from "react";
 import ManualGenerationForm from "./manual-generation-form.comp";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { manualGenerationFormSchema } from "../../validation-schemas/manual-generation-form.schema";
 import ConfigureMap from "./configure-map.comp";
-import CellList from "../cell-list/cell-list.comp";
 import Sidebar from "../sidebar/sidebar.comp";
 
 type Props = {};

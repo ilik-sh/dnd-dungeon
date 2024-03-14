@@ -7,8 +7,6 @@ import { RoomType } from "enums/room-type.enum";
 import React from "react";
 import { Control, FieldErrors } from "react-hook-form";
 import HexDirections from "./hex-directions.comp";
-import { useAppSelector } from "hooks/redux.hooks";
-import { mapSelector } from "app/map/store/map.selector";
 
 type RoomFormProps = {
   onSubmit: React.FormEventHandler;

@@ -1,23 +1,15 @@
-import { MenuItem, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { TypeColors } from "enums/type-colors.enum";
 import React from "react";
 import { Hex } from "./hex";
-import { RoomDto } from "types/room.dto";
 import { RoomType } from "enums/room-type.enum";
 import { CellDto } from "app/configuration/types/cell.dto";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
-import {
-  closeContextMenu,
-  openContextMenu,
-  setSelectedCell,
-  toggleVisit,
-} from "app/map/store/map.slice";
+import { openContextMenu, setSelectedCell } from "app/map/store/map.slice";
 import { mapSelector } from "app/map/store/map.selector";
-import { amber, red } from "@mui/material/colors";
+import { amber } from "@mui/material/colors";
 import { Direction } from "enums/directions.enum";
-import { linear2dSearch } from "utils/linear2dSearch";
 import { ContextMenu as ContextSettings } from "app/map/types/context-menu.type";
-import ContextMenu from "components/context-menu.comp";
 
 type Props = {
   cell: CellDto;
