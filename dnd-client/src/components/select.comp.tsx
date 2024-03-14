@@ -7,7 +7,7 @@ import {
   styled,
 } from "@mui/material";
 import React from "react";
-import { Control, useController } from "react-hook-form";
+import { Control, useController, useWatch } from "react-hook-form";
 import { camelize } from "utils/camelize";
 
 interface SelectProps extends MuiSelectProps<string> {
@@ -16,7 +16,7 @@ interface SelectProps extends MuiSelectProps<string> {
   selectValues: any[];
 }
 
-const StyledFormControl = styled(FormControl)(() => ({
+const StyledFormControl = styled(FormControl)(({ theme }) => ({
   minWidth: 120,
   flex: "1 1 20%",
 }));
@@ -37,7 +37,6 @@ export default function Select({
       <MuiSelect
         {...field}
         {...props}
-        value={field.value}
         name={name}
         id={camelize(name)}
         label={camelize(name)}
