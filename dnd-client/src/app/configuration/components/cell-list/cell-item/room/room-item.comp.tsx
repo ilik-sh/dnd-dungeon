@@ -6,7 +6,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import RoomVariantForm from "./room.form";
+import RoomForm from "./room.form";
 import { RoomChildDto } from "app/configuration/types/room-child.dto";
 import { TypeColors } from "enums/type-colors.enum";
 import { RoomType } from "enums/room-type.enum";
@@ -15,12 +15,10 @@ import { Room } from "app/configuration/types/forms/room.form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { roomFormSchema } from "app/configuration/validation-schemas/room-form.schema";
 import { useAppDispatch } from "hooks/redux.hooks";
-import {
-  deleteRoom,
-  selectRoom,
-  updateRoom,
-} from "app/configuration/store/manual-generation/manual-generation-config.slice";
+import { deleteRoom, selectRoom, updateRoom } from "app/map/store/map.slice";
 import { Cancel, CheckCircle } from "@mui/icons-material";
+import { Direction } from "enums/directions.enum";
+import { amber, blueGrey, grey } from "@mui/material/colors";
 
 type Props = {
   room: RoomChildDto;
@@ -34,12 +32,16 @@ const Circle = styled("div")({
 });
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     flexDirection: "column",
   },
-  gap: "20px",
+  gap: "1em",
+  background: "#292929",
+  borderRadius: "10px",
   display: "flex",
-  justifyContent: "equal-spacing",
+  justifyContent: "center",
+  padding: "20px",
+  boxShadow: `0 10px 10px #00000050,0 6px 5px #00000050`,
 }));
 
 const StyledDiv = styled("div")({
@@ -49,8 +51,10 @@ const StyledDiv = styled("div")({
 
 export default function RoomItem({ room, selected }: Props) {
   const dispatch = useAppDispatch();
+
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors },
     getValues,
@@ -61,40 +65,47 @@ export default function RoomItem({ room, selected }: Props) {
       description: room.description,
       level: room.level,
       type: room.type,
+      directions: room.directions,
+      isVisited: room.isVisited,
     },
   });
 
+  useEffect(() => {
+    reset(room);
+  }, [room]);
+
   const onSubmit = () => {
     const values = getValues();
-    const newRoom = {
+    const newRoom: RoomChildDto = {
       ...values,
       id: room.id,
       parentId: room.parentId,
       type: values.type as RoomType,
+      directions: values.directions,
     };
-    dispatch(updateRoom({ room: newRoom }));
+    dispatch(updateRoom(newRoom));
   };
 
   const onDeleteButtonClicked = () => {
-    dispatch(deleteRoom({ id: room.parentId, room }));
+    dispatch(deleteRoom(room));
   };
 
   const onSelectButtonClicked = () => {
-    dispatch(selectRoom({ id: room.parentId, room }));
+    dispatch(selectRoom(room));
   };
 
   return (
     <StyledBox>
       <StyledDiv>
         <Circle sx={{ color: TypeColors[room.type].light }}>&#x2B22;</Circle>
-        <IconButton onClick={onDeleteButtonClicked}>
-          <Cancel color="error"></Cancel>
+        <IconButton onClick={onDeleteButtonClicked} disabled={selected}>
+          <Cancel color={selected ? "disabled" : "error"}></Cancel>
         </IconButton>
         <IconButton onClick={onSelectButtonClicked}>
           <CheckCircle color={selected ? "success" : "disabled"}></CheckCircle>
         </IconButton>
       </StyledDiv>
-      <RoomVariantForm
+      <RoomForm
         control={control}
         onSubmit={handleSubmit(onSubmit)}
         validationErorrs={errors}

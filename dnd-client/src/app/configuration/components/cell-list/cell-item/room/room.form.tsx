@@ -3,8 +3,12 @@ import { Button, styled } from "@mui/material";
 import { RoomFormYup } from "app/configuration/validation-schemas/room-form.schema";
 import Select from "components/select.comp";
 import TextField from "components/text-field.comp";
+import { RoomType } from "enums/room-type.enum";
 import React from "react";
 import { Control, FieldErrors } from "react-hook-form";
+import HexDirections from "./hex-directions.comp";
+import { useAppSelector } from "hooks/redux.hooks";
+import { mapSelector } from "app/map/store/map.selector";
 
 type RoomFormProps = {
   onSubmit: React.FormEventHandler;
@@ -12,13 +16,13 @@ type RoomFormProps = {
   validationErorrs: FieldErrors<RoomFormYup>;
 };
 
-const roomTypes = ["peace", "neutral", "evil", "loot", "quest"];
 const roomLevels = [1, 2, 3, 4, 5];
 
 const StyledForm = styled("form")({
   display: "flex",
   flexDirection: "column",
   gap: "20px",
+  alignItems: "center",
 });
 
 const SelectPart = styled("div")(({ theme }) => ({
@@ -42,6 +46,7 @@ export default function RoomForm({
     <StyledForm onSubmit={onSubmit} noValidate>
       <SelectPart>
         <Select
+          variant="outlined"
           control={control}
           name="Level"
           selectValues={roomLevels}
@@ -50,7 +55,7 @@ export default function RoomForm({
         <Select
           control={control}
           name="Type"
-          selectValues={roomTypes}
+          selectValues={Object.values(RoomType)}
           error={!!validationErorrs.type}
         />
       </SelectPart>
@@ -65,7 +70,8 @@ export default function RoomForm({
           helperText={validationErorrs.description?.message}
         ></TextField>
       </DescriptionPart>
-      <Button variant="contained" type="submit">
+      <HexDirections control={control}></HexDirections>
+      <Button variant="contained" type="submit" fullWidth>
         Apply
       </Button>
     </StyledForm>
