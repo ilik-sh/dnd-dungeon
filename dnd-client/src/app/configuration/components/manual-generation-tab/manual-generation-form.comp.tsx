@@ -3,7 +3,6 @@ import { ManualGenerationFormYup } from "app/configuration/validation-schemas/ma
 import TextField from "components/text-field.comp";
 import React from "react";
 import { Control, FieldErrors } from "react-hook-form";
-import RoomList from "../room-list/cell-list.comp";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import { manualGenerationConfigSelector } from "app/configuration/store/manual-generation/manual-generation-config.selector";
 import { setMapSize } from "app/configuration/store/manual-generation/manual-generation-config.slice";
@@ -38,7 +37,6 @@ export default function ManualGenerationForm({
           </MenuItem>
         ))}
       </Select>
-      <Button />
     </form>
   );
 }
