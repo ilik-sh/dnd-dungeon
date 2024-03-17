@@ -2,6 +2,7 @@ import { Checkbox } from "@mui/material";
 import { RoomFormYup } from "app/configuration/validation-schemas/room-form.schema";
 import { Hex } from "components/hex-column/hex-item/hex";
 import { Directions } from "enums/directions.enum";
+import { RoomType } from "enums/room-type.enum";
 import { TypeColors } from "enums/type-colors.enum";
 import { Control, useController } from "react-hook-form";
 
@@ -15,6 +16,8 @@ export default function HexDirections({ control }: HexDirectionsProps) {
     control,
     name: "directions",
   });
+  const type = control._defaultValues.type;
+
   return (
     <svg
       height={outerHex.dimensions.height.toString()}
@@ -24,7 +27,7 @@ export default function HexDirections({ control }: HexDirectionsProps) {
     >
       <polygon
         id="hex"
-        fill={TypeColors["absense"].dark}
+        fill={TypeColors[type as RoomType].dark}
         points={outerHex.points.toString()}
       ></polygon>
       {Object.entries(field.value).map(([key, value], index) => {
@@ -33,7 +36,7 @@ export default function HexDirections({ control }: HexDirectionsProps) {
             style={{ padding: "10px" }}
             key={index}
             points={outerHex.lines[key as Directions].toString()}
-            stroke={value ? undefined : TypeColors["absense"].light}
+            stroke={value ? undefined : TypeColors[type as RoomType].light}
             strokeWidth="20px"
           ></polygon>
         );
