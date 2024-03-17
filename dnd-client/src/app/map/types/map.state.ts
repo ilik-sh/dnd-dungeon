@@ -4,5 +4,7 @@ import { ContextMenu } from "./context-menu.type";
 export interface MapState {
   map: CellDto[][];
   selectedCellId: string | null;
+  multipleSelectedCells: string[];
+  multipleSelection: boolean;
   contextMenu: ContextMenu | null;
 }
