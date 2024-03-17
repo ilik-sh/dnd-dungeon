@@ -5,9 +5,13 @@ import { Hex } from "./hex";
 import { RoomType } from "enums/room-type.enum";
 import { CellDto } from "app/configuration/types/cell.dto";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
-import { openContextMenu, setSelectedCell } from "app/map/store/map.slice";
+import {
+  addMultiplySelectedCell,
+  openContextMenu,
+  setSelectedCell,
+} from "app/map/store/map.slice";
 import { mapSelector } from "app/map/store/map.selector";
-import { amber } from "@mui/material/colors";
+import { amber, purple } from "@mui/material/colors";
 import { Direction } from "enums/directions.enum";
 import { ContextMenu as ContextSettings } from "app/map/types/context-menu.type";
 
@@ -20,11 +24,14 @@ const HexBox = styled("div")({});
 function HexItem({ cell }: Props) {
   const hexProperties = new Hex(50);
   const dispatch = useAppDispatch();
-  const { selectedCellId, map } = useAppSelector(mapSelector);
+  const { selectedCellId, multipleSelection, multipleSelectedCells } =
+    useAppSelector(mapSelector);
   const room = cell.rooms.find((room) => room.id == cell.currentRoom?.id);
 
-  const handleClick = () => {
-    dispatch(setSelectedCell(cell));
+  const handleClick = (e: React.MouseEvent) => {
+    if (e.shiftKey) {
+      dispatch(addMultiplySelectedCell(cell));
+    } else dispatch(setSelectedCell(cell));
   };
 
   const handleContextClick = (e: React.MouseEvent) => {
@@ -40,7 +47,7 @@ function HexItem({ cell }: Props) {
   return (
     <>
       <a
-        style={{ display: "flex" }}
+        style={{ display: "flex", userSelect: "none" }}
         onClick={handleClick}
         onContextMenu={handleContextClick}
       >
@@ -80,7 +87,12 @@ function HexItem({ cell }: Props) {
           <polygon
             style={{
               strokeWidth: "15px",
-              stroke: cell?.id === selectedCellId ? `${amber[800]}` : undefined,
+              stroke:
+                cell?.id === selectedCellId
+                  ? `${amber[800]}`
+                  : multipleSelectedCells.includes(cell?.id)
+                  ? `${purple[800]}`
+                  : undefined,
             }}
             points={hexProperties.points.toString()}
           ></polygon>

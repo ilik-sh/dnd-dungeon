@@ -13,6 +13,7 @@ type Props = {};
 const StyledDiv = styled("div")({
   display: "flex",
   justifyContent: "center",
+  paddingLeft: "",
 });
 
 export default function ConfigureMap({}: Props) {
@@ -22,14 +23,17 @@ export default function ConfigureMap({}: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const map = Array(mapSize)
+    if (map.length > 0) {
+      return;
+    }
+    const newMap = Array(mapSize)
       .fill(undefined)
       .map((_) =>
         Array(mapSize)
           .fill(undefined)
           .map((_) => generateAbsentCell())
       );
-    dispatch(setMap({ map }));
+    dispatch(setMap({ map: newMap }));
   }, [mapSize]);
 
   const handleToggleVisitClick = () => {
@@ -38,7 +42,7 @@ export default function ConfigureMap({}: Props) {
   };
 
   return (
-    <StyledDiv>
+    <StyledDiv style={{ paddingLeft: `${mapSize * 25}px` }}>
       <ContextMenu>
         <MenuItem onClick={handleToggleVisitClick}>Toggle visit</MenuItem>
       </ContextMenu>

@@ -8,6 +8,8 @@ import { ContextMenu } from "../types/context-menu.type";
 const initialState: MapState = {
   map: [],
   selectedCellId: null,
+  multipleSelection: false,
+  multipleSelectedCells: [],
   contextMenu: null,
 };
 
@@ -36,6 +38,34 @@ const mapSlice = createSlice({
       }
 
       state.selectedCellId = cell.id;
+    },
+    selectRoomAmongMultipleSelectedCells(
+      state,
+      { payload: roomNumber }: PayloadAction<number>
+    ) {
+      state.map.map((inner) => {
+        inner.map((cell) => {
+          if (state.multipleSelectedCells.includes(cell.id)) {
+            if (cell.rooms.length < roomNumber) {
+              throw Error;
+            }
+            cell.currentRoom = cell.rooms[roomNumber - 1];
+          }
+        });
+      });
+    },
+    addMultiplySelectedCell(state, { payload: cell }: PayloadAction<CellDto>) {
+      const isPresent = state.multipleSelectedCells.includes(cell.id);
+      if (isPresent) {
+        state.multipleSelectedCells = state.multipleSelectedCells.filter(
+          (item) => cell.id !== item
+        );
+      } else {
+        state.multipleSelectedCells.push(cell.id);
+      }
+    },
+    toggleMultipleSelection(state) {
+      state.multipleSelectedCells = [];
     },
     deleteRoom(state, { payload: room }: PayloadAction<RoomChildDto>) {
       const cell = linear2dSearch(state.map, room.parentId);
@@ -92,5 +122,8 @@ export const {
   openContextMenu,
   closeContextMenu,
   toggleVisit,
+  toggleMultipleSelection,
+  addMultiplySelectedCell,
+  selectRoomAmongMultipleSelectedCells,
 } = mapSlice.actions;
 export default mapSlice;
