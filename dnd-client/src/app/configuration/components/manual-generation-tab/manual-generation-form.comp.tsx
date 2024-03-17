@@ -1,6 +1,5 @@
-import { Button, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { FormLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { ManualGenerationFormYup } from "app/configuration/validation-schemas/manual-generation-form.schema";
-import TextField from "components/text-field.comp";
 import React from "react";
 import { Control, FieldErrors } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
@@ -30,7 +29,13 @@ export default function ManualGenerationForm({
 
   return (
     <form onSubmit={onSubmit} noValidate>
-      <Select id="mapSize" value={mapSize.toString()} onChange={onChange}>
+      <FormLabel>Map Size: </FormLabel>
+      <Select
+        id="mapSize"
+        name="Map size"
+        value={mapSize.toString()}
+        onChange={onChange}
+      >
         {mapSizes.map((item, index) => (
           <MenuItem key={index} value={item}>
             {item}
