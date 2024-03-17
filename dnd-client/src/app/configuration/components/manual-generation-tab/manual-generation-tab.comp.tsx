@@ -55,6 +55,7 @@ export default function ManualGenerationTab({}: Props) {
       enqueueSnackbar(
         "Room with that number does not exist on one or more cells"
       );
+      dispatch(toggleMultipleSelection());
     }
   };
 
