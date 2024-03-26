@@ -10,7 +10,7 @@ export const generateAbsentCell = () => {
   const room: RoomChildDto = {
     id: v4(),
     parentId: id,
-    type: RoomType.absense,
+    type: RoomType.absence,
     level: 1,
     description: " ",
     directions: defaultDirections,

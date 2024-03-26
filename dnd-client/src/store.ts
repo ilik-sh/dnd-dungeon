@@ -4,6 +4,8 @@ import storage from "redux-persist/lib/storage";
 import mapSlice from "app/map/store/map.slice";
 import { persistReducer, persistStore } from "redux-persist";
 import { thunk } from "redux-thunk";
+import authSlice from "app/auth/store/auth.slice";
+import modalsSlice from "store/modals.slice";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +15,8 @@ const persistConfig = {
 const userReducers = combineReducers({
   manualGenerationConfig: manualGenerationConfigSlice.reducer,
   map: mapSlice.reducer,
+  auth: authSlice.reducer,
+  modals: modalsSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, userReducers);

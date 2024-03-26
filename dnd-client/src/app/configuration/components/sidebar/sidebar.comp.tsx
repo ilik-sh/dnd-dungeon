@@ -10,13 +10,11 @@ type Props = {};
 
 const FixedSidebar = styled(Box)(({ theme }) => ({
   height: "100%",
-  width: "30%",
   background: "rgba(0, 0, 0, 0.5)",
-  position: "fixed",
+  position: "absolute",
   right: "0",
   top: "0",
   zIndex: "999",
-  transition: "transform 0.3s ease-in",
 
   [theme.breakpoints.down("lg")]: {
     width: "100%",

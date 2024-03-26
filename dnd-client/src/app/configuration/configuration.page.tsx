@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import fireAnimation from "../../../public/fire.json";
 import { styled } from "@mui/material";
 import { brown, grey, orange } from "@mui/material/colors";
+import Header from "./components/header/header.comp";
 
 type Props = {};
 
@@ -15,10 +16,15 @@ const StyledLottie = styled(Lottie)({
   animation: "2s ease-in-out 1s infinite alternate fire",
   borderRadius: "100%",
   background: "#ef6c0050",
+
   "@keyframes fire": {
     "0%": {
-      boxShadow: `1px 1px 150px ${grey[800]}`,
+      boxShadow: `1px 1px 190px ${grey[800]}`,
       background: `#42424240`,
+    },
+    "70%": {
+      background: "#ef6c0040",
+      boxShadow: `1px 1px 190px ${orange[800]}`,
     },
     "100%": {
       background: "#ef6c0040",
@@ -31,15 +37,13 @@ const StyledLottie = styled(Lottie)({
     display: "block",
     width: "30vmin",
     height: "6vmin",
-    background: `linear-gradient(to left, ${brown[800]} 90%, ${orange[700]} 100%)`,
+    backgroundColor: brown[900],
     top: "32vmin",
     left: "52%",
     borderRadius: "20px 80px 80px 20px",
     position: "absolute",
-
+    boxShadow: `5px -10px 10px rgba(0,0,0,0.5)`,
     transform: "translate(-50%, -50%) rotate(90deg) rotateX(18deg)",
-
-    clipPath: "polygon(0 0, 0 100%, 100% 60%, 100% 40%)",
   },
 });
 
@@ -47,9 +51,12 @@ const ShadowContainer = styled("div")({});
 
 export default function ConfigurationPage({}: Props) {
   return (
-    <VerticalContainer>
-      <StyledLottie animationData={fireAnimation} loop={true}></StyledLottie>
-      <ConfigurationTabs />
-    </VerticalContainer>
+    <>
+      <Header />
+      <VerticalContainer>
+        <StyledLottie animationData={fireAnimation} loop={true}></StyledLottie>
+        <ConfigurationTabs />
+      </VerticalContainer>
+    </>
   );
 }

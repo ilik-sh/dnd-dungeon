@@ -66,7 +66,6 @@ export default function ManualGenerationTab({}: Props) {
   const onSubmit = () => {};
   return (
     <>
-      <Header />
       <Sidebar />
       <Button variant="outlined" onClick={handleClick}>
         Cancel selection
@@ -86,11 +85,6 @@ export default function ManualGenerationTab({}: Props) {
         </Select>
         <Button onClick={handleChangeButtonClick}>Change</Button>
       </StyledDiv>
-      <ManualGenerationForm
-        control={control}
-        validationErorrs={errors}
-        onSubmit={handleSubmit(onSubmit)}
-      />
       <ConfigureMap />
     </>
   );

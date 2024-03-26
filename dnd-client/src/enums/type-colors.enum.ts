@@ -4,5 +4,5 @@ export const TypeColors = {
   evil: { light: "#e57373", dark: "#b71c1c" },
   loot: { light: "#ffe57f", dark: "#BDB919" },
   quest: { light: "#9575cd", dark: "#5e35b1" },
-  absense: { light: "#858383", dark: "#525252" },
+  absence: { light: "#858383", dark: "#525252" },
 };
