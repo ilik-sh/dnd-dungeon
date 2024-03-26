@@ -7,6 +7,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "theme/theme";
 import { SnackbarProvider } from "notistack";
 import { PersistGate } from "redux-persist/integration/react";
+import AuthProvider from "app/auth/auth.provider";
 
 function App() {
   return (
@@ -14,9 +15,11 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <BrowserRouter>
-              <AppRoutes />
-            </BrowserRouter>
+            <AuthProvider>
+              <BrowserRouter>
+                <AppRoutes />
+              </BrowserRouter>
+            </AuthProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </PersistGate>
