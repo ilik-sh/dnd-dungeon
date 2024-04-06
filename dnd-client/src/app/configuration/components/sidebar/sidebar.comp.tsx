@@ -11,7 +11,7 @@ type Props = {};
 const FixedSidebar = styled(Box)(({ theme }) => ({
   height: "100%",
   background: "rgba(0, 0, 0, 0.5)",
-  position: "absolute",
+  position: "fixed",
   right: "0",
   top: "0",
   zIndex: "999",
