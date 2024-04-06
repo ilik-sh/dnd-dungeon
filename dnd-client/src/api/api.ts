@@ -1,7 +1,9 @@
 import axios from "axios";
 import { LocalStorageKeys } from "enums/local-storage-keys.enum";
 
-export const axiosClient = axios.create({ baseURL: import.meta.env.API_ROUTE });
+export const axiosClient = axios.create({
+  baseURL: import.meta.env.VITE_API_ROUTE,
+});
 
 axiosClient.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem(LocalStorageKeys.AccessToken);
