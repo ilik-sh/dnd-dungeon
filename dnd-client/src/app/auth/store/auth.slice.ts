@@ -28,8 +28,8 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addCase(signIn.rejected, (state, { payload }) => {
-        state.isPending.signUp = false;
-        state.errors.signUp = payload?.message || null;
+        state.isPending.signIn = false;
+        state.errors.signIn = payload?.message || null;
       })
       .addCase(signUp.pending, (state, _) => {
         state.errors.signUp = null;
