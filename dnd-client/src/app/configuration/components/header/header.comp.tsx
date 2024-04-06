@@ -13,8 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { DungeonDoor } from "assets/icons/dungeon-door.icon";
-import { CloseOutlined, Hexagon } from "@mui/icons-material";
+import { Hexagon } from "@mui/icons-material";
 import { useAppDispatch } from "hooks/redux.hooks";
 import { openModal } from "store/modals.slice";
 
@@ -27,7 +26,6 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
 
 export default function Header(props: Props) {
   const { window } = props;
@@ -43,19 +41,17 @@ export default function Header(props: Props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box onClick={handleDrawerToggle}>
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText primary={"Docs"} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -98,11 +94,7 @@ export default function Header(props: Props) {
             </Typography>
 
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {navItems.map((item) => (
-                <Button key={item} sx={{ color: "#fff" }}>
-                  {item}
-                </Button>
-              ))}
+              <Button sx={{ color: "#fff" }}>Docs</Button>
             </Box>
           </Box>
 
