@@ -23,6 +23,9 @@ import { CloseOutlined } from "@mui/icons-material";
 import { DungeonDoor } from "assets/icons/dungeon-door.icon";
 import IconTitle from "components/icon-title.comp";
 import CustomLink from "components/custom-link.comp";
+import { signUp } from "./store/auth.actions";
+import { enqueueSnackbar } from "notistack";
+import { ApiError } from "./types/api.error";
 
 type Props = {};
 
@@ -71,9 +74,16 @@ export default function SignUpModal({}: Props) {
     dispatch(openModal("signIn"));
   };
 
-  const onSubmit = () => {
-    console.log("Sign up submit");
-    handleClose();
+  const onSubmit = async (data: SignUpFormFields) => {
+    const response = await dispatch(signUp(data));
+    if (response.meta.requestStatus === "fulfilled") {
+      enqueueSnackbar("Succesfully signed up", { variant: "success" });
+      handleClose();
+    }
+    if (response.meta.requestStatus === "rejected") {
+      const payload = response.payload as ApiError;
+      enqueueSnackbar(payload.message, { variant: "error" });
+    }
   };
 
   return (
