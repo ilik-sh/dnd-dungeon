@@ -14,7 +14,6 @@ export const signIn = createAsyncThunk<
 >("signIn", async (data, { rejectWithValue }) => {
   try {
     const response = await axiosClient.post("auth/signin", data);
-
     localStorage.setItem(
       LocalStorageKeys.RefreshToken,
       response.data.refreshToken
@@ -36,7 +35,7 @@ export const signUp = createAsyncThunk<
   { rejectValue: ApiError }
 >("signUp", async (data, { rejectWithValue }) => {
   try {
-    const response = await axiosClient.post<AuthResponse>("auth.signUp", data);
+    const response = await axiosClient.post<AuthResponse>("auth/signUp", data);
 
     localStorage.setItem(
       LocalStorageKeys.RefreshToken,
