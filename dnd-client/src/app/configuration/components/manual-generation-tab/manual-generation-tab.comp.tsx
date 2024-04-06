@@ -21,6 +21,8 @@ import {
 import { mapSelector } from "app/map/store/map.selector";
 import { ChangeEvent, useState } from "react";
 import { enqueueSnackbar } from "notistack";
+import ThreeHex from "components/3d-hex/3d-hex.comp";
+import Toolbar from "../toolbar/toolbar.comp";
 
 type Props = {};
 
@@ -66,10 +68,10 @@ export default function ManualGenerationTab({}: Props) {
   const onSubmit = () => {};
   return (
     <>
-      <Sidebar />
       <Button variant="outlined" onClick={handleClick}>
         Cancel selection
       </Button>
+
       <StyledDiv>
         <Select
           id="newRoom"
@@ -86,6 +88,11 @@ export default function ManualGenerationTab({}: Props) {
         <Button onClick={handleChangeButtonClick}>Change</Button>
       </StyledDiv>
       <ConfigureMap />
+      <div style={{ width: "80%", height: "800px" }}>
+        <ThreeHex />
+      </div>
+      <Sidebar />
+      <Toolbar />
     </>
   );
 }
