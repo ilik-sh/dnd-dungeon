@@ -1,74 +1,68 @@
-import * as React from "react";
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { Toolbar as MUIToolbar, Paper } from "@mui/material";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import { Box, Paper } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import {
-  Close,
-  Download,
-  PointOfSaleOutlined,
-  Upload,
-} from "@mui/icons-material";
-import { Container } from "@mui/system";
+import { Download, Upload as UploadIcon, Loop } from "@mui/icons-material";
 import useDownload from "hooks/use-download.hook";
-import { useAppSelector } from "hooks/redux.hooks";
+import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import { mapSelector } from "app/map/store/map.selector";
+import { enqueueSnackbar } from "notistack";
+import { setMap } from "app/map/store/map.slice";
+import { useState } from "react";
+import Replace from "./tools/replace.comp";
+import Upload from "./tools/upload.comp";
 
 const ToolbarPaper = styled(Paper)(({ theme }) => ({
   display: "flex",
-  flexDirection: "column",
-  position: "absolute",
-  maxWidth: "64px",
-  height: "calc(100% - 64px)",
-  top: "64px",
-  left: 0,
-  [theme.breakpoints.down("sm")]: {
-    top: "56px",
-  },
+  width: "100%",
+  padding: "10px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Toolbar() {
   const { map } = useAppSelector(mapSelector);
+  const dispatch = useAppDispatch();
   const handleDownload = useDownload(map);
+  const [tool, setTool] = useState("");
+
+  const handleUpload = async (data: unknown) => {
+    if (!data) {
+      enqueueSnackbar("Error uploading map", { variant: "error" });
+    }
+
+    try {
+      const map = data;
+      dispatch(setMap({ map }));
+    } catch (e) {
+      console.log(e);
+      enqueueSnackbar("Error setting map", { variant: "error" });
+    }
+  };
+
   return (
     <ToolbarPaper elevation={4}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          flexDirection: "column",
-          padding: "10px",
         }}
       >
-        <IconButton>
-          <Close></Close>
-        </IconButton>
-        <IconButton>
-          <PointOfSaleOutlined></PointOfSaleOutlined>
-        </IconButton>
         <IconButton onClick={handleDownload}>
           <Download></Download>
         </IconButton>
-        <IconButton>
-          <Upload></Upload>
-          <input type="file" />
+        <IconButton onClick={() => setTool("upload")}>
+          <UploadIcon />
+        </IconButton>
+        <IconButton onClick={() => setTool("replace")}>
+          <Loop />
         </IconButton>
       </div>
+      <Divider />
+      <Box component={"div"}>
+        {tool === "replace" && <Replace />}
+        {tool === "upload" && <Upload onUpload={handleUpload} />}
+      </Box>
     </ToolbarPaper>
   );
 }

@@ -8,7 +8,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
 import SignInForm from "./components/forms/sign-in-form.comp";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import { modalsSelector } from "store/modals.selector";
@@ -26,7 +25,6 @@ import { CloseOutlined } from "@mui/icons-material";
 import { signIn } from "./store/auth.actions";
 import { enqueueSnackbar } from "notistack";
 import { ApiError } from "./types/api.error";
-import { log } from "console";
 
 type Props = {};
 
