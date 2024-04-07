@@ -18,7 +18,7 @@ const mapSlice = createSlice({
   initialState,
   reducers: {
     setMap(state, { payload }) {
-      return { ...state, map: payload.map };
+      state.map = payload.map;
     },
     addRoom(state, { payload }) {
       const cell = linear2dSearch(state.map, payload.room.parentId);

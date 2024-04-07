@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import HexColumn from "components/hex-column/hex-column.comp";
-import { manualGenerationConfigSelector } from "app/configuration/store/manual-generation/manual-generation-config.selector";
 import { mapSelector } from "app/map/store/map.selector";
 import { closeContextMenu, setMap, toggleVisit } from "app/map/store/map.slice";
 import { MenuItem, styled } from "@mui/material";
@@ -22,6 +21,9 @@ export default function ConfigureMap({}: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (map) {
+      return;
+    }
     const newMap = Array(7)
       .fill(undefined)
       .map((_) =>

@@ -1,8 +1,6 @@
 import { Button, styled } from "@mui/material";
 import { SignInForm as SignInFormFields } from "app/auth/validation-schemas/sign-in-form.schema";
-import { DungeonDoor } from "assets/icons/dungeon-door.icon";
 import { CenteredBox } from "components/centered-box.comp";
-import IconTitle from "components/icon-title.comp";
 import PasswordField from "components/password-field.comp";
 import TextField from "components/text-field.comp";
 import React from "react";

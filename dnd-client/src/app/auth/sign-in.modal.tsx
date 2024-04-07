@@ -8,7 +8,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
 import SignInForm from "./components/forms/sign-in-form.comp";
 import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
 import { modalsSelector } from "store/modals.selector";
@@ -23,6 +22,9 @@ import IconTitle from "components/icon-title.comp";
 import { DungeonDoor } from "assets/icons/dungeon-door.icon";
 import CustomLink from "components/custom-link.comp";
 import { CloseOutlined } from "@mui/icons-material";
+import { signIn } from "./store/auth.actions";
+import { enqueueSnackbar } from "notistack";
+import { ApiError } from "./types/api.error";
 
 type Props = {};
 
@@ -66,9 +68,16 @@ export default function SignInModal({}: Props) {
     },
   });
 
-  const onSubmit = () => {
-    console.log("onSubmit");
-    handleClose();
+  const onSubmit = async (data: SignInFormFields) => {
+    const response = await dispatch(signIn(data));
+    if (response.meta.requestStatus === "fulfilled") {
+      enqueueSnackbar("Succesfully signed in", { variant: "success" });
+      handleClose();
+    }
+    if (response.meta.requestStatus === "rejected") {
+      const payload = response.payload as ApiError;
+      enqueueSnackbar(payload.message, { variant: "error" });
+    }
   };
 
   return (
