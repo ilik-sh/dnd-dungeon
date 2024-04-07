@@ -21,7 +21,7 @@ export default function ConfigureMap({}: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (map) {
+    if (map.length > 0) {
       return;
     }
     const newMap = Array(7)
