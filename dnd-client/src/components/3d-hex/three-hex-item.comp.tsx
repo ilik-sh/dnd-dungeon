@@ -1,11 +1,11 @@
-import { amber, green, grey, orange, red } from "@mui/material/colors";
-import { CellDto } from "app/configuration/types/cell.dto";
-import { mapSelector } from "app/map/store/map.selector";
-import { Directions } from "enums/directions.enum";
-import { RoomType } from "enums/room-type.enum";
-import { TypeColors } from "enums/type-colors.enum";
-import { useAppSelector } from "hooks/redux.hooks";
-import React, { useEffect, useRef } from "react";
+import { amber, green, grey, orange, red } from '@mui/material/colors';
+import { CellDto } from 'app/configuration/types/cell.dto';
+import { mapSelector } from 'app/configuration/store/map.selector';
+import { Directions } from 'enums/directions.enum';
+import { RoomType } from 'enums/room-type.enum';
+import { TypeColors } from 'enums/type-colors.enum';
+import { useAppSelector } from 'hooks/redux.hooks';
+import React, { useEffect, useRef } from 'react';
 import {
   BoxGeometry,
   BufferGeometry,
@@ -23,9 +23,9 @@ import {
   SpotLight,
   Vector2,
   Vector3,
-} from "three";
-import { mergeBufferGeometries } from "three-stdlib";
-import { degToRad } from "three/src/math/MathUtils";
+} from 'three';
+import { mergeBufferGeometries } from 'three-stdlib';
+import { degToRad } from 'three/src/math/MathUtils';
 
 type ThreeHexItemProps = {
   cell: CellDto;
@@ -34,8 +34,7 @@ type ThreeHexItemProps = {
 
 export default function ThreeHexItem({ cell, position }: ThreeHexItemProps) {
   const ref = useRef<CylinderGeometry>(null!);
-  const { selectedCellId, multipleSelection, multipleSelectedCells } =
-    useAppSelector(mapSelector);
+  const { selectedCellId, multipleSelection, multipleSelectedCells } = useAppSelector(mapSelector);
   const room = cell.rooms.find((room) => room.id == cell.currentRoom?.id);
 
   const hex = new CylinderGeometry(1, 1, 1, 6, 1, false, 10, 2 * Math.PI);
@@ -55,20 +54,14 @@ export default function ThreeHexItem({ cell, position }: ThreeHexItemProps) {
   });
 
   const handleClick = () => {
-    console.log("clicked");
+    console.log('clicked');
     const v = new Vector3();
   };
   return (
     <>
       <mesh onClick={handleClick} geometry={hex} rotation={[0, 0, 0]}>
-        <pointLight
-          color={cell.id == selectedCellId ? grey[100] : amber[800]}
-          position={[position.x, 1, position.y]}
-        />
-        <meshStandardMaterial
-          flatShading={true}
-          color={TypeColors[room?.type as RoomType].dark}
-        ></meshStandardMaterial>
+        <pointLight color={cell.id == selectedCellId ? grey[100] : amber[800]} position={[position.x, 1, position.y]} />
+        <meshStandardMaterial flatShading={true} color={TypeColors[room?.type as RoomType].dark}></meshStandardMaterial>
       </mesh>
       <mesh geometry={buffer}>
         <meshStandardMaterial

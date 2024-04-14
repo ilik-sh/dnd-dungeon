@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ModalsState } from "./type/modals.state";
+import { createSlice } from '@reduxjs/toolkit';
+import { ModalsState } from './type/modals.state';
 
 const initialState: ModalsState = {
   open: {
@@ -9,7 +9,7 @@ const initialState: ModalsState = {
 };
 
 const modalsSlice = createSlice({
-  name: "modals",
+  name: 'modals',
   initialState,
   reducers: {
     openModal(state, { payload }) {

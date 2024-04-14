@@ -1,4 +1,4 @@
-import { CellDto } from "app/configuration/types/cell.dto";
+import { CellDto } from 'app/configuration/types/cell.dto';
 
 export const linear2dSearch = (arr: CellDto[][], target: string | null) => {
   if (!target) {

@@ -1,18 +1,18 @@
-import React, { FC } from "react";
-import { TextField, TextFieldProps, styled } from "@mui/material";
-import { useState } from "react";
-import { Control, Controller, useController } from "react-hook-form";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { camelize } from "utils/camelize";
+import React, { FC } from 'react';
+import { TextField, TextFieldProps, styled } from '@mui/material';
+import { useState } from 'react';
+import { Control, Controller, useController } from 'react-hook-form';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { camelize } from 'utils/camelize';
 
-interface PasswordFieldProps extends TextFieldProps<"standard"> {
+interface PasswordFieldProps extends TextFieldProps<'standard'> {
   name: string;
   control: Control<any, any>;
 }
 
-const PointerDiv = styled("div")({
-  cursor: "pointer",
+const PointerDiv = styled('div')({
+  cursor: 'pointer',
 });
 
 const PasswordField: FC<PasswordFieldProps> = ({ name, control, ...props }) => {
@@ -34,7 +34,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ name, control, ...props }) => {
       fullWidth
       label={name}
       {...field}
-      type={showPassword ? "text" : "password"}
+      type={showPassword ? 'text' : 'password'}
       id={camelize(name)}
       InputProps={{
         endAdornment: (

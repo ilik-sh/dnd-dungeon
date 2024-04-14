@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { AuthState } from "../types/auth.state";
-import { signIn, signUp } from "./auth.actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { AuthState } from '../types/auth.state';
+import { signIn, signUp } from './auth.actions';
 
 const initialState: AuthState = {
   isAuthenticated: false,
@@ -15,7 +15,7 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

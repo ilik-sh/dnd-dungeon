@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material";
-import { amber, blueGrey, grey } from "@mui/material/colors";
+import { createTheme } from '@mui/material';
+import { amber, blueGrey, grey } from '@mui/material/colors';
 
 export const theme = createTheme({
   palette: {
@@ -29,13 +29,13 @@ export const theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          "&:has(> input:-webkit-autofill)": {
+          '&:has(> input:-webkit-autofill)': {
             backgroundColor: grey[800],
           },
         },
         input: {
-          "&:-webkit-autofill": {
-            transition: "background-color 600000s 0s, color 600000s 0s",
+          '&:-webkit-autofill': {
+            transition: 'background-color 600000s 0s, color 600000s 0s',
           },
         },
       },
@@ -44,7 +44,7 @@ export const theme = createTheme({
       styleOverrides: {
         paper: {
           border: `2px solid ${grey[800]}`,
-          borderRadius: "10px",
+          borderRadius: '10px',
         },
       },
     },

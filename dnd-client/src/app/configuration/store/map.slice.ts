@@ -1,9 +1,9 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { MapState } from "../types/map.state";
-import { linear2dSearch } from "utils/linear2dSearch";
-import { RoomChildDto } from "app/configuration/types/room-child.dto";
-import { CellDto } from "app/configuration/types/cell.dto";
-import { ContextMenu } from "../types/context-menu.type";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MapState } from '../types/map.state';
+import { linear2dSearch } from 'utils/linear2dSearch';
+import { RoomChildDto } from 'app/configuration/types/room-child.dto';
+import { CellDto } from 'app/configuration/types/cell.dto';
+import { ContextMenu } from '../types/context-menu.type';
 
 const initialState: MapState = {
   map: [],
@@ -14,7 +14,7 @@ const initialState: MapState = {
 };
 
 const mapSlice = createSlice({
-  name: "map",
+  name: 'map',
   initialState,
   reducers: {
     setMap(state, { payload }) {
@@ -39,10 +39,7 @@ const mapSlice = createSlice({
 
       state.selectedCellId = cell.id;
     },
-    selectRoomAmongMultipleSelectedCells(
-      state,
-      { payload: roomNumber }: PayloadAction<number>
-    ) {
+    selectRoomAmongMultipleSelectedCells(state, { payload: roomNumber }: PayloadAction<number>) {
       state.map.map((inner) => {
         inner.map((cell) => {
           if (state.multipleSelectedCells.includes(cell.id)) {
@@ -57,9 +54,7 @@ const mapSlice = createSlice({
     addMultiplySelectedCell(state, { payload: cell }: PayloadAction<CellDto>) {
       const isPresent = state.multipleSelectedCells.includes(cell.id);
       if (isPresent) {
-        state.multipleSelectedCells = state.multipleSelectedCells.filter(
-          (item) => cell.id !== item
-        );
+        state.multipleSelectedCells = state.multipleSelectedCells.filter((item) => cell.id !== item);
       } else {
         state.multipleSelectedCells.push(cell.id);
       }
@@ -81,10 +76,7 @@ const mapSlice = createSlice({
       }
       cell.currentRoom = room;
     },
-    openContextMenu(
-      state,
-      { payload: coordinates }: PayloadAction<ContextMenu>
-    ) {
+    openContextMenu(state, { payload: coordinates }: PayloadAction<ContextMenu>) {
       if (!state.contextMenu) {
         state.contextMenu = coordinates;
       }

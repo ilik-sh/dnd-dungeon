@@ -1,18 +1,13 @@
-import { VerticalContainer } from "components/vertical-container.comp";
-import ConfigurationTabs from "./components/configuration-tabs.comp";
+import { VerticalContainer } from 'components/vertical-container.comp';
+import Header from './components/header/header.comp';
+import ManualGenerationTab from './components/manual-generation-tab/manual-generation-tab.comp';
 
-import { styled } from "@mui/material";
-import { brown, grey, orange } from "@mui/material/colors";
-import Header from "./components/header/header.comp";
-
-type Props = {};
-
-export default function ConfigurationPage({}: Props) {
+export default function ConfigurationPage() {
   return (
     <>
       <Header />
       <VerticalContainer>
-        <ConfigurationTabs />
+        <ManualGenerationTab />
       </VerticalContainer>
     </>
   );

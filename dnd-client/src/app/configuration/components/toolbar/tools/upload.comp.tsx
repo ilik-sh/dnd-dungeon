@@ -1,14 +1,14 @@
-import { Button, styled } from "@mui/material";
-import { enqueueSnackbar } from "notistack";
-import React, { useId } from "react";
+import { Button, styled } from '@mui/material';
+import { enqueueSnackbar } from 'notistack';
+import React, { useId } from 'react';
 
 type UploadProps = {
   onUpload: (data: unknown) => void;
 };
 
-const StyledInput = styled("input")({
-  display: "none",
-  alignItems: "center",
+const StyledInput = styled('input')({
+  display: 'none',
+  alignItems: 'center',
 });
 
 const readJsonFile = (file: Blob) =>
@@ -34,13 +34,11 @@ export default function Upload({ onUpload }: UploadProps) {
     try {
       onUpload(data);
     } catch (e) {
-      enqueueSnackbar("Error uploading", { variant: "error" });
+      enqueueSnackbar('Error uploading', { variant: 'error' });
     }
   };
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) {
       return;
     }

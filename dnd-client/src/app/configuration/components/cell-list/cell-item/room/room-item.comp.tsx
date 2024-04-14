@@ -1,44 +1,44 @@
-import { useEffect } from "react";
-import { Box, IconButton, styled } from "@mui/material";
-import RoomForm from "./room.form";
-import { RoomChildDto } from "app/configuration/types/room-child.dto";
-import { TypeColors } from "enums/type-colors.enum";
-import { RoomType } from "enums/room-type.enum";
-import { useForm } from "react-hook-form";
-import { Room } from "app/configuration/types/forms/room.form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { roomFormSchema } from "app/configuration/validation-schemas/room-form.schema";
-import { useAppDispatch } from "hooks/redux.hooks";
-import { deleteRoom, selectRoom, updateRoom } from "app/map/store/map.slice";
-import { Cancel, CheckCircle } from "@mui/icons-material";
+import { useEffect } from 'react';
+import { Box, IconButton, styled } from '@mui/material';
+import RoomForm from './room.form';
+import { RoomChildDto } from 'app/configuration/types/room-child.dto';
+import { TypeColors } from 'enums/type-colors.enum';
+import { RoomType } from 'enums/room-type.enum';
+import { useForm } from 'react-hook-form';
+import { Room } from 'app/configuration/types/forms/room.form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { roomFormSchema } from 'app/configuration/validation-schemas/room-form.schema';
+import { useAppDispatch } from 'hooks/redux.hooks';
+import { deleteRoom, selectRoom, updateRoom } from 'app/configuration/store/map.slice';
+import { Cancel, CheckCircle } from '@mui/icons-material';
 
 type Props = {
   room: RoomChildDto;
   selected: boolean;
 };
 
-const Circle = styled("div")({
-  textAlign: "center",
-  fontSize: "40px",
-  lineHeight: "40px",
+const Circle = styled('div')({
+  textAlign: 'center',
+  fontSize: '40px',
+  lineHeight: '40px',
 });
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  [theme.breakpoints.down("lg")]: {
-    flexDirection: "column",
+  [theme.breakpoints.down('lg')]: {
+    flexDirection: 'column',
   },
-  gap: "1em",
-  background: "#292929",
-  borderRadius: "10px",
-  display: "flex",
-  justifyContent: "center",
-  padding: "20px",
+  gap: '1em',
+  background: '#292929',
+  borderRadius: '10px',
+  display: 'flex',
+  justifyContent: 'center',
+  padding: '20px',
   boxShadow: `0 10px 10px #00000050,0 6px 5px #00000050`,
 }));
 
-const StyledDiv = styled("div")({
-  display: "flex",
-  flexDirection: "column",
+const StyledDiv = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export default function RoomItem({ room, selected }: Props) {
@@ -52,7 +52,7 @@ export default function RoomItem({ room, selected }: Props) {
     getValues,
   } = useForm<Room>({
     resolver: yupResolver(roomFormSchema),
-    mode: "all",
+    mode: 'all',
     defaultValues: {
       description: room.description,
       level: room.level,
@@ -91,17 +91,13 @@ export default function RoomItem({ room, selected }: Props) {
       <StyledDiv>
         <Circle sx={{ color: TypeColors[room.type].light }}>&#x2B22;</Circle>
         <IconButton onClick={onDeleteButtonClicked} disabled={selected}>
-          <Cancel color={selected ? "disabled" : "error"}></Cancel>
+          <Cancel color={selected ? 'disabled' : 'error'}></Cancel>
         </IconButton>
         <IconButton onClick={onSelectButtonClicked}>
-          <CheckCircle color={selected ? "success" : "disabled"}></CheckCircle>
+          <CheckCircle color={selected ? 'success' : 'disabled'}></CheckCircle>
         </IconButton>
       </StyledDiv>
-      <RoomForm
-        control={control}
-        onSubmit={handleSubmit(onSubmit)}
-        validationErorrs={errors}
-      />
+      <RoomForm control={control} onSubmit={handleSubmit(onSubmit)} validationErorrs={errors} />
     </StyledBox>
   );
 }

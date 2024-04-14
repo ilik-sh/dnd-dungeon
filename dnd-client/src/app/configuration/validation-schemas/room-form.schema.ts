@@ -1,6 +1,5 @@
-import { Direction } from "enums/directions.enum";
-import * as yup from "yup";
-import { InferType } from "yup";
+import { Direction } from 'enums/directions.enum';
+import * as yup from 'yup';
 
 export const roomFormSchema = yup.object().shape({
   level: yup.number().min(1).max(5).required(),
@@ -10,4 +9,4 @@ export const roomFormSchema = yup.object().shape({
   isVisited: yup.boolean().required(),
 });
 
-export type RoomFormYup = InferType<typeof roomFormSchema>;
+export type RoomFormYup = yup.InferType<typeof roomFormSchema>;

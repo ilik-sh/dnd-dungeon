@@ -1,18 +1,18 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
-import HexColumn from "components/hex-column/hex-column.comp";
-import { mapSelector } from "app/map/store/map.selector";
-import { closeContextMenu, setMap, toggleVisit } from "app/map/store/map.slice";
-import { MenuItem, styled } from "@mui/material";
-import { generateAbsentCell } from "app/configuration/default-objects/absent-cell";
-import ContextMenu from "components/context-menu.comp";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+import HexColumn from 'components/hex-column/hex-column.comp';
+import { mapSelector } from 'app/configuration/store/map.selector';
+import { closeContextMenu, setMap, toggleVisit } from 'app/configuration/store/map.slice';
+import { MenuItem, styled } from '@mui/material';
+import { generateAbsentCell } from 'app/configuration/default-objects/absent-cell';
+import ContextMenu from 'components/context-menu.comp';
 
 type Props = {};
 
-const StyledDiv = styled("div")({
-  display: "flex",
-  justifyContent: "center",
-  paddingLeft: "",
+const StyledDiv = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  paddingLeft: '',
 });
 
 export default function ConfigureMap({}: Props) {
@@ -29,7 +29,7 @@ export default function ConfigureMap({}: Props) {
       .map((_) =>
         Array(7)
           .fill(undefined)
-          .map((_) => generateAbsentCell())
+          .map((_) => generateAbsentCell()),
       );
     dispatch(setMap({ map: newMap }));
   }, []);

@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { Box, Link, Typography, styled } from "@mui/material";
+import React, { FC } from 'react';
+import { Box, Link, Typography, styled } from '@mui/material';
 
 interface CustomLinkProps {
   text?: string;
@@ -8,15 +8,15 @@ interface CustomLinkProps {
 }
 
 const StyledLink = styled(Link)({
-  cursor: "pointer",
+  cursor: 'pointer',
 });
 
 const StyledBox = styled(Box)({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  gap: "5px",
-  width: "100%",
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  gap: '5px',
+  width: '100%',
 });
 
 const CustomLink: FC<CustomLinkProps> = ({ text, clickableText, onClick }) => {

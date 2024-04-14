@@ -1,4 +1,4 @@
-import { RoomChildDto } from "app/configuration/types/room-child.dto";
+import { RoomChildDto } from 'app/configuration/types/room-child.dto';
 
 export type ContextMenu = {
   x: number;

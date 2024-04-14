@@ -1,19 +1,17 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import manualGenerationConfigSlice from "app/configuration/store/manual-generation/manual-generation-config.slice";
-import storage from "redux-persist/lib/storage";
-import mapSlice from "app/map/store/map.slice";
-import { persistReducer, persistStore } from "redux-persist";
-import { thunk } from "redux-thunk";
-import authSlice from "app/auth/store/auth.slice";
-import modalsSlice from "store/modals.slice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import mapSlice from 'app/configuration/store/map.slice';
+import { persistReducer, persistStore } from 'redux-persist';
+import { thunk } from 'redux-thunk';
+import authSlice from 'app/auth/store/auth.slice';
+import modalsSlice from 'store/modals.slice';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
 };
 
 const userReducers = combineReducers({
-  manualGenerationConfig: manualGenerationConfigSlice.reducer,
   map: mapSlice.reducer,
   auth: authSlice.reducer,
   modals: modalsSlice.reducer,

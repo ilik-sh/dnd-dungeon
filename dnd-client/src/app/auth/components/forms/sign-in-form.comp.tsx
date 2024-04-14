@@ -1,10 +1,10 @@
-import { Button, styled } from "@mui/material";
-import { SignInForm as SignInFormFields } from "app/auth/validation-schemas/sign-in-form.schema";
-import { CenteredBox } from "components/centered-box.comp";
-import PasswordField from "components/password-field.comp";
-import TextField from "components/text-field.comp";
-import React from "react";
-import { Control, FieldErrors } from "react-hook-form";
+import { Button, styled } from '@mui/material';
+import { SignInForm as SignInFormFields } from 'app/auth/validation-schemas/sign-in-form.schema';
+import { CenteredBox } from 'components/centered-box.comp';
+import PasswordField from 'components/password-field.comp';
+import TextField from 'components/text-field.comp';
+import React from 'react';
+import { Control, FieldErrors } from 'react-hook-form';
 
 type SignInFormProps = {
   onSubmit: React.FormEventHandler;
@@ -12,20 +12,16 @@ type SignInFormProps = {
   validationErrors: FieldErrors<SignInFormFields>;
 };
 
-const StyledButton = styled(Button)(({ theme }) => ({}));
+const StyledButton = styled(Button)(() => ({}));
 
-const StyledForm = styled("form")({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
-  gap: "1rem",
+const StyledForm = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  gap: '1rem',
 });
 
-export default function SignInForm({
-  onSubmit,
-  control,
-  validationErrors,
-}: SignInFormProps) {
+export default function SignInForm({ onSubmit, control, validationErrors }: SignInFormProps) {
   return (
     <CenteredBox>
       <StyledForm noValidate onSubmit={onSubmit}>

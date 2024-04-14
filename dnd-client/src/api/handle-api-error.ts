@@ -1,5 +1,5 @@
-import { ApiError } from "app/auth/types/api.error";
-import axios from "axios";
+import { ApiError } from 'app/auth/types/api.error';
+import axios from 'axios';
 
 export const handleApiError = (error: any) => {
   if (axios.isAxiosError(error)) {
@@ -8,7 +8,7 @@ export const handleApiError = (error: any) => {
     return { message, statusCode } as ApiError;
   }
   return {
-    message: "Unknown erorr",
+    message: 'Unknown erorr',
     statusCode: 500,
   } as ApiError;
 };

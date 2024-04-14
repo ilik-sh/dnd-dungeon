@@ -5,9 +5,9 @@ import {
   Select as MuiSelect,
   SelectProps as MuiSelectProps,
   styled,
-} from "@mui/material";
-import { Control, useController } from "react-hook-form";
-import { camelize } from "utils/camelize";
+} from '@mui/material';
+import { Control, useController } from 'react-hook-form';
+import { camelize } from 'utils/camelize';
 
 interface SelectProps extends MuiSelectProps<string> {
   control: Control<any, any>;
@@ -17,15 +17,10 @@ interface SelectProps extends MuiSelectProps<string> {
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   minWidth: 120,
-  flex: "1 1 20%",
+  flex: '1 1 20%',
 }));
 
-export default function Select({
-  control,
-  name,
-  selectValues,
-  ...props
-}: SelectProps) {
+export default function Select({ control, name, selectValues, ...props }: SelectProps) {
   const { field } = useController({
     name: camelize(name),
     control,
@@ -33,13 +28,7 @@ export default function Select({
   return (
     <StyledFormControl>
       <InputLabel id={camelize(name)}>{name}</InputLabel>
-      <MuiSelect
-        {...field}
-        {...props}
-        name={name}
-        id={camelize(name)}
-        label={camelize(name)}
-      >
+      <MuiSelect {...field} {...props} name={name} id={camelize(name)} label={camelize(name)}>
         {selectValues.map((value, index) => (
           <MenuItem key={index} value={value}>
             {value}
