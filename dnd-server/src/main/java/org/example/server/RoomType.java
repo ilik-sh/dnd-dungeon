@@ -1,11 +1,14 @@
 package org.example.server;
 
+import java.util.Locale;
+
 public enum RoomType {
     LOOT(1),
     PEACE(3),
     QUEST( 5),
     NEUTRAL(8),
-    EVIL(10);
+    EVIL(10),
+    ABSENCE(0);
 
 
     private int value;

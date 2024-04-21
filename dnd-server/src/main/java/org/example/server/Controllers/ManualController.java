@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller()
-@RequestMapping("/manual")
+@RequestMapping("/api/manual")
 @RequiredArgsConstructor
 public class ManualController {
     private final MapService mp = new MapService();

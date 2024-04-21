@@ -15,7 +15,7 @@ public class RoomService {
     public static Room generateRoom(){
         Room returnRoom = new Room();
         returnRoom.setLevel(generateRoomLevel());
-        returnRoom.setRoomType(generateRoomType());
+        returnRoom.setType(generateRoomType());
         returnRoom.setRoomDirections(generateRoomDirections());
         returnRoom.setVisited(false);
         return returnRoom;
