@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.example.server.Models.Room;
+import org.example.server.domain.Models.Room;
 import org.example.server.Services.MapService;
 
 

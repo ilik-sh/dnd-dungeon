@@ -1,7 +1,7 @@
 package org.example.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.server.Models.Room;
+import org.example.server.domain.Models.Room;
 
 import java.io.File;
 import java.io.IOException;

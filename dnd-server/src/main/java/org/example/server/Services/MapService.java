@@ -2,7 +2,7 @@ package org.example.server.Services;
 
 import org.example.server.MapLoader;
 import org.springframework.stereotype.Service;
-import org.example.server.Models.Room;
+import org.example.server.domain.Models.Room;
 import org.example.server.RoomDirection;
 
 import java.io.IOException;

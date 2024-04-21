@@ -1,4 +1,4 @@
-package org.example.server.Models;
+package org.example.server.domain.Models;
 
 import lombok.*;
 

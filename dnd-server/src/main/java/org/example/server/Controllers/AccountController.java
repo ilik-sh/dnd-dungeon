@@ -3,8 +3,8 @@ package org.example.server.Controllers;
 
 import jakarta.validation.Valid;
 import org.example.server.Services.Authoritation.AuthService;
-import org.example.server.dto.RegistrationDto;
-import org.example.server.dto.SignInRequest;
+import org.example.server.domain.dto.RegistrationDto;
+import org.example.server.domain.dto.SignInRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

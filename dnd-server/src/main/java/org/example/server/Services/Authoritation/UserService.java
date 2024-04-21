@@ -1,8 +1,8 @@
 package org.example.server.Services.Authoritation;
 
 
-import org.example.server.Models.account.Role;
-import org.example.server.Models.account.User;
+import org.example.server.domain.Models.account.Role;
+import org.example.server.domain.Models.account.User;
 import org.example.server.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

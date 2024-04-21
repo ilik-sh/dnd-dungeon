@@ -1,4 +1,4 @@
-package org.example.server.dto;
+package org.example.server.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,10 +1,10 @@
 package org.example.server.Services.Authoritation;
 
 
-import org.example.server.Models.account.User;
-import org.example.server.dto.SignInRequest;
-import org.example.server.dto.JsonWebTokenResponse;
-import org.example.server.dto.RegistrationDto;
+import org.example.server.domain.Models.account.User;
+import org.example.server.domain.dto.SignInRequest;
+import org.example.server.domain.dto.JsonWebTokenResponse;
+import org.example.server.domain.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

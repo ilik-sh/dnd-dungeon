@@ -1,8 +1,8 @@
 package org.example.server.Services;
 
 import org.springframework.stereotype.Service;
-import org.example.server.Models.Cell;
-import org.example.server.Models.Room;
+import org.example.server.domain.Models.Cell;
+import org.example.server.domain.Models.Room;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 package org.example.server.repo;
 
-import org.example.server.Models.account.User;
+import org.example.server.domain.Models.account.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package org.example.server.Models.account;
+package org.example.server.domain.Models.account;
 
 public enum Role {
     ROLE_USER,
