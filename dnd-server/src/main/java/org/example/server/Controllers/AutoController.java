@@ -2,6 +2,7 @@ package org.example.server.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.server.Exceptions.MapParamsException;
+import org.example.server.Services.CellService;
 import org.example.server.Services.ValidationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,36 +12,30 @@ import org.example.server.Models.Room;
 import org.example.server.Services.MapService;
 
 
-@Controller()
-@RequestMapping("/auto")
+@Controller
+@RequestMapping("/api/auto")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AutoController {
     private final MapService mp;
 
     @GetMapping("/generateMap")
-    @ResponseBody
     public ResponseEntity generateMap(@RequestParam(name = "mapSize")int mapSize,
                                         @RequestParam(name = "tunnelLength")int tunnelLength,
                                         @RequestParam(name = "crossroadChance")int crossroadChance) {
-        ResponseEntity response;
         try {
             ValidationService.isValidMapParams(mapSize, tunnelLength, crossroadChance);
         }catch (MapParamsException error) {
-            response = new ResponseEntity<>(error, HttpStatus.valueOf(500));
-            return response;
+            return new ResponseEntity<>(error, HttpStatus.valueOf(500));
         }
         mp.generateMap(mapSize, mapSize);
         mp.generateDungeon(tunnelLength, crossroadChance);
-        response = new ResponseEntity<>(mp.getMap(),HttpStatus.valueOf(200));
-        return response;
+        return new ResponseEntity<>(CellService.roomToCell(mp.getMap()),HttpStatus.valueOf(200));
     }
 
     @GetMapping("/getMap")
-    @ResponseBody
     public ResponseEntity getMap() {
-        ResponseEntity response;
-        response = new ResponseEntity<>(mp.getMap(),HttpStatus.valueOf(200));
-        return response;
+        return new ResponseEntity<>(CellService.roomToCell(mp.getMap()),HttpStatus.valueOf(200));
     }
 
     @PostMapping("/saveMap")

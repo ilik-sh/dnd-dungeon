@@ -1,33 +1,14 @@
 package org.example.server.Models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.UUID;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cell {
-    @Getter
-    @Setter
-    private int id;
-    @Getter
-    @Setter
-    private boolean isSelected;
-    @Getter
-    @Setter
-    private Room currentPhase;
-    @Getter
-    @Setter
-    private Room[] possiblePhases;
-
-    public Cell(){
-        this.id = 0;
-        this.isSelected = false;
-        this.currentPhase = null;
-        this.possiblePhases = null;
-    }
-
-    public Cell(int id, boolean isSelected, Room currentPhase, Room[] possiblePhases) {
-        this.id = id;
-        this.isSelected = isSelected;
-        this.currentPhase = currentPhase;
-        this.possiblePhases = possiblePhases;
-    }
+    private UUID id;
+    private Room currentRoom;
+    private Room[] rooms;
 }
