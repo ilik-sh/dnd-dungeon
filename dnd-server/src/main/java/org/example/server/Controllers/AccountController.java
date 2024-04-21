@@ -1,0 +1,37 @@
+package org.example.server.Controllers;
+
+
+import jakarta.validation.Valid;
+import org.example.server.Services.Authoritation.AuthService;
+import org.example.server.dto.RegistrationDto;
+import org.example.server.dto.SignInRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@CrossOrigin
+@RequestMapping("/api/auth")
+public class AccountController {
+
+    @Autowired
+    private AuthService authService;
+
+    @PostMapping("/signUp")
+    public ResponseEntity signUp(@RequestBody @Valid RegistrationDto user) {
+        if(!user.getPassword().equals(user.getConfirmPassword())){
+            return new ResponseEntity("Password and confirmpassword don't match", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(authService.createUser(user),HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/signIn")
+    public ResponseEntity signIn(@RequestBody @Valid SignInRequest user) {
+        return new ResponseEntity(authService.signIn(user),HttpStatus.ACCEPTED);
+    }
+}
