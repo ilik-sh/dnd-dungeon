@@ -1,6 +1,8 @@
 package org.example.server.Services.Authoritation;
 
 
+import org.example.server.Exceptions.IllegalUsersArgumentException;
+import org.example.server.Exceptions.IncorrectPasswordException;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.SignInRequest;
 import org.example.server.domain.dto.JsonWebTokenResponse;
@@ -23,12 +25,18 @@ public class AuthService {
     @Autowired
     private JsonWebTokenService jsonWebTokenService;
 
-    public JsonWebTokenResponse signIn(SignInRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword()
-        ));
-
+    public JsonWebTokenResponse[] signIn(@RequestBody SignInRequest request) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    request.getUsername(),
+                    request.getPassword()
+            ));
+        } catch (AuthenticationException error) {
+            if ("Incorrect password".equals(error.getMessage())) {
+                throw new IncorrectPasswordException("Password is incorrect: " + request.getPassword(), error.getCause());
+            }
+            throw new UsernameNotFoundException("No such user: " + request.getUsername(), error.getCause());
+        }
         var user = userService.userDetailsService().loadUserByUsername(request.getUsername());
         String jwt = jsonWebTokenService.generateToken(user);
         return new JsonWebTokenResponse(jwt);
