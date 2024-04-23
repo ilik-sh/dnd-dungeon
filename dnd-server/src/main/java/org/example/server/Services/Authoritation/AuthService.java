@@ -19,7 +19,7 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private JsonWebTokenService jsonWebTokenService;
 
@@ -34,14 +34,22 @@ public class AuthService {
         return new JsonWebTokenResponse(jwt);
     }
 
-    public JsonWebTokenResponse createUser(@RequestBody RegistrationDto registrationDto){
+    public JsonWebTokenResponse[] createUser(@RequestBody RegistrationDto registrationDto){
+        if(userService.findIfExistsByUsername(registrationDto.getUsername())){
+            throw new IllegalUsersArgumentException("Username already in use: "+ registrationDto.getUsername());
+        }
+        if(userService.findIfExistsByEmail(registrationDto.getEmail()))
+        {
+            throw new IllegalUsersArgumentException("Email already in use: "+ registrationDto.getEmail());
+        }
         User saveUser = new User();
         saveUser.setPassword(registrationDto.getPassword());
         saveUser.setEmail(registrationDto.getEmail());
         saveUser.setUsername(registrationDto.getUsername());
         userService.saveUser(saveUser);
-        String jwt = jsonWebTokenService.generateToken(saveUser);
-        return new JsonWebTokenResponse(jwt);
+        String accessJwt = jsonWebTokenService.generateAccessToken(saveUser);
+        String refreshJwt = jsonWebTokenService.generateRefreshToken(saveUser);
+        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(accessJwt), new JsonWebTokenResponse(refreshJwt)};
     }
 
 }

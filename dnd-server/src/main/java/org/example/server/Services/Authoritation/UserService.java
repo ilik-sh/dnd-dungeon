@@ -25,28 +25,16 @@ public class UserService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-//    public UserDetails signIn(SignInRequest request){
-//        User user = (User) loadUserByEmail(request.getEmail());
-//        if(bCryptPasswordEncoder().matches(request.getPassword(),user.getPassword())){
-//            return user;
-//        }else {
-//            throw new UsernameNotFoundException("Incorrect password");
-//        }
-//    }
-
-    public User findUserById(Long userId) {
+    public User findUserById(long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
     }
 
-    public List<User> allUsers() {
+    public List<User> findAllUsers() {
         return (List<User>) userRepository.findAll();
     }
 
     public User saveUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new IllegalArgumentException("Такой юзер существует");
-        }
         user.setRole(Role.ROLE_USER);
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
@@ -70,7 +58,7 @@ public class UserService implements UserDetailsService {
 
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
+                .orElseThrow(() -> new UsernameNotFoundException("Can't Find user"));
     }
 
     @Override
@@ -81,7 +69,7 @@ public class UserService implements UserDetailsService {
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(
-                ()->new UsernameNotFoundException("No such user: " + email));
+                ()->new UsernameNotFoundException("No such email: " + email));
     }
 
     public UserDetailsService userDetailsService() {

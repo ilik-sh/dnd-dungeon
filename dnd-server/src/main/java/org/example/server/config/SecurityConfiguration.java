@@ -31,7 +31,7 @@ import java.util.Collections;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    private final JsonWebTokenRequestFilter jsonWebTokenRequestFilter;
+    private final JsonAccessWebTokenRequestFilter jsonAccessWebTokenRequestFilter;
     private final UserService userService;
 
 
@@ -51,7 +51,7 @@ public class SecurityConfiguration {
                                 .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jsonWebTokenRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jsonAccessWebTokenRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
