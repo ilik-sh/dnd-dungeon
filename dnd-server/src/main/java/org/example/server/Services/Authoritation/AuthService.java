@@ -10,7 +10,9 @@ import org.example.server.domain.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -38,8 +40,9 @@ public class AuthService {
             throw new UsernameNotFoundException("No such user: " + request.getUsername(), error.getCause());
         }
         var user = userService.userDetailsService().loadUserByUsername(request.getUsername());
-        String jwt = jsonWebTokenService.generateToken(user);
-        return new JsonWebTokenResponse(jwt);
+        String jwt = jsonWebTokenService.generateAccessToken(user);
+        String refreshJwt = jsonWebTokenService.generateRefreshToken(user);
+        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(jwt), new JsonWebTokenResponse(refreshJwt)};
     }
 
     public JsonWebTokenResponse[] createUser(@RequestBody RegistrationDto registrationDto){
@@ -60,4 +63,9 @@ public class AuthService {
         return new JsonWebTokenResponse[]{new JsonWebTokenResponse(accessJwt), new JsonWebTokenResponse(refreshJwt)};
     }
 
+    public JsonWebTokenResponse refreshAccessToken(String refreshToken) {
+        User user = userService.getByUsername(jsonWebTokenService.extractRefreshUserName(refreshToken));
+        String accessJwt = jsonWebTokenService.generateAccessToken(user);
+        return new JsonWebTokenResponse(accessJwt);
+    }
 }

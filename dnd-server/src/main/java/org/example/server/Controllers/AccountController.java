@@ -32,4 +32,9 @@ public class AccountController {
     public ResponseEntity signIn(@RequestBody @Valid SignInRequest user) {
         return new ResponseEntity(authService.signIn(user),HttpStatus.ACCEPTED);
     }
+
+    @PostMapping("/refreshAccessToken")
+    public ResponseEntity refreshAccessToken(@RequestBody @Valid @NonNull String refreshToken){
+        return new ResponseEntity(authService.refreshAccessToken(refreshToken), HttpStatus.ACCEPTED);
+    }
 }
