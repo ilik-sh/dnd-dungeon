@@ -2,6 +2,7 @@ package org.example.server.Handlers;
 
 import org.example.server.Exceptions.IllegalUsersArgumentException;
 import org.example.server.Exceptions.IncorrectPasswordException;
+import org.example.server.Exceptions.NoSuchTokenException;
 import org.example.server.Exceptions.RefreshTokenExpirationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,9 @@ public class GlobalValidationExceptionHandler {
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+
+
+
     @ExceptionHandler(UsernameNotFoundException.class)
     public final ResponseEntity<Map<String, List<String>>> handleNotFoundExceptions(Exception error) {
         List<String> errors = Collections.singletonList(error.getMessage());
@@ -52,12 +56,19 @@ public class GlobalValidationExceptionHandler {
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(NoSuchTokenException.class)
+    public final ResponseEntity<Map<String, List<String>>> handleNoSuchTokenExceptions(Exception error) {
+        List<String> errors = Collections.singletonList(error.getMessage());
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.FORBIDDEN);
+    }
+
+
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Map<String, List<String>>> handleGeneralExceptions(Exception error) {
         List<String> errors = Collections.singletonList(error.getMessage());
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
     @ExceptionHandler(RuntimeException.class)
     public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException error) {
         List<String> errors = Collections.singletonList(error.getMessage());

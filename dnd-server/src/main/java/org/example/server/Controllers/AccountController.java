@@ -3,6 +3,8 @@ package org.example.server.Controllers;
 
 import jakarta.validation.Valid;
 import org.example.server.Services.Authoritation.AuthService;
+import org.example.server.Services.Authoritation.RefreshTokenService;
+import org.example.server.domain.dto.RefreshTokenDto;
 import org.example.server.domain.dto.RegistrationDto;
 import org.example.server.domain.dto.SignInRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class AccountController {
 
     @Autowired
     private AuthService authService;
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
     @PostMapping("/signUp")
     public ResponseEntity signUp(@RequestBody @Valid RegistrationDto user) {
@@ -34,7 +38,7 @@ public class AccountController {
     }
 
     @PostMapping("/refreshAccessToken")
-    public ResponseEntity refreshAccessToken(@RequestBody @Valid @NonNull String refreshToken){
-        return new ResponseEntity(authService.refreshAccessToken(refreshToken), HttpStatus.ACCEPTED);
+    public ResponseEntity refreshAccessToken(@RequestBody @Valid @NonNull RefreshTokenDto refreshToken){
+        return new ResponseEntity(refreshTokenService.refreshToken(refreshToken), HttpStatus.ACCEPTED);
     }
 }

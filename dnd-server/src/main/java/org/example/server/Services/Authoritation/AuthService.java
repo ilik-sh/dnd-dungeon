@@ -3,6 +3,7 @@ package org.example.server.Services.Authoritation;
 
 import org.example.server.Exceptions.IllegalUsersArgumentException;
 import org.example.server.Exceptions.IncorrectPasswordException;
+import org.example.server.domain.dto.RefreshTokenDto;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.SignInRequest;
 import org.example.server.domain.dto.JsonWebTokenResponse;
@@ -26,6 +27,8 @@ public class AuthService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private JsonWebTokenService jsonWebTokenService;
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
     public JsonWebTokenResponse[] signIn(@RequestBody SignInRequest request) {
         try {
@@ -41,8 +44,9 @@ public class AuthService {
         }
         var user = userService.userDetailsService().loadUserByUsername(request.getUsername());
         String jwt = jsonWebTokenService.generateAccessToken(user);
-        String refreshJwt = jsonWebTokenService.generateRefreshToken(user);
-        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(jwt), new JsonWebTokenResponse(refreshJwt)};
+        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken();
+        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(jwt),new JsonWebTokenResponse(String.valueOf(refreshToken.getRefreshToken()))
+        };
     }
 
     public JsonWebTokenResponse[] createUser(@RequestBody RegistrationDto registrationDto){
@@ -59,13 +63,14 @@ public class AuthService {
         saveUser.setUsername(registrationDto.getUsername());
         userService.saveUser(saveUser);
         String accessJwt = jsonWebTokenService.generateAccessToken(saveUser);
-        String refreshJwt = jsonWebTokenService.generateRefreshToken(saveUser);
-        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(accessJwt), new JsonWebTokenResponse(refreshJwt)};
+        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken();
+        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(accessJwt),new JsonWebTokenResponse(String.valueOf(refreshToken.getRefreshToken()))
+        };
     }
 
-    public JsonWebTokenResponse refreshAccessToken(String refreshToken) {
-        User user = userService.getByUsername(jsonWebTokenService.extractRefreshUserName(refreshToken));
-        String accessJwt = jsonWebTokenService.generateAccessToken(user);
-        return new JsonWebTokenResponse(accessJwt);
-    }
+//    public JsonWebTokenResponse refreshAccessToken(RefreshTokenDto refreshToken) {
+//        User user = userService.getByUsername(refreshToken.getUser());
+//        String accessJwt = jsonWebTokenService.generateAccessToken(user);
+//        return new JsonWebTokenResponse(accessJwt);
+//    }
 }
