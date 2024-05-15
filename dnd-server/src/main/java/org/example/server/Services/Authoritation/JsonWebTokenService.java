@@ -2,6 +2,7 @@ package org.example.server.Services.Authoritation;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -58,7 +59,8 @@ public class JsonWebTokenService {
 
     public boolean isAccessTokenExpired(String token) {
         Date tokenTime = extractAccessExpiration(token);
-        return accessDuration.toMillis() <= tokenTime.getTime() - new Date().getTime();
+        Date checkTime = new Date();
+        return checkTime.compareTo(tokenTime)>0;
     }
 
     private Date extractAccessExpiration(String token) {
@@ -66,8 +68,8 @@ public class JsonWebTokenService {
     }
 
     private Claims extractAllAccessClaims(String token) {
-        return Jwts.parser().setSigningKey(getAccessSigningKey()).build().parseClaimsJws(token)
-                .getBody();
+            return Jwts.parser().setSigningKey(getAccessSigningKey()).build().parseClaimsJws(token)
+                    .getBody();
     }
 
     private Key getAccessSigningKey() {

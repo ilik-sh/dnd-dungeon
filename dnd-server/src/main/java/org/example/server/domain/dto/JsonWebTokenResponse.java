@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JsonWebTokenResponse {
-    private String accessToken;
+    private String type;
+    private String token;
 }

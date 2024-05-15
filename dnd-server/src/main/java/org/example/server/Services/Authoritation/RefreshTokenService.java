@@ -25,13 +25,15 @@ public class RefreshTokenService {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    public RefreshTokenDto generateRefreshToken(){
+    public RefreshTokenDto generateRefreshToken(String username){
         RefreshToken newRefreshToken = new RefreshToken();
         UUID newToken = UUID.randomUUID();
         newRefreshToken.setFinalToken(bCryptPasswordEncoder.encode(bCryptPasswordEncoder.encode(String.valueOf(newToken))+refreshSecret));
+        newRefreshToken.setUsername(username);
         newRefreshToken.setExpiryDate(new Date(System.currentTimeMillis()+accessDuration.toMillis()));
+        refreshTokenRepository.findByUsername(username).ifPresent(checkToken -> refreshTokenRepository.delete(checkToken));
         refreshTokenRepository.save(newRefreshToken);
-        return new RefreshTokenDto(newToken);
+        return new RefreshTokenDto(newToken, username);
     }
 
     public RefreshTokenDto refreshToken(RefreshTokenDto refreshTokenDto){
@@ -48,8 +50,9 @@ public class RefreshTokenService {
         UUID newToken = UUID.randomUUID();
         RefreshToken newRefreshToken = new RefreshToken();
         newRefreshToken.setFinalToken(bCryptPasswordEncoder.encode(bCryptPasswordEncoder.encode(String.valueOf(newToken))+refreshSecret));
+        newRefreshToken.setUsername(refreshTokenDto.getUsername());
         newRefreshToken.setExpiryDate(new Date(System.currentTimeMillis()+accessDuration.toMillis()));
         refreshTokenRepository.save(newRefreshToken);
-        return new RefreshTokenDto(newToken);
+        return new RefreshTokenDto(newToken, refreshTokenDto.getUsername());
     }
 }

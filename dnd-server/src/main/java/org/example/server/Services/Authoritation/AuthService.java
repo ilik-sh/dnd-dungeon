@@ -3,11 +3,8 @@ package org.example.server.Services.Authoritation;
 
 import org.example.server.Exceptions.IllegalUsersArgumentException;
 import org.example.server.Exceptions.IncorrectPasswordException;
-import org.example.server.domain.dto.RefreshTokenDto;
+import org.example.server.domain.dto.*;
 import org.example.server.domain.Models.account.User;
-import org.example.server.domain.dto.SignInRequest;
-import org.example.server.domain.dto.JsonWebTokenResponse;
-import org.example.server.domain.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,8 +41,8 @@ public class AuthService {
         }
         var user = userService.userDetailsService().loadUserByUsername(request.getUsername());
         String jwt = jsonWebTokenService.generateAccessToken(user);
-        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken();
-        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(jwt),new JsonWebTokenResponse(String.valueOf(refreshToken.getRefreshToken()))
+        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken(request.getUsername());
+        return new JsonWebTokenResponse[]{new JsonWebTokenResponse("Access",jwt),new JsonWebTokenResponse("Refresh",String.valueOf(refreshToken.getRefreshToken()))
         };
     }
 
@@ -63,14 +60,8 @@ public class AuthService {
         saveUser.setUsername(registrationDto.getUsername());
         userService.saveUser(saveUser);
         String accessJwt = jsonWebTokenService.generateAccessToken(saveUser);
-        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken();
-        return new JsonWebTokenResponse[]{new JsonWebTokenResponse(accessJwt),new JsonWebTokenResponse(String.valueOf(refreshToken.getRefreshToken()))
+        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken(registrationDto.getUsername());
+        return new JsonWebTokenResponse[]{new JsonWebTokenResponse("Access",accessJwt),new JsonWebTokenResponse("Refresh",String.valueOf(refreshToken.getRefreshToken()))
         };
     }
-
-//    public JsonWebTokenResponse refreshAccessToken(RefreshTokenDto refreshToken) {
-//        User user = userService.getByUsername(refreshToken.getUser());
-//        String accessJwt = jsonWebTokenService.generateAccessToken(user);
-//        return new JsonWebTokenResponse(accessJwt);
-//    }
 }
