@@ -1,6 +1,9 @@
 package org.example.server.config;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +22,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class JsonAccessWebTokenRequestFilter extends OncePerRequestFilter {
@@ -28,7 +35,6 @@ public class JsonAccessWebTokenRequestFilter extends OncePerRequestFilter {
     private UserService userService;
     private static final String BEARER_PREFIX = "Bearer ";
     private static final String HEADER_NAME = "Authorization";
-
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -41,14 +47,15 @@ public class JsonAccessWebTokenRequestFilter extends OncePerRequestFilter {
         }
 
         String accessJwt = header.substring(BEARER_PREFIX.length());
-        String username = jsonWebTokenService.extractAccessUserName(accessJwt);
+        try {
+            jsonWebTokenService.isAccessTokenExpired(accessJwt);
 
-        if(!StringUtils.isEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = userService
-                    .userDetailsService()
-                    .loadUserByUsername(username);
-            if(jsonWebTokenService.isAccessTokenValid(accessJwt,userDetails)) {
-                if (!jsonWebTokenService.isAccessTokenExpired(accessJwt)) {
+            String username = jsonWebTokenService.extractAccessUserName(accessJwt);
+            if (!StringUtils.isEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userService
+                        .userDetailsService()
+                        .loadUserByUsername(username);
+                if (jsonWebTokenService.isAccessTokenValid(accessJwt, userDetails)) {
                     SecurityContext context = SecurityContextHolder.createEmptyContext();
 
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -61,7 +68,21 @@ public class JsonAccessWebTokenRequestFilter extends OncePerRequestFilter {
                     SecurityContextHolder.setContext(context);
                 }
             }
+            filterChain.doFilter(request, response);
+        } catch (ExpiredJwtException exception) {
+            List<String> errors = Collections.singletonList(exception.getMessage());
+            Map<String , List<String>> res = new HashMap<>();
+            res.put("errors",errors);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write(String.valueOf(convertObjectToJson(res)));
         }
-        filterChain.doFilter(request, response);
+
+    }
+    public String convertObjectToJson(Object object) throws JsonProcessingException {
+        if (object == null) {
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(object);
     }
 }
