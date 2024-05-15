@@ -17,7 +17,7 @@ public class CellService {
                 Room cellRoom = (map[i][j] == null) ? (new Room()) : (map[i][j]);
                 cellRoom.setParentId(mapCell.getId());
                 mapCell.setCurrentRoom(cellRoom);
-                mapCell.setRooms(new Room[]{cellRoom});
+                mapCell.getRooms().add(cellRoom);
                 cellMap[i][j] = mapCell;
             }
         }
