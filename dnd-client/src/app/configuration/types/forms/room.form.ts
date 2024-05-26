@@ -4,6 +4,6 @@ export interface Room {
   type: string;
   level: number;
   description: string;
-  directions: Record<Direction, boolean>;
-  isVisited: boolean;
+  roomDirections: Record<Direction, boolean>;
+  visited: boolean;
 }

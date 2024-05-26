@@ -47,7 +47,7 @@ export default function Upload({ onUpload }: UploadProps) {
   };
 
   return (
-    <Button>
+    <Button variant="outlined">
       <label htmlFor={id}>
         <StyledInput type="file" id={id} onChange={handleFileChange} />
         Upload

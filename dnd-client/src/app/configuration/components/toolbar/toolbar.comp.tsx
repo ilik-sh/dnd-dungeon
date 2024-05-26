@@ -1,31 +1,41 @@
 import { styled } from '@mui/material/styles';
 import { Box, Paper } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { Download, Upload as UploadIcon, Loop } from '@mui/icons-material';
-import useDownload from 'hooks/use-download.hook';
-import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
-import { mapSelector } from 'app/configuration/store/map.selector';
+import { Download as DownloadIcon, Upload as UploadIcon, Loop } from '@mui/icons-material';
+import { useAppDispatch } from 'hooks/redux.hooks';
 import { enqueueSnackbar } from 'notistack';
 import { setMap } from 'app/configuration/store/map.slice';
 import { useState } from 'react';
 import Replace from './tools/replace.comp';
 import Upload from './tools/upload.comp';
-import { RootState } from 'store';
+import Download from './tools/download.comp';
+import TitleInput from './title-input.comp';
 
 const ToolbarPaper = styled(Paper)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  padding: '10px',
   alignItems: 'center',
   justifyContent: 'space-between',
+  minHeight: 'var(--toolbar-height)',
+}));
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-around',
+  flexGrow: 1,
+  padding: theme.spacing(1),
+}));
+
+const StyledToolbox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  flexGrow: 1,
+  padding: theme.spacing(1),
 }));
 
 export default function Toolbar() {
-  const { map } = useAppSelector((state: RootState) => state.map.map);
-  const dispatch = useAppDispatch();
-  const handleDownload = useDownload(map);
   const [tool, setTool] = useState('');
+  const dispatch = useAppDispatch();
 
   const handleUpload = async (data: unknown) => {
     if (!data) {
@@ -33,37 +43,32 @@ export default function Toolbar() {
     }
 
     try {
-      const map = data;
-      dispatch(setMap({ map }));
+      const mapS = data;
+      dispatch(setMap({ map: mapS.map, name: mapS.name, rooms: mapS.mapInfo }));
     } catch (e) {
-      console.log(e);
       enqueueSnackbar('Error setting map', { variant: 'error' });
     }
   };
 
   return (
-    <ToolbarPaper elevation={4}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <IconButton>
-          <Download></Download>
+    <ToolbarPaper>
+      <StyledToolbox>
+        <IconButton onClick={() => setTool('download')}>
+          <DownloadIcon />
         </IconButton>
         <IconButton onClick={() => setTool('upload')}>
           <UploadIcon />
         </IconButton>
-        <IconButton onClick={() => setTool('replace')}>
+        {/* <IconButton onClick={() => setTool('replace')}>
           <Loop />
-        </IconButton>
-      </div>
-      <Divider />
-      <Box component={'div'}>
-        {tool === 'replace' && <Replace />}
+        </IconButton> */}
+      </StyledToolbox>
+      <TitleInput />
+      <StyledBox>
+        {/* {tool === 'replace' && <Replace />} */}
         {tool === 'upload' && <Upload onUpload={handleUpload} />}
-      </Box>
+        {tool === 'download' && <Download />}
+      </StyledBox>
     </ToolbarPaper>
   );
 }

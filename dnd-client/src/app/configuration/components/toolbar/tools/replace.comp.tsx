@@ -5,15 +5,13 @@ import { useAppDispatch } from 'hooks/redux.hooks';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 
-type Props = {};
-
 const roomNumbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
 const StyledDiv = styled('div')({
   display: 'flex',
 });
 
-export default function Replace({}: Props) {
+export default function Replace() {
   const dispatch = useAppDispatch();
 
   const [room, setRoom] = useState('1');
@@ -34,8 +32,9 @@ export default function Replace({}: Props) {
   const onChange = (e: SelectChangeEvent) => {
     setRoom(e.target.value);
   };
+
   return (
-    <StyledDiv>
+    <>
       <Button variant="outlined" onClick={handleClick}>
         Cancel selection
       </Button>
@@ -50,6 +49,6 @@ export default function Replace({}: Props) {
         </Select>
         <Button onClick={handleChangeButtonClick}>Change</Button>
       </StyledDiv>
-    </StyledDiv>
+    </>
   );
 }

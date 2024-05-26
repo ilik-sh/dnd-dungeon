@@ -5,5 +5,5 @@ export const VerticalContainer = styled('div')({
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
+  height: '100%',
 });

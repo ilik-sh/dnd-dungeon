@@ -5,7 +5,7 @@ export interface RoomDto {
   id: string;
   type: RoomType;
   level: number;
-  directions: Record<Direction, boolean>;
+  roomDirections: Record<Direction, boolean>;
   description: string;
-  isVisited: boolean;
+  visited: boolean;
 }

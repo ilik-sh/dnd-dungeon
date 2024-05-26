@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MapState } from '../types/map.state';
 import { linear2dSearch } from 'utils/linear2dSearch';
-import { RoomChildDto } from 'app/configuration/types/room-child.dto';
 import { CellDto } from 'app/configuration/types/cell.dto';
-import { ContextMenu } from '../types/context-menu.type';
+import { RoomDto } from 'types/room.dto';
 
 const initialState: MapState = {
   map: [],
+  rooms: {},
   selectedCellId: null,
-  multipleSelection: false,
-  multipleSelectedCells: [],
-  contextMenu: null,
+  mapName: 'Untitled',
 };
 
 const mapSlice = createSlice({
@@ -18,18 +16,21 @@ const mapSlice = createSlice({
   initialState,
   reducers: {
     setMap(state, { payload }) {
+      console.log(payload);
       state.map = payload.map;
+      state.mapName = payload.name;
+      state.rooms = payload.rooms;
     },
     addRoom(state, { payload }) {
-      const cell = linear2dSearch(state.map, payload.room.parentId);
-      cell?.rooms.push(payload.room);
-    },
-    updateRoom(state, { payload: room }: PayloadAction<RoomChildDto>) {
-      const cell = linear2dSearch(state.map, room.parentId);
+      state.rooms[payload.room.id] = payload.room;
+      const cell = linear2dSearch(state.map, state.selectedCellId);
       if (!cell) {
         return;
       }
-      cell.rooms = cell.rooms.map((item) => (item.id == room.id ? room : item));
+      cell.rooms.push(payload.room);
+    },
+    updateRoom(state, { payload: room }: PayloadAction<RoomDto>) {
+      state.rooms[room.id] = room;
     },
     setSelectedCell(state, { payload: cell }: PayloadAction<CellDto | null>) {
       if (!cell) {
@@ -39,83 +40,25 @@ const mapSlice = createSlice({
 
       state.selectedCellId = cell.id;
     },
-    selectRoomAmongMultipleSelectedCells(state, { payload: roomNumber }: PayloadAction<number>) {
-      state.map.map((inner) => {
-        inner.map((cell) => {
-          if (state.multipleSelectedCells.includes(cell.id)) {
-            if (cell.rooms.length < roomNumber) {
-              throw Error;
-            }
-            cell.currentRoom = cell.rooms[roomNumber - 1];
-          }
-        });
-      });
-    },
-    addMultiplySelectedCell(state, { payload: cell }: PayloadAction<CellDto>) {
-      const isPresent = state.multipleSelectedCells.includes(cell.id);
-      if (isPresent) {
-        state.multipleSelectedCells = state.multipleSelectedCells.filter((item) => cell.id !== item);
-      } else {
-        state.multipleSelectedCells.push(cell.id);
-      }
-    },
-    toggleMultipleSelection(state) {
-      state.multipleSelectedCells = [];
-    },
-    deleteRoom(state, { payload: room }: PayloadAction<RoomChildDto>) {
-      const cell = linear2dSearch(state.map, room.parentId);
+    deleteRoom(state, { payload }: PayloadAction<{ room: RoomDto; cell: CellDto }>) {
+      const cell = linear2dSearch(state.map, payload.cell.id);
       if (!cell) {
         return;
       }
-      cell.rooms = cell.rooms.filter((item) => item.id != room.id);
+      cell.rooms = cell.rooms.filter((item) => item != payload.room.id);
     },
-    selectRoom(state, { payload: room }: PayloadAction<RoomChildDto>) {
-      const cell = linear2dSearch(state.map, room.parentId);
+    selectRoom(state, { payload }: PayloadAction<{ room: RoomDto; cell: CellDto }>) {
+      const cell = linear2dSearch(state.map, state.selectedCellId);
       if (!cell) {
         return;
       }
-      cell.currentRoom = room;
+      cell.currentRoom = payload.room.id;
     },
-    openContextMenu(state, { payload: coordinates }: PayloadAction<ContextMenu>) {
-      if (!state.contextMenu) {
-        state.contextMenu = coordinates;
-      }
-    },
-    closeContextMenu(state) {
-      state.contextMenu = null;
-    },
-    toggleVisit(state) {
-      const room = state.contextMenu?.room;
-      if (!room) {
-        return;
-      }
-      const cell = linear2dSearch(state.map, room.parentId);
-
-      if (!cell) {
-        return;
-      }
-      const foundRoom = cell.rooms.find((item) => item.id == room.id);
-
-      if (!foundRoom) {
-        return;
-      }
-      foundRoom.isVisited = !foundRoom?.isVisited;
+    setMapName(state, { payload: name }: PayloadAction<string>) {
+      state.mapName = name;
     },
   },
 });
 
-export const {
-  setMap,
-  addRoom,
-  updateRoom,
-  setSelectedCell,
-  deleteRoom,
-  selectRoom,
-  openContextMenu,
-  closeContextMenu,
-  toggleVisit,
-  toggleMultipleSelection,
-  addMultiplySelectedCell,
-  selectRoomAmongMultipleSelectedCells,
-} = mapSlice.actions;
+export const { setMap, setMapName, addRoom, updateRoom, setSelectedCell, deleteRoom, selectRoom } = mapSlice.actions;
 export default mapSlice;

@@ -1,4 +1,3 @@
-import { styled } from '@mui/material';
 import { TypeColors } from 'enums/type-colors.enum';
 import React from 'react';
 import { Hex } from './hex';
@@ -11,11 +10,11 @@ import { amber, purple } from '@mui/material/colors';
 import { Direction } from 'enums/directions.enum';
 import { ContextMenu as ContextSettings } from 'app/configuration/types/context-menu.type';
 
-type Props = {
+type HexItemProps = {
   cell: CellDto;
 };
 
-function HexItem({ cell }: Props) {
+function HexItem({ cell }: HexItemProps) {
   const hexProperties = new Hex(50);
   const dispatch = useAppDispatch();
   const { selectedCellId, multipleSelectedCells } = useAppSelector(mapSelector);

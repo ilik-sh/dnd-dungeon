@@ -16,7 +16,7 @@ export const theme = createTheme({
     background: {
       paper: grey[900],
     },
-    divider: blueGrey[100],
+    divider: grey[700],
   },
   components: {
     MuiOutlinedInput: {
@@ -59,6 +59,25 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           color: blueGrey[100],
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          color: blueGrey[100],
+          fontSize: '5px',
+        },
+        primary: {
+          fontSize: '11px',
+          fontWeight: '600',
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: '5px',
         },
       },
     },

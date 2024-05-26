@@ -47,7 +47,7 @@ export class Hex {
   }
 
   get lines() {
-    let lines: Record<Directions, string[]> = {
+    const lines: Record<Directions, string[]> = {
       TOP_LEFT: [],
       TOP: [],
       BOTTOM: [],

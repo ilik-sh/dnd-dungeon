@@ -16,6 +16,8 @@ import Button from '@mui/material/Button';
 import { Hexagon } from '@mui/icons-material';
 import { useAppDispatch } from 'hooks/redux.hooks';
 import { openModal } from 'store/modals.slice';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/material';
 
 interface Props {
   /**
@@ -26,6 +28,10 @@ interface Props {
 }
 
 const drawerWidth = 240;
+
+const StyledLink = styled(Link)({
+  lineHeight: '1',
+});
 
 export default function Header(props: Props) {
   const { window } = props;
@@ -79,9 +85,9 @@ export default function Header(props: Props) {
               <MenuIcon color={'error'} />
             </IconButton>
 
-            <Typography component="a" sx={{ lineHeight: '1' }}>
+            <StyledLink to="/">
               <Hexagon sx={{ width: '32px', height: '32px' }} color={'primary'} />
-            </Typography>
+            </StyledLink>
 
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Button sx={{ color: '#fff' }}>Docs</Button>

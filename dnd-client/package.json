@@ -67,10 +67,8 @@
     ]
   },
   "devDependencies": {
-    "@million/lint": "^0.0.73",
     "@types/redux-persist": "^4.3.1",
     "@types/uuid": "^9.0.8",
-    "eslint-config-prettier": "^9.1.0",
-    "million": "^3.0.6"
+    "eslint-config-prettier": "^9.1.0"
   }
 }
