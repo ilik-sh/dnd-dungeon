@@ -1,5 +1,4 @@
-import { SvgIcon, createSvgIcon } from '@mui/material';
-import React from 'react';
+import { createSvgIcon } from '@mui/material';
 
 export const DungeonDoor = createSvgIcon(
   <svg fill="#fff" viewBox="0 -200 525 1000" xmlns="http://www.w3.org/2000/svg">

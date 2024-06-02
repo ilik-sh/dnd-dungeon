@@ -2,7 +2,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import mapSlice from 'app/configuration/store/map.slice';
 import { persistReducer, persistStore } from 'redux-persist';
-import { thunk } from 'redux-thunk';
 import authSlice from 'app/auth/store/auth.slice';
 import modalsSlice from 'store/modals.slice';
 

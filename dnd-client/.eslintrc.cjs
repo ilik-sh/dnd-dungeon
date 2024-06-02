@@ -8,6 +8,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript',
     'eslint-config-prettier',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -16,7 +17,7 @@ module.exports = {
     react: { version: 'detect' },
     'import/resolver': {
       node: {
-        paths: ['src'],
+        paths: ['./src'],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },

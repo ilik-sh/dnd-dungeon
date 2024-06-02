@@ -16,30 +16,5 @@ export default function CustomControls({ limits }: CustomControlProps) {
     z: camera.position.z,
   });
 
-  return (
-    <MapControls
-      mouseButtons={{ MIDDLE: 2 }}
-      enableRotate={false}
-      target={[4, 0, 5.2]}
-      // onChange={(e?: Event) => {
-      //   const maxX = limits.x.max;
-      //   const minX = limits.x.min;
-      //   const maxZ = limits.z.max;
-      //   const minZ = limits.z.min;
-      //   const x = e?.target.target.x;
-      //   const z = e?.target.target.z;
-
-      //   if (x < minX || x > maxX) {
-      //     e?.target.target.setX(x < minX ? minX : maxX);
-      //     camera.position.setX(cameraLastPosition.current.x);
-      //   }
-      //   if (z < minZ || z > maxZ) {
-      //     e?.target.target.setZ(z < minZ ? minZ : maxZ);
-      //     camera.position.setZ(cameraLastPosition.current.z);
-      //   }
-      //   cameraLastPosition.current.x = camera.position.x;
-      //   cameraLastPosition.current.z = camera.position.z;
-      // }}
-    />
-  );
+  return <MapControls mouseButtons={{ MIDDLE: 2 }} enableRotate={false} target={[4, 0, 5.2]} />;
 }
