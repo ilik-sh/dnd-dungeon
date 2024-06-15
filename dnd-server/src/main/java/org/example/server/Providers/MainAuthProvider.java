@@ -14,6 +14,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
+
 public class MainAuthProvider extends AbstractUserDetailsAuthenticationProvider {
     private static final String USER_NOT_FOUND_PASSWORD = "userNotFoundPassword";
     private PasswordEncoder passwordEncoder;
