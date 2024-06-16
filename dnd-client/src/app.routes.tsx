@@ -1,6 +1,6 @@
 import Suspend from 'components/routing/suspend';
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const ConfigurationRoutes = React.lazy(() => import('app/configuration'));
 const LandingRoutes = React.lazy(() => import('app/landing'));
