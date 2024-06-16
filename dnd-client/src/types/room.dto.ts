@@ -6,6 +6,6 @@ export interface RoomDto {
   type: RoomType;
   level: number;
   roomDirections: Record<Direction, boolean>;
-  description: string;
+  description?: string;
   visited: boolean;
 }
