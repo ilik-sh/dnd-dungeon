@@ -16,7 +16,6 @@ const mapSlice = createSlice({
   initialState,
   reducers: {
     setMap(state, { payload }) {
-      console.log(payload);
       state.map = payload.map;
       state.mapName = payload.name;
       state.rooms = payload.rooms;
@@ -27,7 +26,7 @@ const mapSlice = createSlice({
       if (!cell) {
         return;
       }
-      cell.rooms.push(payload.room);
+      cell.rooms.push(payload.room.id);
     },
     updateRoom(state, { payload: room }: PayloadAction<RoomDto>) {
       state.rooms[room.id] = room;
@@ -41,10 +40,12 @@ const mapSlice = createSlice({
       state.selectedCellId = cell.id;
     },
     deleteRoom(state, { payload }: PayloadAction<{ room: RoomDto; cell: CellDto }>) {
+      delete state.rooms[payload.room.id];
       const cell = linear2dSearch(state.map, payload.cell.id);
       if (!cell) {
         return;
       }
+
       cell.rooms = cell.rooms.filter((item) => item != payload.room.id);
     },
     selectRoom(state, { payload }: PayloadAction<{ room: RoomDto; cell: CellDto }>) {
