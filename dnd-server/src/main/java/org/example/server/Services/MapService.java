@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.example.server.domain.Models.Room;
 import org.example.server.RoomDirection;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 @Service

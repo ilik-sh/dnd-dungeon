@@ -18,7 +18,6 @@ public class Room {
     private UUID id;
     private int level;
     private RoomType type;
-    private UUID parentId;
     @JsonSerialize(using = RoomDirectionSerializer.class)
     private HashMap<RoomDirection, Boolean> roomDirections;
     private String description;
@@ -28,7 +27,6 @@ public class Room {
         this.id = UUID.randomUUID();
         this.level = 1;
         this.type = RoomType.ABSENCE;
-        this.parentId = null;
         this.roomDirections = new HashMap<>();
         roomDirections.put(RoomDirection.TOP,false);
         roomDirections.put(RoomDirection.TOP_LEFT,false);
