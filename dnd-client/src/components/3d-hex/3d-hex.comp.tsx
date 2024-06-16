@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { useEffect } from 'react';
+import { Canvas, useThree } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { Vector2 } from 'three';
-import ThreeHexItem from './three-hex-item.comp';
+import { ThreeHexItem } from './three-hex-item.comp';
 import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
-import { mapSelector } from 'app/configuration/store/map.selector';
+import { selectMap } from 'app/configuration/store/map.selector';
 import CustomControls from './custom-controls.comp';
 import { setMap, setSelectedCell } from 'app/configuration/store/map.slice';
-
-const tileToPosition = (tileX: number, tileY: number, size: number) => {
-  return new Vector2(
-    (tileX * size * 1.01 * 3) / 2,
-    tileY * Math.sqrt(3) * size * 1.01 + (((tileX % 2) * Math.sqrt(3)) / 2) * size,
-  );
-};
 
 const mapS = {
   name: 'dungeon',
@@ -2282,28 +2275,43 @@ const mapS = {
   },
 };
 
+const calculateTilePosition = (tileX: number, tileY: number, size: number) => {
+  return new Vector2(
+    (tileX * size * 1.01 * 3) / 2,
+    tileY * Math.sqrt(3) * size * 1.01 + (((tileX % 2) * Math.sqrt(3)) / 2) * size,
+  );
+};
+
 export default function ThreeHex() {
-  const { map } = useAppSelector(mapSelector);
+  const map = useAppSelector(selectMap());
   const dispatch = useAppDispatch();
 
   const handleCanvasClick = () => {
     dispatch(setSelectedCell(null));
   };
 
+  console.log('rerender parent');
+
   useEffect(() => {
-    console.log(mapS.map);
     dispatch(setMap({ map: mapS.map, name: mapS.name, rooms: mapS.mapInfo }));
   }, [dispatch]);
   return (
-    <Canvas style={{ background: '#21212190' }} camera={{ position: [4, 15, 14] }} onClickCapture={handleCanvasClick}>
+    <Canvas
+      style={{ background: '#21212190' }}
+      camera={{ position: [4, 15, 14] }}
+      onClickCapture={handleCanvasClick}
+      gl={{ preserveDrawingBuffer: true }}
+    >
       <Environment preset="forest" />
       <mesh>
         {map.map((item, column) =>
-          item.map((cell, row) => <ThreeHexItem cell={cell} position={tileToPosition(column, row, 1)} key={cell.id} />),
+          item.map((cell, row) => (
+            <ThreeHexItem cell={cell} position={calculateTilePosition(column, row, 1)} key={cell.id} />
+          )),
         )}
       </mesh>
 
-      <CustomControls limits={{ x: { max: map.length + 2, min: -2 }, z: { max: map.length + 2, min: -2 } }} />
+      <CustomControls />
     </Canvas>
   );
 }
