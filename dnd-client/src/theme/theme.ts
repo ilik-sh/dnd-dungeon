@@ -40,6 +40,29 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        body1: {
+          color: blueGrey[200],
+        },
+        body2: {
+          color: blueGrey[300],
+        },
+        h6: {
+          color: blueGrey[50],
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+          '&:hover': {
+            cursor: 'pointer',
+          },
+        },
+      },
+    },
     MuiDialog: {
       styleOverrides: {
         paper: {
@@ -51,7 +74,8 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: grey[900],
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
         },
       },
     },
