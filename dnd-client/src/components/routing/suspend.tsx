@@ -1,4 +1,4 @@
-import CenteredCircularProgress from 'components/centered-circular-progress.comp';
+import CenteredCircularProgress from 'components/centered-hex-progress.comp';
 import { Suspense } from 'react';
 
 type Props = {
