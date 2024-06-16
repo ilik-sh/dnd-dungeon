@@ -1,28 +1,29 @@
-import { deleteRoom, selectRoom } from 'app/configuration/store/map.slice';
+import { addRoom, deleteRoom, selectRoom } from 'app/configuration/store/map.slice';
 import { CellDto } from 'app/configuration/types/cell.dto';
 import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
-import React from 'react';
+import React, { useState } from 'react';
 import { RoomDto } from 'types/room.dto';
 import RoomProperties from './room-properties.comp';
 import { IconButton, Typography } from '@mui/material';
-import { Add, PlusOne } from '@mui/icons-material';
+import { Add, Hexagon } from '@mui/icons-material';
+import { generateDefaultRoom } from 'app/configuration/default-objects/default-room';
+import { enqueueSnackbar } from 'notistack';
+import { Tab } from '@mui/base/Tab';
+import { TabsList } from '@mui/base/TabsList';
+import { TabPanel } from '@mui/base/TabPanel';
+import { Tabs } from '@mui/base/Tabs';
+import { TypeColors } from 'enums/type-colors.enum';
+import RoomShowcase from './room/room-showcase.comp';
 
-type CellPropertiesProps = {
-  cell: CellDto;
-};
+type CellPropertiesProps = {};
 
-export default function CellProperties({ cell }: CellPropertiesProps) {
+export default function CellProperties({}: CellPropertiesProps) {
   const dispatch = useAppDispatch();
-  const rooms = useAppSelector((state) => state.map.rooms);
-  const handleRoomDelete = (room: RoomDto) => {
-    dispatch(deleteRoom({ room, cell }));
-  };
 
-  const handleRoomSelect = (room: RoomDto) => {
-    dispatch(selectRoom({ room, cell }));
+  const handleAddRoomClick = () => {
+    const defaultRoom = generateDefaultRoom();
+    dispatch(addRoom({ room: defaultRoom }));
   };
-
-  const handleAddRoomClick = () => {};
 
   return (
     <div style={{ outline: '1px solid grey', padding: '10px' }}>
@@ -37,13 +38,7 @@ export default function CellProperties({ cell }: CellPropertiesProps) {
           <Add />
         </IconButton>
       </div>
-      {cell.rooms.map((roomId) => (
-        <RoomProperties
-          room={rooms[roomId]}
-          onRoomDeleteButtonClicked={handleRoomDelete}
-          onRoomSelectButtonClicked={handleRoomSelect}
-        />
-      ))}
+      <RoomShowcase />
     </div>
   );
 }
