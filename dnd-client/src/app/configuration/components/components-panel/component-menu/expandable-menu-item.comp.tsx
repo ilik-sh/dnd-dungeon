@@ -6,6 +6,7 @@ import { CellDto } from 'app/configuration/types/cell.dto';
 import { setSelectedCell } from 'app/configuration/store/map.slice';
 import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
 import { amber, grey } from '@mui/material/colors';
+import { isCellSelected } from 'app/configuration/store/map.selector';
 
 type ExpandableMenuItemProps = {
   cell: CellDto;
@@ -21,7 +22,7 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 
 export default function ExpandableMenuItem({ cell, title }: ExpandableMenuItemProps) {
   const [open, setOpen] = useState(false);
-  const selectectedCellId = useAppSelector((state) => state.map.selectedCellId);
+  const isSelected = useAppSelector(isCellSelected(cell.id));
   const dispatch = useAppDispatch();
   const id = useId();
 
@@ -42,7 +43,7 @@ export default function ExpandableMenuItem({ cell, title }: ExpandableMenuItemPr
     <>
       <StyledListItemButton
         disableRipple
-        sx={selectectedCellId == cell.id ? { background: grey[800] } : { background: '#212121' }}
+        sx={isSelected ? { background: grey[800] } : { background: '#212121' }}
         onClick={handleCLick}
         id={id}
       >
