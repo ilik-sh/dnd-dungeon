@@ -3,6 +3,7 @@ package org.example.server.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.server.Exceptions.MapParamsException;
 import org.example.server.Services.ValidationService;
+import org.example.server.domain.dto.MapDto;
 import org.example.server.domain.dto.SaveMapRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,27 @@ public class AutoController {
         }
         mp.generateMap(mapSize, mapSize);
         mp.generateDungeon(tunnelLength, crossroadChance);
-        return new ResponseEntity<>(mp.getMap(),HttpStatus.valueOf(200));
+        MapDto returnMap = new MapDto();
+        returnMap.setName(mp.getName());
+        returnMap.setMap(mp.getMap());
+        returnMap.setMapInfo(mp.getMapInfo());
+        return new ResponseEntity<>(returnMap,HttpStatus.valueOf(200));
     }
 
     @GetMapping("/getMap")
     public ResponseEntity getMap() {
-        return new ResponseEntity<>(mp.getMap(),HttpStatus.valueOf(200));
+        MapDto returnMap = new MapDto();
+        returnMap.setName(mp.getName());
+        returnMap.setMap(mp.getMap());
+        returnMap.setMapInfo(mp.getMapInfo());
+        return new ResponseEntity<>(returnMap,HttpStatus.valueOf(200));
+    }
+
+    @PostMapping("/setMap")
+    public void setMap(@RequestBody MapDto setMapRequest){
+        mp.setMap(setMapRequest.getMap());
+        mp.setMapInfo(setMapRequest.getMapInfo());
+        mp.setName(setMapRequest.getName());
     }
 
     @PostMapping("/saveMap")

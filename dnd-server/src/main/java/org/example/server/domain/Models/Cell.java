@@ -9,15 +9,12 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class Cell {
-    private UUID id;
-    private Room currentRoom;
-    private ArrayList<Room> rooms;
+    private String id;
+    private String currentRoom;
+    private ArrayList<String> rooms;
 
     public Cell() {
-        id = UUID.randomUUID();
-        currentRoom = new Room();
+        id = String.valueOf(UUID.randomUUID());
         rooms = new ArrayList<>();
-        rooms.add(currentRoom);
-        currentRoom.setParentId(id);
     }
 }
