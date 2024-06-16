@@ -1,4 +1,4 @@
-export const DirectionAngles = {
+export const DirectionAngles: { [key: string]: number } = {
   TOP_LEFT: 120,
   TOP: 180,
   TOP_RIGHT: 240,
