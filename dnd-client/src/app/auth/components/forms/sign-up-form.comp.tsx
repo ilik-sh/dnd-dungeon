@@ -2,8 +2,8 @@ import React from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
 import { SignUpForm as SignUpFormFields } from 'app/auth/validation-schemas/sign-up-form.schema';
 import { CenteredBox } from 'components/centered-box.comp';
-import TextField from 'components/text-field.comp';
-import PasswordField from 'components/password-field.comp';
+import TextField from 'components/input/text-field.comp';
+import PasswordField from 'components/input/password-field.comp';
 import { Button, styled } from '@mui/material';
 
 type SignUpFormProps = {
