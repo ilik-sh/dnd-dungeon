@@ -1,18 +1,20 @@
-import { VerticalContainer } from "components/vertical-container.comp";
-import ConfigurationTabs from "./components/configuration-tabs.comp";
+import { VerticalContainer } from 'components/vertical-container.comp';
+import DungeonConfigurator from './components/dungeon-configurator/dungeon-configurator.comp';
+import { useEffect } from 'react';
+import { useAppSelector } from 'hooks/redux.hooks';
+import { RootState } from 'store';
 
-import { styled } from "@mui/material";
-import { brown, grey, orange } from "@mui/material/colors";
-import Header from "./components/header/header.comp";
+export default function ConfigurationPage() {
+  const mapName = useAppSelector((state: RootState) => state.map.mapName);
 
-type Props = {};
+  useEffect(() => {
+    document.title = mapName + ' - Dungeon';
+  });
 
-export default function ConfigurationPage({}: Props) {
   return (
     <>
-      <Header />
       <VerticalContainer>
-        <ConfigurationTabs />
+        <DungeonConfigurator />
       </VerticalContainer>
     </>
   );

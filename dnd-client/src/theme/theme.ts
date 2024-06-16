@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material";
-import { amber, blueGrey, grey } from "@mui/material/colors";
+import { createTheme } from '@mui/material';
+import { amber, blueGrey, grey } from '@mui/material/colors';
 
 export const theme = createTheme({
   palette: {
@@ -16,7 +16,7 @@ export const theme = createTheme({
     background: {
       paper: grey[900],
     },
-    divider: blueGrey[100],
+    divider: grey[700],
   },
   components: {
     MuiOutlinedInput: {
@@ -29,13 +29,36 @@ export const theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          "&:has(> input:-webkit-autofill)": {
+          '&:has(> input:-webkit-autofill)': {
             backgroundColor: grey[800],
           },
         },
         input: {
-          "&:-webkit-autofill": {
-            transition: "background-color 600000s 0s, color 600000s 0s",
+          '&:-webkit-autofill': {
+            transition: 'background-color 600000s 0s, color 600000s 0s',
+          },
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        body1: {
+          color: blueGrey[200],
+        },
+        body2: {
+          color: blueGrey[300],
+        },
+        h6: {
+          color: blueGrey[50],
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+          '&:hover': {
+            cursor: 'pointer',
           },
         },
       },
@@ -44,14 +67,15 @@ export const theme = createTheme({
       styleOverrides: {
         paper: {
           border: `2px solid ${grey[800]}`,
-          borderRadius: "10px",
+          borderRadius: '10px',
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: grey[900],
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
         },
       },
     },
@@ -59,6 +83,25 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           color: blueGrey[100],
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          color: blueGrey[100],
+          fontSize: '5px',
+        },
+        primary: {
+          fontSize: '11px',
+          fontWeight: '600',
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: '5px',
         },
       },
     },

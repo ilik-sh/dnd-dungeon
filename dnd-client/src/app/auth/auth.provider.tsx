@@ -1,10 +1,8 @@
-import React from "react";
-import SignUpModal from "./sign-up.modal";
-import SignInModal from "./sign-in.modal";
-import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
-import { openModal } from "store/modals.slice";
-import { Button } from "@mui/material";
-import { modalsSelector } from "store/modals.selector";
+import React from 'react';
+import SignUpModal from './sign-up.modal';
+import SignInModal from './sign-in.modal';
+import { useAppSelector } from 'hooks/redux.hooks';
+import { modalsSelector } from 'store/modals.selector';
 
 type AuthProviderProps = {
   children: React.ReactNode;
