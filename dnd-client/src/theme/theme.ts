@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 import { amber, blueGrey, grey } from '@mui/material/colors';
 
-export const theme = createTheme({
+export let theme = createTheme({
   palette: {
     primary: {
       main: amber[800],
@@ -105,5 +105,16 @@ export const theme = createTheme({
         },
       },
     },
+  },
+});
+
+theme = createTheme(theme, {
+  palette: {
+    landing: theme.palette.augmentColor({
+      color: {
+        main: '#101113',
+      },
+      name: 'landing',
+    }),
   },
 });

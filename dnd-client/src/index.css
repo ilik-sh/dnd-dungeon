@@ -1,19 +1,20 @@
 html {
   ::-webkit-scrollbar-track {
-    opacity: 0;
+    background-color: #212121;
   }
   ::-webkit-scrollbar {
     width: 0.5vw;
   }
   ::-webkit-scrollbar-thumb {
-    opacity: 0;
+    background-color: #ff8f0070;
+    border-radius: 50px;
   }
 }
 html,
 body {
   overflow-x: hidden;
   min-height: 100dvh;
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
 }
 
@@ -33,17 +34,6 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  ::-webkit-scrollbar-track {
-    opacity: 0;
-  }
-  ::-webkit-scrollbar {
-    width: 0.5vw;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #ff8f0070;
-    border-radius: 50px;
-  }
 
   --toolbar-height: 64px;
   --input-height: 40px;
