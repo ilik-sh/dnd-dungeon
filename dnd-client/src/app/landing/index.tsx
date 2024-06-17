@@ -1,5 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+
 import Suspend from 'components/routing/suspend';
 
 const LandingPage = React.lazy(() => import('app/landing/landing.page'));
