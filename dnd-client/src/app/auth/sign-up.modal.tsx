@@ -1,19 +1,23 @@
-import { Container, Dialog, DialogContent, Divider, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
-import { modalsSelector } from 'store/modals.selector';
-import { closeModal, openModal } from 'store/modals.slice';
-import SignUpForm from './components/forms/sign-up-form.comp';
 import { useForm } from 'react-hook-form';
-import { SignUpForm as SignUpFormFields, signUpFormSchema } from './validation-schemas/sign-up-form.schema';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CloseOutlined } from '@mui/icons-material';
+import { Container, Dialog, DialogContent, Divider, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
 import { DungeonDoor } from 'assets/icons/dungeon-door.icon';
-import IconTitle from 'components/icon-title.comp';
-import CustomLink from 'components/custom-link.comp';
-import { signUp } from './store/auth.actions';
 import { enqueueSnackbar } from 'notistack';
+import { modalsSelector } from 'store/modals.selector';
+import { closeModal, openModal } from 'store/modals.slice';
+
+import SignUpForm from './components/forms/sign-up-form.comp';
+import CustomLink from 'components/custom-link.comp';
+import IconTitle from 'components/icon-title.comp';
+
+import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+
+import { signUp } from './store/auth.actions';
 import { ApiError } from './types/api.error';
+import { SignUpForm as SignUpFormFields, signUpFormSchema } from './validation-schemas/sign-up-form.schema';
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -73,7 +77,7 @@ export default function SignUpModal() {
   };
 
   return (
-    <StyledDialog open={open.signUp} onClose={handleClose} fullScreen={fullScreen}>
+    <StyledDialog open={open.signUp} onClose={handleClose} fullScreen={fullScreen} disableScrollLock>
       <IconButton sx={{ position: 'absolute' }} onClick={handleClose}>
         <CloseOutlined />
       </IconButton>

@@ -1,9 +1,9 @@
 import React from 'react';
-import mapImage from './image.png';
-import { Box, Link, Typography, styled } from '@mui/material';
+
+import { Box, Link, styled } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 
-type Props = {};
+import mapImage from './image.png';
 
 const MapCover = styled('img')({
   objectFit: 'cover',
@@ -13,7 +13,9 @@ const MapCover = styled('img')({
 
 const StyledLink = styled('a')({});
 
-const StyledBox = styled(Box)({});
+const StyledBox = styled(Box)({
+  minWidth: '300px',
+});
 
 const ImageWrapper = styled(Box)({
   borderRadius: '12px',
@@ -51,7 +53,7 @@ const MapNameLink = styled(Link)({
   fontWeight: '600',
 });
 
-export default function Map({}: Props) {
+export default function Map() {
   return (
     <StyledBox>
       <StyledLink>

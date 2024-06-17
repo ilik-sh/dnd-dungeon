@@ -5,5 +5,18 @@
   "singleQuote": true,
   "printWidth": 120,
   "bracketSpacing": true,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrder": [
+    "react",
+    "<THIRD_PARTY_MODULES>",
+    "^(cplibrary|cpicons|cputil|cpclient|@cpclient|cpshots).*$",
+    "components/.*$",
+    "^(constants|data|hooks|util|utils)/.*$",
+    "^(\\.|\\.\\.)/(.(?!.(css|scss)))*$",
+    "\\.(css|scss)$"
+  ],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

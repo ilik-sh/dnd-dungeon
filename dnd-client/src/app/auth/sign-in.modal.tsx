@@ -1,18 +1,22 @@
+import { useForm } from 'react-hook-form';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CloseOutlined } from '@mui/icons-material';
 import { Container, Dialog, DialogContent, Divider, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
-import SignInForm from './components/forms/sign-in-form.comp';
-import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+import { DungeonDoor } from 'assets/icons/dungeon-door.icon';
+import { enqueueSnackbar } from 'notistack';
 import { modalsSelector } from 'store/modals.selector';
 import { closeModal, openModal } from 'store/modals.slice';
-import { useForm } from 'react-hook-form';
-import { SignInForm as SignInFormFields, signInFormSchema } from './validation-schemas/sign-in-form.schema';
-import { yupResolver } from '@hookform/resolvers/yup';
-import IconTitle from 'components/icon-title.comp';
-import { DungeonDoor } from 'assets/icons/dungeon-door.icon';
+
+import SignInForm from './components/forms/sign-in-form.comp';
 import CustomLink from 'components/custom-link.comp';
-import { CloseOutlined } from '@mui/icons-material';
+import IconTitle from 'components/icon-title.comp';
+
+import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+
 import { signIn } from './store/auth.actions';
-import { enqueueSnackbar } from 'notistack';
 import { ApiError } from './types/api.error';
+import { SignInForm as SignInFormFields, signInFormSchema } from './validation-schemas/sign-in-form.schema';
 
 const StyledDialog = styled(Dialog)(() => ({}));
 
@@ -67,7 +71,7 @@ export default function SignInModal() {
   };
 
   return (
-    <StyledDialog open={open.signIn} onClose={handleClose} fullScreen={fullScreen}>
+    <StyledDialog open={open.signIn} onClose={handleClose} fullScreen={fullScreen} disableScrollLock>
       <IconButton sx={{ position: 'absolute' }} onClick={handleClose}>
         <CloseOutlined />
       </IconButton>

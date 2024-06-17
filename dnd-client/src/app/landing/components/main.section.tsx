@@ -1,38 +1,76 @@
-import { Box, Typography, styled } from '@mui/material';
 import React from 'react';
-import main from 'assets/images/not-found/main.png';
+
+import { Box, Button, styled, Typography } from '@mui/material';
+import { responsiveFontSizes } from 'theme/typography';
+
+const FullHeightSection = styled('section')({
+  display: 'flex',
+  justifyContent: 'center',
+  height: 'calc(100% - 64px)',
+});
 
 const StyledWrapper = styled(Box)({
-  height: 'auto',
-  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  padding: '0 20px',
+});
+
+const MainTextBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    alignItems: 'flex-start',
+  },
+}));
+
+const ButtonBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  margin: '30px 0 80px 0',
+  gap: '20px',
+  justifyContent: 'space-around',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'flex-start',
+  },
+}));
+
+const MainHeadingTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Jaini Purva',
+  letterSpacing: '1px',
+  textShadow: '1px 2px 10px black',
+  lineHeight: '2',
+  textWrap: 'pretty',
+  ...responsiveFontSizes({ sm: 64, md: 84, lg: 104 }),
+  [theme.breakpoints.down('sm')]: {
+    lineHeight: '1',
+  },
+}));
+
+const SecondaryHeadinTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Jaini Purva',
+  textShadow: '1px 2px 10px black',
+  color: theme.palette.grey[500],
+}));
+
+const TryButton = styled(Button)({
+  padding: '20px 30px',
 });
 
 export default function MainSection() {
   return (
-    <section>
+    <FullHeightSection>
       <StyledWrapper>
-        <div
-          style={{
-            // width: '40%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            padding: '100px 0',
-          }}
-        >
-          <Typography
-            variant="h1"
-            color="white"
-            sx={{ textShadow: '1px 2px 10px black', fontWeight: '600', fontSize: '120px' }}
-          >
-            Dopple Dungeon
-          </Typography>
-          <Typography variant="h2" color="darkGrey" sx={{ textShadow: '1px 2px 10px black' }}>
-            Your way to perfect adventure
-          </Typography>
-        </div>
+        <MainTextBox>
+          <MainHeadingTypography variant="h1">Dopple Dungeon</MainHeadingTypography>
+          <SecondaryHeadinTypography variant="h2">Your way to perfect adventure</SecondaryHeadinTypography>
+        </MainTextBox>
+        <ButtonBox>
+          <TryButton variant="contained">Try It Yourself</TryButton>
+          <TryButton variant="outlined">Join community</TryButton>
+        </ButtonBox>
       </StyledWrapper>
-    </section>
+    </FullHeightSection>
   );
 }
