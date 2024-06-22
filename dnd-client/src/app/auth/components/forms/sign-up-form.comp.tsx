@@ -1,10 +1,10 @@
-import React from "react";
-import { Control, FieldErrors } from "react-hook-form";
-import { SignUpForm as SignUpFormFields } from "app/auth/validation-schemas/sign-up-form.schema";
-import { CenteredBox } from "components/centered-box.comp";
-import TextField from "components/text-field.comp";
-import PasswordField from "components/password-field.comp";
-import { Button, styled } from "@mui/material";
+import React from 'react';
+import { Control, FieldErrors } from 'react-hook-form';
+import { SignUpForm as SignUpFormFields } from 'app/auth/validation-schemas/sign-up-form.schema';
+import { CenteredBox } from 'components/centered-box.comp';
+import TextField from 'components/input/text-field.comp';
+import PasswordField from 'components/input/password-field.comp';
+import { Button, styled } from '@mui/material';
 
 type SignUpFormProps = {
   onSubmit: React.FormEventHandler;
@@ -12,18 +12,14 @@ type SignUpFormProps = {
   validationErrors: FieldErrors<SignUpFormFields>;
 };
 
-const StyledForm = styled("form")({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
-  gap: "1rem",
+const StyledForm = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  gap: '1rem',
 });
 
-export default function SignUpForm({
-  onSubmit,
-  control,
-  validationErrors,
-}: SignUpFormProps) {
+export default function SignUpForm({ onSubmit, control, validationErrors }: SignUpFormProps) {
   return (
     <CenteredBox>
       <StyledForm noValidate onSubmit={onSubmit}>

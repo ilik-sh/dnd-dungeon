@@ -1,5 +1,5 @@
-import axios from "axios";
-import { LocalStorageKeys } from "enums/local-storage-keys.enum";
+import axios from 'axios';
+import { LocalStorageKeys } from 'enums/local-storage-keys.enum';
 
 export const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_ROUTE,
@@ -35,10 +35,7 @@ axiosClient.interceptors.response.use(
           return;
         }
 
-        localStorage.setItem(
-          LocalStorageKeys.AccessToken,
-          tokens.data.accessToken
-        );
+        localStorage.setItem(LocalStorageKeys.AccessToken, tokens.data.accessToken);
 
         return axiosClient(originalRequest);
       } catch (error) {
@@ -49,5 +46,5 @@ axiosClient.interceptors.response.use(
     }
 
     throw error;
-  }
+  },
 );

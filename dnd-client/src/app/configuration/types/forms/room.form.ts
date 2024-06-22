@@ -1,10 +1,9 @@
-import { Direction } from "enums/directions.enum";
-import { RoomType } from "enums/room-type.enum";
+import { Direction } from 'enums/directions.enum';
 
 export interface Room {
   type: string;
   level: number;
-  description: string;
-  directions: Record<Direction, boolean>;
-  isVisited: boolean;
+  description?: string;
+  roomDirections: Record<Direction, boolean>;
+  visited: boolean;
 }

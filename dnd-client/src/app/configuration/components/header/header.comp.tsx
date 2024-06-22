@@ -1,21 +1,23 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { Hexagon } from "@mui/icons-material";
-import { useAppDispatch } from "hooks/redux.hooks";
-import { openModal } from "store/modals.slice";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { Hexagon } from '@mui/icons-material';
+import { useAppDispatch } from 'hooks/redux.hooks';
+import { openModal } from 'store/modals.slice';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/material';
 
 interface Props {
   /**
@@ -27,6 +29,10 @@ interface Props {
 
 const drawerWidth = 240;
 
+const StyledLink = styled(Link)({
+  lineHeight: '1',
+});
+
 export default function Header(props: Props) {
   const { window } = props;
   const dispatch = useAppDispatch();
@@ -37,7 +43,7 @@ export default function Header(props: Props) {
   };
 
   const handleSignInClicked = () => {
-    dispatch(openModal("signIn"));
+    dispatch(openModal('signIn'));
   };
 
   const drawer = (
@@ -48,53 +54,43 @@ export default function Header(props: Props) {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary={"Docs"} />
+          <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemText primary={'Docs'} />
           </ListItemButton>
         </ListItem>
       </List>
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <AppBar
-        component="nav"
-        sx={{ display: "block", position: "static", width: "100%" }}
-      >
+    <Box sx={{ width: '100%' }}>
+      <AppBar component="nav" sx={{ display: 'block', position: 'static', width: '100%' }}>
         <Toolbar
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "space-between",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'space-between',
           }}
         >
-          <Box
-            display={"flex"}
-            sx={{ alignItems: "center", justifyContent: "center" }}
-          >
+          <Box display={'flex'} sx={{ alignItems: 'center', justifyContent: 'center' }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{ mr: 2, display: { sm: 'none' } }}
             >
-              <MenuIcon color={"error"} />
+              <MenuIcon color={'error'} />
             </IconButton>
 
-            <Typography component="a" sx={{ lineHeight: "1" }}>
-              <Hexagon
-                sx={{ width: "32px", height: "32px" }}
-                color={"primary"}
-              />
-            </Typography>
+            <StyledLink to="/">
+              <Hexagon sx={{ width: '32px', height: '32px' }} color={'primary'} />
+            </StyledLink>
 
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <Button sx={{ color: "#fff" }}>Docs</Button>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }}>Docs</Button>
             </Box>
           </Box>
 
@@ -113,9 +109,9 @@ export default function Header(props: Props) {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
               width: drawerWidth,
             },
           }}

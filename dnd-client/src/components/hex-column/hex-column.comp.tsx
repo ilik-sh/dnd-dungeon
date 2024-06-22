@@ -1,16 +1,16 @@
-import React from "react";
-import HexItem from "./hex-item/hex-item.comp";
-import { styled } from "@mui/material";
-import { CellDto } from "app/configuration/types/cell.dto";
+import React from 'react';
+import HexItem from './hex-item/hex-item.comp';
+import { styled } from '@mui/material';
+import { CellDto } from 'app/configuration/types/cell.dto';
 
 type Props = {
   style?: React.CSSProperties;
   column: CellDto[];
 };
 
-const ColumnBox = styled("div")({
-  display: "flex",
-  flexDirection: "column",
+const ColumnBox = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export default function HexColumn({ style, column }: Props) {

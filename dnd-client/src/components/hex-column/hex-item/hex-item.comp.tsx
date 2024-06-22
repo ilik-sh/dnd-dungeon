@@ -1,31 +1,23 @@
-import { styled } from "@mui/material";
-import { TypeColors } from "enums/type-colors.enum";
-import React from "react";
-import { Hex } from "./hex";
-import { RoomType } from "enums/room-type.enum";
-import { CellDto } from "app/configuration/types/cell.dto";
-import { useAppDispatch, useAppSelector } from "hooks/redux.hooks";
-import {
-  addMultiplySelectedCell,
-  openContextMenu,
-  setSelectedCell,
-} from "app/map/store/map.slice";
-import { mapSelector } from "app/map/store/map.selector";
-import { amber, purple } from "@mui/material/colors";
-import { Direction } from "enums/directions.enum";
-import { ContextMenu as ContextSettings } from "app/map/types/context-menu.type";
+import { TypeColors } from 'enums/type-colors.enum';
+import React from 'react';
+import { Hex } from './hex';
+import { RoomType } from 'enums/room-type.enum';
+import { CellDto } from 'app/configuration/types/cell.dto';
+import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+import { addMultiplySelectedCell, openContextMenu, setSelectedCell } from 'app/configuration/store/map.slice';
+import { mapSelector } from 'app/configuration/store/map.selector';
+import { amber, purple } from '@mui/material/colors';
+import { Direction } from 'enums/directions.enum';
+import { ContextMenu as ContextSettings } from 'app/configuration/types/context-menu.type';
 
-type Props = {
+type HexItemProps = {
   cell: CellDto;
 };
 
-const HexBox = styled("div")({});
-
-function HexItem({ cell }: Props) {
+function HexItem({ cell }: HexItemProps) {
   const hexProperties = new Hex(50);
   const dispatch = useAppDispatch();
-  const { selectedCellId, multipleSelection, multipleSelectedCells } =
-    useAppSelector(mapSelector);
+  const { selectedCellId, multipleSelectedCells } = useAppSelector(mapSelector);
   const room = cell.rooms.find((room) => room.id == cell.currentRoom?.id);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -46,8 +38,15 @@ function HexItem({ cell }: Props) {
 
   return (
     <>
-      <a
-        style={{ display: "flex", userSelect: "none" }}
+      <button
+        style={{
+          display: 'flex',
+          userSelect: 'none',
+          background: 'none',
+          border: 'none',
+          boxShadow: 'none',
+          padding: '0',
+        }}
         onClick={handleClick}
         onContextMenu={handleContextClick}
       >
@@ -55,7 +54,7 @@ function HexItem({ cell }: Props) {
           height={hexProperties.dimensions.height.toString()}
           width={hexProperties.dimensions.width.toString()}
           clipPath={`polygon(${hexProperties.points.toString()})`}
-          fill={room?.isVisited ? "rgba(0, 0, 0, 0.4)" : "none"}
+          fill={room?.isVisited ? 'rgba(0, 0, 0, 0.4)' : 'none'}
         >
           <polygon
             id="hex"
@@ -70,14 +69,7 @@ function HexItem({ cell }: Props) {
                       strokeLinejoin="round"
                       key={index}
                       points={hexProperties.lines[key as Direction].toString()}
-                      stroke={
-                        value
-                          ? `${null}`
-                          : `${
-                              TypeColors[room?.type.toLowerCase() as RoomType]
-                                .light
-                            }`
-                      }
+                      stroke={value ? `${null}` : `${TypeColors[room?.type.toLowerCase() as RoomType].light}`}
                       strokeWidth="1rem"
                     ></polygon>
                   );
@@ -86,7 +78,7 @@ function HexItem({ cell }: Props) {
             : null}
           <polygon
             style={{
-              strokeWidth: "15px",
+              strokeWidth: '15px',
               stroke:
                 cell?.id === selectedCellId
                   ? `${amber[800]}`
@@ -97,9 +89,9 @@ function HexItem({ cell }: Props) {
             points={hexProperties.points.toString()}
           ></polygon>
         </svg>
-      </a>
+      </button>
     </>
   );
 }
 
-export default HexItem;
+export default React.memo(HexItem);
