@@ -5,7 +5,7 @@ public enum AllConstants {;
     public enum IntegerConstants {
         MAX_ROOM_LEVEL(5);
 
-        private int value;
+        private final int value;
         IntegerConstants(int i) {
             value = i;
         }
