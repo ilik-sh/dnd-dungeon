@@ -1,7 +1,5 @@
 package org.example.server;
 
-import java.util.Locale;
-
 public enum RoomType {
     LOOT(1),
     PEACE(3),
