@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -14,8 +15,8 @@ import java.util.Date;
 public class RefreshToken {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String finalToken;
     @Column(unique = true)
     private String username;

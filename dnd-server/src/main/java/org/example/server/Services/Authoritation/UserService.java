@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -25,7 +26,7 @@ public class UserService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-    public User findUserById(long userId) {
+    public User findUserById(UUID userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
     }
@@ -40,7 +41,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public boolean deleteUser(Long userId) {
+    public boolean deleteUser(UUID userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
             return true;

@@ -8,13 +8,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Map {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column(unique = true)
     private String name;
     private String username;

@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class Room {
-    private UUID id;
+    private String id;
     private int level;
     private RoomType type;
     @JsonSerialize(using = RoomDirectionSerializer.class)
@@ -22,7 +22,7 @@ public class Room {
     private boolean isVisited;
 
     public Room(){
-        this.id = UUID.randomUUID();
+        this.id = String.valueOf(UUID.randomUUID());
         this.level = 1;
         this.type = RoomType.ABSENCE;
         this.roomDirections = new HashMap<>();

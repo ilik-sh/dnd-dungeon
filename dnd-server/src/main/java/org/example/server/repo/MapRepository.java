@@ -3,6 +3,8 @@ package org.example.server.repo;
 import org.example.server.domain.Models.Map;
 import org.springframework.data.repository.CrudRepository;
 
-public interface MapRepository extends CrudRepository<Map, Long> {
+import java.util.UUID;
+
+public interface MapRepository extends CrudRepository<Map, UUID> {
     Iterable<Map> findByUsername(String username);
 }

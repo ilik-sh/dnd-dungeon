@@ -19,8 +19,8 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @Column(name = "profile")
+    @Column(name = "profileAvatar")
     private String img;
 
     @Override
