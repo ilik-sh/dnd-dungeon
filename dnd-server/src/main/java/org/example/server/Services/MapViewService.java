@@ -36,41 +36,28 @@ public class MapViewService {
     }
     public void findALLByCreator(String id){
         currentList.clear();
-        mapViewRepository.findAllByCreator(id).forEach((mapView -> currentList.add(mapView)));
+        mapViewRepository.findAllByCreatorId(id).forEach((mapView -> currentList.add(mapView)));
         maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
     }
 
-    public void findAllByDateDesc(){
+    public void findAllByDate(boolean isDesc){
         currentList.clear();
-        mapViewRepository.findAllByOrderByCreateDateDesc().forEach((mapView -> currentList.add(mapView)));
+        if(isDesc) mapViewRepository.findAllByOrderByCreatedAtDesc().forEach((mapView -> currentList.add(mapView)));
+        if(!isDesc) mapViewRepository.findAllByOrderByCreatedAtAsc().forEach((mapView -> currentList.add(mapView)));
         maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
     }
-    public void findAllByDateAsc(){
+    public void findAllByDCount(boolean isDesc){
         currentList.clear();
-        mapViewRepository.findAllByOrderByCreateDateAsc().forEach((mapView -> currentList.add(mapView)));
+        if(isDesc) mapViewRepository.findAllByOrderByDuplicateCountDesc().forEach((mapView -> currentList.add(mapView)));
+        if(!isDesc) mapViewRepository.findAllByOrderByDuplicateCountAsc().forEach((mapView -> currentList.add(mapView)));
         maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
     }
-    public void findAllByDCountDesc(){
+    public void findAllByLCount(boolean isDesc){
         currentList.clear();
-        mapViewRepository.findAllByOrderByDuplicateCountDesc().forEach((mapView -> currentList.add(mapView)));
+        if(isDesc) mapViewRepository.findAllByOrderByLikeCountDesc().forEach((mapView -> currentList.add(mapView)));
+        if(!isDesc) mapViewRepository.findAllByOrderByLikeCountAsc().forEach((mapView -> currentList.add(mapView)));
         maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
     }
-    public void findAllByDCountAsc(){
-        currentList.clear();
-        mapViewRepository.findAllByOrderByDuplicateCountAsc().forEach((mapView -> currentList.add(mapView)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
-    }
-    public void findAllByLCountDesc(){
-        currentList.clear();
-        mapViewRepository.findAllByOrderByLikeCountDesc().forEach((mapView -> currentList.add(mapView)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
-    }
-    public void findAllByLCountAsc(){
-        currentList.clear();
-        mapViewRepository.findAllByOrderByLikeCountAsc().forEach((mapView -> currentList.add(mapView)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
-    }
-
     public void saveMapView(MapView[] mapViews){
         for(MapView mapView:mapViews){
             mapViewRepository.save(mapView);

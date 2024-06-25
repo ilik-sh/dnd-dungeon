@@ -10,9 +10,9 @@ import java.util.UUID;
 @Repository
 public interface MapViewRepository extends CrudRepository<MapView, UUID> {
     Optional<MapView> findByName(String name);
-    Iterable<MapView> findAllByCreator(String creator);
-    Iterable<MapView> findAllByOrderByCreateDateDesc();
-    Iterable<MapView> findAllByOrderByCreateDateAsc();
+    Iterable<MapView> findAllByCreatorId(String creator);
+    Iterable<MapView> findAllByOrderByCreatedAtDesc();
+    Iterable<MapView> findAllByOrderByCreatedAtAsc();
     Iterable<MapView> findAllByOrderByDuplicateCountDesc();
     Iterable<MapView> findAllByOrderByDuplicateCountAsc();
     Iterable<MapView> findAllByOrderByLikeCountDesc();

@@ -36,42 +36,23 @@ public class ViewController {
         return getCurrentPage(page);
     }
     @GetMapping
-    @RequestMapping("/getByDateDesc")
-    private ResponseEntity getByDateDesc(@RequestParam int page){
-        mapViewService.findAllByDateDesc();
+    @RequestMapping("/getByDate")
+    private ResponseEntity getByDate(@RequestParam int page,@RequestParam boolean isDesc){
+        mapViewService.findAllByDate(isDesc);
         return getCurrentPage(page);
     }
     @GetMapping
-    @RequestMapping("/getByDateAsc")
-    private ResponseEntity getByDateAsc(@RequestParam int page){
-        mapViewService.findAllByDateAsc();
+    @RequestMapping("/getByDuplicate")
+    private ResponseEntity getByDuplicate(@RequestParam int page,@RequestParam boolean isDesc){
+        mapViewService.findAllByDCount(isDesc);
         return getCurrentPage(page);
     }
     @GetMapping
-    @RequestMapping("/getByDuplicateDesc")
-    private ResponseEntity getByDuplicateDesc(@RequestParam int page){
-        mapViewService.findAllByDCountDesc();
+    @RequestMapping("/getByLike")
+    private ResponseEntity getByLike(@RequestParam int page,@RequestParam boolean isDesc){
+        mapViewService.findAllByLCount(isDesc);
         return getCurrentPage(page);
     }
-    @GetMapping
-    @RequestMapping("/getByDuplicateAsc")
-    private ResponseEntity getByDuplicateAsc(@RequestParam int page){
-        mapViewService.findAllByDCountAsc();
-        return getCurrentPage(page);
-    }
-    @GetMapping
-    @RequestMapping("/getByLikeDesc")
-    private ResponseEntity getByLikeDesc(@RequestParam int page){
-        mapViewService.findAllByLCountDesc();
-        return getCurrentPage(page);
-    }
-    @GetMapping
-    @RequestMapping("/getByLikeAsc")
-    private ResponseEntity getByLikeAsc(@RequestParam int page){
-        mapViewService.findAllByLCountAsc();
-        return getCurrentPage(page);
-    }
-
 
 
 
