@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.server.AllConstants;
+import org.example.server.domain.Models.account.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +23,9 @@ public class MapView {
     private long likeCount;
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-    private String creator;
+    private Date createdAt;
+    @ManyToOne
+    private User creator;
     private String map;
     private ArrayList<String> tags;
 
@@ -32,8 +34,8 @@ public class MapView {
         name = "";
         duplicateCount = 0;
         likeCount = 0;
-        createDate = new Date(System.currentTimeMillis());
-        creator = String.valueOf(UUID.randomUUID());
+        createdAt = new Date(System.currentTimeMillis());
+        creator = null;
         map = String.valueOf(UUID.randomUUID());
         tags = new ArrayList<>();
     }
