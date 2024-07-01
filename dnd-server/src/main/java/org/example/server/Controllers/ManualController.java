@@ -3,6 +3,7 @@ package org.example.server.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.server.domain.Models.Cell;
 import org.example.server.Services.MapService;
+import org.example.server.domain.Models.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,19 +16,19 @@ public class ManualController {
 
     @GetMapping("/getMap")
     @ResponseBody
-    public Cell[][] getMap(){
+    public Map getMap(){
         return mp.getMap();
     }
 
     @PostMapping("/setMap")
     @ResponseBody
-    public void setMap(@RequestBody Cell[][] body){
+    public void setMap(@RequestBody Map body){
         mp.setMap(body);
     }
 
     @PostMapping("/saveMap")
     @ResponseBody
-    public void saveMap(@RequestBody String name, @RequestBody String username){
-        mp.saveMap(name,username);
+    public void saveMap(@RequestBody Map map){
+        mp.saveMap(map);
     }
 }

@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class MapLoader {
@@ -22,29 +23,14 @@ public class MapLoader {
         objectMapper = new ObjectMapper();
     }
 
-    public void saveMap(Cell[][] map, String name, String username) {
-        Map saveMap = new Map();
-        try {
-            saveMap.setCells(objectMapper.writeValueAsString(map));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        saveMap.setName(name);
-        saveMap.setUsername(username);
-        mapRepository.save(saveMap);
+    public void saveMap(Map map) {
+        mapRepository.save(map);
     }
 
-    public HashMap<String, Cell[][]> loadMaps(String username){
-        Iterable<Map> returnMaps = mapRepository.findByUsername(username);
-        System.out.println(returnMaps.toString());
-        HashMap<String, Cell[][]> hashMaps = new HashMap<>();
-        returnMaps.forEach(map -> {
-            try {
-                hashMaps.put(map.getName(),objectMapper.readValue(map.getCells(),Cell[][].class));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        });
-        return hashMaps;
+    public Map loadMaps(String id){
+        Optional<Map> returnMaps = mapRepository.findById(UUID.fromString(id));
+        if(returnMaps.isPresent()){
+            return returnMaps.get();
+        }else throw new IllegalArgumentException("No such map with id: " +id);
     }
 }

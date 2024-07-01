@@ -6,5 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface MapRepository extends CrudRepository<Map, UUID> {
-    Iterable<Map> findByUsername(String username);
 }
