@@ -24,34 +24,40 @@ public class ViewController {
     }
 
     @GetMapping
+    @RequestMapping("/getById")
+    private ResponseEntity getById(@RequestParam String id){
+        return new ResponseEntity(mapViewService.findById(id),HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping
     @RequestMapping("/getByName")
-    private ResponseEntity getByName(@RequestParam int page,@RequestParam String name){
+    private ResponseEntity getByName(@RequestParam String name){
         mapViewService.findByName(name);
-        return getCurrentPage(page);
+        return getCurrentPage(0);
     }
     @GetMapping
     @RequestMapping("/getByCreator")
-    private ResponseEntity getByCreator(@RequestParam int page,@RequestParam String creatorId){
+    private ResponseEntity getByCreator(@RequestParam String creatorId){
         mapViewService.findALLByCreator(creatorId);
-        return getCurrentPage(page);
+        return getCurrentPage(0);
     }
     @GetMapping
     @RequestMapping("/getByDate")
-    private ResponseEntity getByDate(@RequestParam int page,@RequestParam boolean isDesc){
+    private ResponseEntity getByDate(@RequestParam boolean isDesc){
         mapViewService.findAllByDate(isDesc);
-        return getCurrentPage(page);
+        return getCurrentPage(0);
     }
     @GetMapping
     @RequestMapping("/getByDuplicate")
-    private ResponseEntity getByDuplicate(@RequestParam int page,@RequestParam boolean isDesc){
+    private ResponseEntity getByDuplicate(@RequestParam boolean isDesc){
         mapViewService.findAllByDCount(isDesc);
-        return getCurrentPage(page);
+        return getCurrentPage(0);
     }
     @GetMapping
     @RequestMapping("/getByLike")
-    private ResponseEntity getByLike(@RequestParam int page,@RequestParam boolean isDesc){
+    private ResponseEntity getByLike(@RequestParam boolean isDesc){
         mapViewService.findAllByLCount(isDesc);
-        return getCurrentPage(page);
+        return getCurrentPage(0);
     }
 
 
