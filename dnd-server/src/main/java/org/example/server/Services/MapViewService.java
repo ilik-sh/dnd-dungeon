@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 public class MapViewService {
@@ -27,6 +28,10 @@ public class MapViewService {
             tempList.add(currentList.get(page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue()+i));
         }
         return tempList;
+    }
+
+    public MapView findById(String id){
+        return mapViewRepository.findById(UUID.fromString(id)).get();
     }
 
     public void findByName(String name){
