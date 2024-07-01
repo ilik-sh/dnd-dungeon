@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.util.UUID;
+import java.util.HashMap;
 
 @Entity
 @Data
@@ -15,10 +17,9 @@ public class Map {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(unique = true)
-    private String name;
-    private String username;
-    @Lob
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String cells;
+    private String mapProfileId;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Cell[][] mapLayout;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private HashMap<String, Room> mapInfo;
 }

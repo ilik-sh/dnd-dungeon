@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.server.AllConstants;
 import org.example.server.domain.Models.account.User;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +19,7 @@ public class MapView {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private String img;
+    private String thumbnailUrl;
     private String name;
     private long duplicateCount;
     private long likeCount;
@@ -27,10 +29,11 @@ public class MapView {
     @ManyToOne
     private User creator;
     private String map;
-    private ArrayList<String> tags;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private ArrayList<Tag> tags;
 
     public MapView() {
-        img = AllConstants.StringConstants.DEFAULT_MAP_IMG.getValue();
+        thumbnailUrl = AllConstants.StringConstants.DEFAULT_MAP_IMG.getValue();
         name = "";
         duplicateCount = 0;
         likeCount = 0;

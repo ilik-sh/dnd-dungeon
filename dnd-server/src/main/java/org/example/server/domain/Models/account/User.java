@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private Role role;
 
     @Column(name = "profileAvatar")
-    private String img;
+    private String thumbnailUrl;
 
     @Column(name = "createdMaps")
     @OneToMany()
