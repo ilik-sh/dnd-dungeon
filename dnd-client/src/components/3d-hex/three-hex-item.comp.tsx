@@ -1,14 +1,27 @@
-import { CellDto } from 'app/configuration/types/cell.dto';
+import { ThreeEvent, useLoader } from '@react-three/fiber';
+import { memo, useEffect, useRef } from 'react';
+
 import { getSelectedRoom, isCellSelected } from 'app/configuration/store/map.selector';
+import { setSelectedCell } from 'app/configuration/store/map.slice';
+import { CellDto } from 'app/configuration/types/cell.dto';
+import { DirectionAngles } from 'enums/direction-angles';
 import { TypeColors } from 'enums/type-colors.enum';
-import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
-import { BoxGeometry, BufferGeometry, CylinderGeometry, Group, Mesh, MeshStandardMaterial, Vector2 } from 'three';
+import {
+  BoxGeometry,
+  BufferGeometry,
+  CylinderGeometry,
+  Group,
+  Mesh,
+  MeshStandardMaterial,
+  TextureLoader,
+  Vector2,
+} from 'three';
 import { mergeBufferGeometries } from 'three-stdlib';
 import { degToRad } from 'three/src/math/MathUtils';
-import { memo, useEffect, useRef } from 'react';
-import { DirectionAngles } from 'enums/direction-angles';
-import { setSelectedCell } from 'app/configuration/store/map.slice';
-import { ThreeEvent } from '@react-three/fiber';
+
+import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+
+import brick from './floor.png';
 
 type ThreeHexItemProps = {
   cell: CellDto;
@@ -16,7 +29,7 @@ type ThreeHexItemProps = {
 };
 
 const hex = new CylinderGeometry(1, 1, 1, 6, 1, false, Math.PI / 2, 2 * Math.PI);
-const wallMaterial = new MeshStandardMaterial({ color: 'grey', flatShading: true });
+const wallMaterial = new MeshStandardMaterial({ color: 'black', flatShading: true });
 
 const materials = {
   NEUTRAL: new MeshStandardMaterial({ color: TypeColors.NEUTRAL.dark, flatShading: true }),
@@ -33,6 +46,9 @@ const ThreeHexItem = memo(function ThreeHexItem({ cell, position }: ThreeHexItem
       hexRef.current.position.set(position.x, 0, position.y);
     }
   }, []);
+
+  const [colorMap] = useLoader(TextureLoader, [brick]);
+  const brickWall = useLoader(TextureLoader, brick);
 
   const dispatch = useAppDispatch();
   const room = useAppSelector(getSelectedRoom(cell.currentRoom));
@@ -68,8 +84,12 @@ const ThreeHexItem = memo(function ThreeHexItem({ cell, position }: ThreeHexItem
 
   return (
     <group onClick={handleClick} ref={groupRef}>
-      <mesh geometry={hex} rotation={[0, 0, 0]} ref={hexRef} material={materials[room?.type]}></mesh>
-      <mesh geometry={wallBuffer} material={wallMaterial}></mesh>
+      <mesh geometry={hex} rotation={[0, 0, 0]} ref={hexRef}>
+        <meshStandardMaterial map={brickWall} color={TypeColors[room.type].dark}></meshStandardMaterial>
+      </mesh>
+      <mesh geometry={wallBuffer} material={wallMaterial}>
+        <meshStandardMaterial map={brickWall} color={'#212121'}></meshStandardMaterial>
+      </mesh>
     </group>
   );
 });

@@ -1,7 +1,12 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+
+import { Hexagon } from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { styled } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -9,15 +14,13 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Hexagon } from '@mui/icons-material';
-import { useAppDispatch } from 'hooks/redux.hooks';
+import { router } from 'App';
 import { openModal } from 'store/modals.slice';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/material';
+
+import { useAppDispatch } from 'hooks/redux.hooks';
+import { useAuth } from 'hooks/use-auth.hook';
 
 interface Props {
   /**
@@ -36,14 +39,20 @@ const StyledLink = styled(Link)({
 export default function Header(props: Props) {
   const { window } = props;
   const dispatch = useAppDispatch();
+  const isAuth = useAuth();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
-  const handleSignInClicked = () => {
-    dispatch(openModal('signIn'));
+  const handleHomeClicked = () => {
+    if (!isAuth) {
+      dispatch(openModal('signIn'));
+    }
+    if (isAuth) {
+      router.navigate('home');
+    }
   };
 
   const drawer = (
@@ -94,8 +103,8 @@ export default function Header(props: Props) {
             </Box>
           </Box>
 
-          <Button variant="contained" onClick={handleSignInClicked}>
-            Sign In
+          <Button variant="contained" onClick={handleHomeClicked}>
+            Home
           </Button>
         </Toolbar>
       </AppBar>

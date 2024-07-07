@@ -1,15 +1,19 @@
-import { Button, styled } from '@mui/material';
+import React from 'react';
+import { Control, FieldErrors } from 'react-hook-form';
+
+import { LoadingButton as Button } from '@mui/lab';
+import { styled } from '@mui/material';
 import { SignInForm as SignInFormFields } from 'app/auth/validation-schemas/sign-in-form.schema';
+
 import { CenteredBox } from 'components/centered-box.comp';
 import PasswordField from 'components/input/password-field.comp';
 import TextField from 'components/input/text-field.comp';
-import React from 'react';
-import { Control, FieldErrors } from 'react-hook-form';
 
 type SignInFormProps = {
   onSubmit: React.FormEventHandler;
   control: Control<SignInFormFields, any>;
   validationErrors: FieldErrors<SignInFormFields>;
+  isLoading: boolean;
 };
 
 const StyledButton = styled(Button)(() => ({}));
@@ -21,16 +25,16 @@ const StyledForm = styled('form')({
   gap: '1rem',
 });
 
-export default function SignInForm({ onSubmit, control, validationErrors }: SignInFormProps) {
+export default function SignInForm({ onSubmit, control, validationErrors, isLoading }: SignInFormProps) {
   return (
     <CenteredBox>
       <StyledForm noValidate onSubmit={onSubmit}>
         <TextField
-          name="Email"
+          name="Username"
           control={control}
-          error={!!validationErrors.email}
-          helperText={validationErrors.email?.message}
-          autoComplete="email"
+          error={!!validationErrors.username}
+          helperText={validationErrors.username?.message}
+          autoComplete="username"
         />
         <PasswordField
           name="Password"
@@ -39,7 +43,7 @@ export default function SignInForm({ onSubmit, control, validationErrors }: Sign
           helperText={validationErrors.password?.message}
           autoComplete="current-password"
         />
-        <StyledButton type="submit" variant="contained" fullWidth>
+        <StyledButton type="submit" variant="contained" fullWidth loading={isLoading}>
           Sign In
         </StyledButton>
       </StyledForm>

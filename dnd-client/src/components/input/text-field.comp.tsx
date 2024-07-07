@@ -1,6 +1,8 @@
 import { FC } from 'react';
-import { TextField as MUITextField, TextFieldProps } from '@mui/material';
 import { Control, useController } from 'react-hook-form';
+
+import { TextField as MUITextField, TextFieldProps } from '@mui/material';
+
 import { camelize } from 'utils/camelize';
 
 interface CustomTextFieldProps extends TextFieldProps<'standard'> {
@@ -22,13 +24,7 @@ const TextField: FC<CustomTextFieldProps> = ({ name, control, submit, ...props }
       value={field.value}
       name={name}
       fullWidth
-      onChange={(e) => {
-        console.log('change');
-        if (submit) {
-          submit();
-        }
-        field.onChange(e);
-      }}
+      onChange={field.onChange}
       onBlur={(e) => {
         field.onBlur(e);
         if (submit) {

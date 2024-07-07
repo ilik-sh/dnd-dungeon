@@ -1,14 +1,21 @@
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import AppRoutes from 'app.routes';
 import AuthProvider from 'app/auth/auth.provider';
+import { initializeApp } from 'firebase/app';
 import { SnackbarProvider } from 'notistack';
+import AppRoutes from 'routing/app.routes';
 import store, { persistor } from 'store';
 import ThemeProvider from 'theme';
 
+import { firebaseConfig } from './firebase-config';
+
 import './App.css';
+
+export const router = createBrowserRouter([{ path: '*', element: <AppRoutes /> }]);
+
+const app = initializeApp(firebaseConfig);
 
 function App() {
   return (
@@ -17,9 +24,7 @@ function App() {
         <ThemeProvider>
           <SnackbarProvider>
             <AuthProvider>
-              <BrowserRouter>
-                <AppRoutes />
-              </BrowserRouter>
+              <RouterProvider router={router} />
             </AuthProvider>
           </SnackbarProvider>
         </ThemeProvider>
