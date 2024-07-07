@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, styled, Typography } from '@mui/material';
 
 import Scrollable from 'components/hoc/scrollable.comp';
-import Map from 'components/map/map.comp';
+import Map from 'components/map-card/map-card.comp';
 
 const StyledSection = styled('section')(({ theme }) => ({
   paddingBottom: '40px',
@@ -24,6 +24,19 @@ const StyledScroll = styled(Scrollable)({
   gap: '10px',
 });
 
+const map = {
+  id: 'dsa',
+  name: 'dsaeq',
+  thumbnailUrl:
+    'https://firebasestorage.googleapis.com/v0/b/dndhub-fb81c.appspot.com/o/defaults%2FmapThumbnail.png?alt=media&token=0ca8fb5d-1468-4e3c-b0fa-dd004a28ef49',
+  createdAt: '2024',
+  creator: {
+    id: 'dsae',
+    name: 'Vova',
+  },
+  tags: [],
+};
+
 export default function MapShowcaseSection() {
   return (
     <StyledSection>
@@ -32,12 +45,12 @@ export default function MapShowcaseSection() {
           Community created maps
         </Typography>
         <StyledScroll>
-          <Map></Map>
-          <Map></Map>
-          <Map></Map>
-          <Map></Map>
-          <Map></Map>
-          <Map></Map>
+          <Map map={map}></Map>
+          <Map map={map}></Map>
+          <Map map={map}></Map>
+          <Map map={map}></Map>
+          <Map map={map}></Map>
+          <Map map={map}></Map>
         </StyledScroll>
       </StyledWrapper>
     </StyledSection>

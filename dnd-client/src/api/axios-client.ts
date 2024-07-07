@@ -32,6 +32,7 @@ axiosClient.interceptors.response.use(
 
         if (!tokens) {
           localStorage.removeItem(LocalStorageKeys.RefreshToken);
+          localStorage.removeItem(LocalStorageKeys.AccessToken);
           return;
         }
 

@@ -1,3 +1,4 @@
+import type {} from '@mui/lab/themeAugmentation';
 import { createTheme } from '@mui/material';
 import { amber, blueGrey, grey } from '@mui/material/colors';
 
@@ -19,6 +20,9 @@ export let theme = createTheme({
     divider: grey[700],
   },
   components: {
+    MuiLoadingButton: {
+      styleOverrides: {},
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {

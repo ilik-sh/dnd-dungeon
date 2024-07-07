@@ -15,8 +15,7 @@ import IconTitle from 'components/icon-title.comp';
 
 import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
 
-import { signUp } from './store/auth.actions';
-import { ApiError } from './types/api.error';
+import { ApiError } from '../../types/api.error';
 import { SignUpForm as SignUpFormFields, signUpFormSchema } from './validation-schemas/sign-up-form.schema';
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({

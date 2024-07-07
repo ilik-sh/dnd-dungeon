@@ -1,15 +1,19 @@
 import React from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
+
+import { LoadingButton as Button } from '@mui/lab';
+import { styled } from '@mui/material';
 import { SignUpForm as SignUpFormFields } from 'app/auth/validation-schemas/sign-up-form.schema';
+
 import { CenteredBox } from 'components/centered-box.comp';
-import TextField from 'components/input/text-field.comp';
 import PasswordField from 'components/input/password-field.comp';
-import { Button, styled } from '@mui/material';
+import TextField from 'components/input/text-field.comp';
 
 type SignUpFormProps = {
   onSubmit: React.FormEventHandler;
   control: Control<SignUpFormFields, any>;
   validationErrors: FieldErrors<SignUpFormFields>;
+  isLoading: boolean;
 };
 
 const StyledForm = styled('form')({

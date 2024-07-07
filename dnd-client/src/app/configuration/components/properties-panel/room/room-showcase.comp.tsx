@@ -1,16 +1,19 @@
-import { Tabs, TabsList, Tab, TabPanel } from '@mui/base';
+import { BaseSyntheticEvent, useState } from 'react';
+
+import { Tab, TabPanel, Tabs, TabsList } from '@mui/base';
 import { Check, Close, Hexagon } from '@mui/icons-material';
-import { TypeColors } from 'enums/type-colors.enum';
-import RoomProperties from './room-properties.comp';
-import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+import { Box, IconButton, styled } from '@mui/material';
 import { getSelectedCell, roomsSelector } from 'app/configuration/store/map.selector';
 import { deleteRoom, selectRoom } from 'app/configuration/store/map.slice';
+import { TypeColors } from 'enums/type-colors.enum';
 import { enqueueSnackbar } from 'notistack';
 import { RoomDto } from 'types/room.dto';
-import { Box, IconButton, styled } from '@mui/material';
 
 import Scrollable from 'components/hoc/scrollable.comp';
-import { BaseSyntheticEvent, useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from 'hooks/redux.hooks';
+
+import RoomProperties from './room-properties.comp';
 
 type RoomShowcaseProps = {};
 
@@ -41,7 +44,7 @@ const Selected = styled(Check)({
   position: 'absolute',
   right: '0',
   top: '-5px',
-  fontSize: '12px',
+  fontSize: '16px',
   padding: '2px',
   borderRadius: '100%',
   background: 'green',

@@ -1,6 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
 import React from 'react';
-import Suspend from 'components/routing/suspend';
+import { Route, Routes } from 'react-router-dom';
+
+import Suspend from 'routing/suspend';
 
 const ConfigurationPage = React.lazy(() => import('app/configuration/configuration.page'));
 

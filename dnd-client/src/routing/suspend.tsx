@@ -1,5 +1,6 @@
-import CenteredCircularProgress from 'components/centered-hex-progress.comp';
 import { Suspense } from 'react';
+
+import CenteredHexProgress from 'components/centered-hex-progress.comp';
 
 type Props = {
   element: any;
@@ -8,7 +9,7 @@ type Props = {
 
 export default function Suspend({ element: Element, fallback: Fallback }: Props) {
   return (
-    <Suspense fallback={Fallback ? <Fallback /> : <CenteredCircularProgress />}>
+    <Suspense fallback={Fallback ? <Fallback /> : <CenteredHexProgress />}>
       <Element />
     </Suspense>
   );

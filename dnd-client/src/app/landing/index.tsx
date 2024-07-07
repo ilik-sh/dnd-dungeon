@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Suspend from 'components/routing/suspend';
+import Suspend from 'routing/suspend';
 
 const LandingPage = React.lazy(() => import('app/landing/landing.page'));
 
-const ConfigurationRoutes = () => {
+const LandingRoutes = () => {
   return (
     <Routes>
       <Route path={''} element={<Suspend element={LandingPage} />}></Route>
@@ -13,4 +13,4 @@ const ConfigurationRoutes = () => {
   );
 };
 
-export default ConfigurationRoutes;
+export default LandingRoutes;

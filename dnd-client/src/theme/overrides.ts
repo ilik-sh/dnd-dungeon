@@ -1,5 +1,7 @@
 import { Theme } from '@mui/material';
 
+import { primary } from './palette';
+
 export function overrides(theme: Theme) {
   return {
     MuiCssBaseline: {
@@ -22,7 +24,7 @@ export function overrides(theme: Theme) {
           },
           '&::-webkit-scrollbar-thumbr': {
             backgroundColor: theme.palette.primary.main,
-            borderRadius: '50px',
+            borderRadius: '10px',
           },
         },
         body: {
@@ -55,6 +57,27 @@ export function overrides(theme: Theme) {
           maxWidth: '100%',
           display: 'inline-block',
           verticalAlign: 'bottom',
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        root: {
+          '& .MuiMenuItem-root': {
+            fontSize: '14px',
+            '& .MuiSvgIcon-root': {
+              fontSize: '14px',
+              color: theme.palette.text.primary,
+              marginRight: theme.spacing(1.5),
+            },
+          },
+        },
+      },
+    },
+    MuiLoadingButton: {
+      styleOverrides: {
+        loadingIndicator: {
+          color: theme.palette.primary.main,
         },
       },
     },

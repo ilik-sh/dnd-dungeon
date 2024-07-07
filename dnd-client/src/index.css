@@ -7,7 +7,7 @@ html {
   }
   ::-webkit-scrollbar-thumb {
     background-color: #ff8f0070;
-    border-radius: 50px;
+    border-radius: 5px;
   }
 }
 html,
@@ -37,6 +37,8 @@ body {
 
   --toolbar-height: 64px;
   --input-height: 40px;
+  --sidebar-width: 220px;
+  --header-height: 64px;
 }
 
 #root {

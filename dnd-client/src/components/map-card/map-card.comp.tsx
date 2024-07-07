@@ -1,20 +1,22 @@
 import React from 'react';
 
-import { Box, Link, styled } from '@mui/material';
+import { Box, Hidden, Link, styled } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
-
-import mapImage from './image.png';
+import { MapView } from 'types/map-view.dto';
 
 const MapCover = styled('img')({
   objectFit: 'cover',
-  width: '320px',
-  height: '180px',
+  minWidth: '320px',
+  minHeight: '180px',
 });
 
 const StyledLink = styled('a')({});
 
 const StyledBox = styled(Box)({
   minWidth: '300px',
+  '&:hover img': {
+    filter: 'brightness(85%)',
+  },
 });
 
 const ImageWrapper = styled(Box)({
@@ -22,9 +24,7 @@ const ImageWrapper = styled(Box)({
   border: '1px solid grey',
   display: 'flex',
   cursor: 'pointer',
-  '&:hover': {
-    background: '#00000040',
-  },
+  overflow: 'hidden',
 });
 
 const InfoBox = styled(Box)({
@@ -38,6 +38,7 @@ const DescriptionBox = styled(Box)({
 
 const AuthorLink = styled(Link)({
   color: blueGrey[200],
+  display: 'inline',
   '$:hover': {
     cursor: 'pointer',
   },
@@ -51,21 +52,32 @@ const AuthorLink = styled(Link)({
 const MapNameLink = styled(Link)({
   color: blueGrey[100],
   fontWeight: '600',
+  display: 'flex',
+  width: 'auto',
 });
 
-export default function Map() {
+type MapCardProps = {
+  map: MapView;
+};
+
+export default function MapCard({ map }: MapCardProps) {
   return (
     <StyledBox>
       <StyledLink>
         <ImageWrapper>
-          <MapCover sizes="(min-width: 736px) 50vw, (min-width: 1440px) 25vw, 100vw" src={mapImage} />
+          <MapCover
+            loading="lazy"
+            sizes="(min-width: 736px) 50vw, (min-width: 1440px) 25vw, 100vw"
+            alt={map.name}
+            src={map.thumbnailUrl}
+          />
         </ImageWrapper>
       </StyledLink>
       <InfoBox>
         <DescriptionBox>
-          <MapNameLink variant="body2">Very cool dungeon map</MapNameLink>
+          <MapNameLink variant="body2">{map.name}</MapNameLink>
           <AuthorLink variant="caption">
-            by <span>Alex</span>
+            by <span>{map.creator.name}</span>
           </AuthorLink>
         </DescriptionBox>
       </InfoBox>
