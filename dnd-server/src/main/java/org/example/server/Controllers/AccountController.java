@@ -1,14 +1,16 @@
 package org.example.server.Controllers;
 
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.Authoritation.RefreshTokenService;
-import org.example.server.domain.dto.RefreshTokenDto;
+import org.example.server.Services.Authoritation.UserService;
 import org.example.server.domain.dto.RegistrationDto;
 import org.example.server.domain.dto.SignInRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class AccountController {
 
     @Autowired
     private AuthService authService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private RefreshTokenService refreshTokenService;
 
@@ -38,7 +42,23 @@ public class AccountController {
     }
 
     @PostMapping("/refreshAccessToken")
-    public ResponseEntity refreshAccessToken(@RequestBody @Valid @NonNull RefreshTokenDto refreshToken){
-        return new ResponseEntity(refreshTokenService.refreshToken(refreshToken), HttpStatus.ACCEPTED);
+    public ResponseEntity refreshAccessToken(@RequestBody @Valid @NonNull String refreshToken,
+                                             @RequestHeader("Authorization") String accessToken){
+        return new ResponseEntity(refreshTokenService.refreshToken(refreshToken,authService.getUserFromJwt(accessToken.split(" ")[1]).getUsername()), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/getUserByUsername")
+    @Transactional
+    public ResponseEntity getUserByUsername(@RequestParam String username){
+        return new ResponseEntity(userService.getUserByUsername(username), HttpStatusCode.valueOf(200));
+    }
+    @GetMapping("/getUserById")
+    @Transactional
+    public ResponseEntity getUserById(@RequestParam String id){
+        return new ResponseEntity(userService.getUserById(id), HttpStatusCode.valueOf(200));
+    }
+
+    public String getUserNameFromJwt(String accessToken){
+        return authService.getUserFromJwt(accessToken).getUsername();
     }
 }

@@ -3,7 +3,6 @@ package org.example.server.Services.Authoritation;
 import org.example.server.Exceptions.NoSuchTokenException;
 import org.example.server.Exceptions.RefreshTokenExpirationException;
 import org.example.server.domain.Models.RefreshToken;
-import org.example.server.domain.dto.RefreshTokenDto;
 import org.example.server.repo.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,34 +24,34 @@ public class RefreshTokenService {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    public RefreshTokenDto generateRefreshToken(String username){
+    public String generateRefreshToken(String username){
         RefreshToken newRefreshToken = new RefreshToken();
-        UUID newToken = UUID.randomUUID();
+        String newToken = String.valueOf(UUID.randomUUID());
         newRefreshToken.setFinalToken(bCryptPasswordEncoder.encode(bCryptPasswordEncoder.encode(String.valueOf(newToken))+refreshSecret));
         newRefreshToken.setUsername(username);
         newRefreshToken.setExpiryDate(new Date(System.currentTimeMillis()+accessDuration.toMillis()));
         refreshTokenRepository.findByUsername(username).ifPresent(checkToken -> refreshTokenRepository.delete(checkToken));
         refreshTokenRepository.save(newRefreshToken);
-        return new RefreshTokenDto(newToken, username);
+        return newToken;
     }
 
-    public RefreshTokenDto refreshToken(RefreshTokenDto refreshTokenDto){
-        String checkToken = String.valueOf(refreshTokenDto.getRefreshToken());
+    public String refreshToken(String refreshToken, String username){
+        String checkToken = String.valueOf(refreshToken);
         checkToken = bCryptPasswordEncoder.encode(checkToken);
         checkToken = bCryptPasswordEncoder.encode(checkToken+refreshSecret);
-        RefreshToken refreshToken = refreshTokenRepository.findByFinalToken(checkToken).orElseThrow(()->
-            new NoSuchTokenException("No such token: "+refreshTokenDto.getRefreshToken()));
-        if(refreshToken.getExpiryDate().compareTo(new Date(System.currentTimeMillis()))<0){
-            refreshTokenRepository.delete(refreshToken);
-            throw new RefreshTokenExpirationException("Refresh token "+refreshTokenDto.getRefreshToken()+" is expired. Please make a new login");
+        RefreshToken oldRefreshToken = refreshTokenRepository.findByFinalToken(checkToken).orElseThrow(()->
+            new NoSuchTokenException("No such token: "+refreshToken));
+        if(oldRefreshToken.getExpiryDate().compareTo(new Date(System.currentTimeMillis()))<0){
+            refreshTokenRepository.delete(oldRefreshToken);
+            throw new RefreshTokenExpirationException("Refresh token "+refreshToken+" is expired. Please make a new login");
         }
-        refreshTokenRepository.delete(refreshToken);
-        UUID newToken = UUID.randomUUID();
+        refreshTokenRepository.delete(oldRefreshToken);
+        String newToken = String.valueOf(UUID.randomUUID());
         RefreshToken newRefreshToken = new RefreshToken();
         newRefreshToken.setFinalToken(bCryptPasswordEncoder.encode(bCryptPasswordEncoder.encode(String.valueOf(newToken))+refreshSecret));
-        newRefreshToken.setUsername(refreshTokenDto.getUsername());
+        newRefreshToken.setUsername(username);
         newRefreshToken.setExpiryDate(new Date(System.currentTimeMillis()+accessDuration.toMillis()));
         refreshTokenRepository.save(newRefreshToken);
-        return new RefreshTokenDto(newToken, refreshTokenDto.getUsername());
+        return newToken;
     }
 }

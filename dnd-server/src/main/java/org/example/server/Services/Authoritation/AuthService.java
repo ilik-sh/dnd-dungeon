@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class AuthService {
     @Autowired
     private RefreshTokenService refreshTokenService;
 
-    public JsonWebTokenResponse[] signIn(@RequestBody SignInRequest request) {
+    public JsonWebTokenResponse signIn(@RequestBody SignInRequest request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getUsername(),
@@ -40,13 +41,10 @@ public class AuthService {
             throw new UsernameNotFoundException("No such user: " + request.getUsername(), error.getCause());
         }
         var user = userService.userDetailsService().loadUserByUsername(request.getUsername());
-        String jwt = jsonWebTokenService.generateAccessToken(user);
-        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken(request.getUsername());
-        return new JsonWebTokenResponse[]{new JsonWebTokenResponse("Access",jwt),new JsonWebTokenResponse("Refresh",String.valueOf(refreshToken.getRefreshToken()))
-        };
+        return generateTokens(user);
     }
 
-    public JsonWebTokenResponse[] createUser(@RequestBody RegistrationDto registrationDto){
+    public JsonWebTokenResponse createUser(@RequestBody RegistrationDto registrationDto){
         if(userService.findIfExistsByUsername(registrationDto.getUsername())){
             throw new IllegalUsersArgumentException("Username already in use: "+ registrationDto.getUsername());
         }
@@ -59,9 +57,17 @@ public class AuthService {
         saveUser.setEmail(registrationDto.getEmail());
         saveUser.setUsername(registrationDto.getUsername());
         userService.saveUser(saveUser);
-        String accessJwt = jsonWebTokenService.generateAccessToken(saveUser);
-        RefreshTokenDto refreshToken = refreshTokenService.generateRefreshToken(registrationDto.getUsername());
-        return new JsonWebTokenResponse[]{new JsonWebTokenResponse("Access",accessJwt),new JsonWebTokenResponse("Refresh",String.valueOf(refreshToken.getRefreshToken()))
-        };
+        return generateTokens(saveUser);
+    }
+
+    public User getUserFromJwt(String accessToken){
+        return userService.getUserByUsername(jsonWebTokenService.extractAccessUserName(accessToken));
+    }
+
+
+    private JsonWebTokenResponse generateTokens(UserDetails user){
+        String accessJwt = jsonWebTokenService.generateAccessToken(user);
+        String refreshToken = refreshTokenService.generateRefreshToken(user.getUsername());
+        return new JsonWebTokenResponse(accessJwt,refreshToken);
     }
 }
