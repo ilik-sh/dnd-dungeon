@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.server.domain.Models.MapView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.util.*;
+import org.example.server.domain.Models.Map;
 
 @Data
 @Entity
@@ -43,7 +43,7 @@ public class User implements UserDetails {
 
     @Column(name = "createdMaps")
     @OneToMany()
-    private Set<MapView> createdMaps;
+    private Set<Map> createdMaps;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

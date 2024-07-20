@@ -26,9 +26,9 @@ public class UserService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-    public User findUserById(UUID userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+    public User getUserById(String userId) {
+        Optional<User> userFromDb = userRepository.findById(UUID.fromString(userId));
+        return userFromDb.orElseThrow(()-> new UsernameNotFoundException("No such user: "+userId));
     }
 
     public List<User> findAllUsers() {
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByEmail(email);
     }
 
-    public User getByUsername(String username) {
+    public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't Find user"));
     }
@@ -74,6 +74,6 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDetailsService userDetailsService() {
-        return this::getByUsername;
+        return this::getUserByUsername;
     }
 }
