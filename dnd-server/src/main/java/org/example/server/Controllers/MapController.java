@@ -5,6 +5,7 @@ import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.MapControllingService;
 import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
+import org.example.server.domain.dto.MapIdDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,9 @@ public class MapController {
                                     @RequestParam int tunnelLength,
                                     @RequestParam int crossroadChance,
                                     @RequestHeader ("Authorization") String accessToken){
-        User currentUser = authService.getUserFromJwt(accessToken.split(" ")[1]);
+        User currentUser = authService.getUserFromAccessJwt(accessToken.split(" ")[1]);
         String id = mapControllingService.createMap(mapSize,tunnelLength,crossroadChance,currentUser);
-        return new ResponseEntity(id, HttpStatusCode.valueOf(200));
+        return new ResponseEntity(new MapIdDto(id), HttpStatusCode.valueOf(200));
     }
 
     @PostMapping("/updateMap")
@@ -58,7 +59,7 @@ public class MapController {
 
     @GetMapping("/getAllOfUser")
     public ResponseEntity getAllOfUser(@RequestHeader ("Authorization") String accessToken){
-        User currnetUser = authService.getUserFromJwt(accessToken.split(" ")[1]);
+        User currnetUser = authService.getUserFromAccessJwt(accessToken.split(" ")[1]);
         return new ResponseEntity(mapControllingService.getByCreator(currnetUser.getId()),HttpStatusCode.valueOf(200));
     }
     @GetMapping
