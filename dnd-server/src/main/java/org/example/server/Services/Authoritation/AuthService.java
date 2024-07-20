@@ -3,6 +3,7 @@ package org.example.server.Services.Authoritation;
 
 import org.example.server.Exceptions.IllegalUsersArgumentException;
 import org.example.server.Exceptions.IncorrectPasswordException;
+import org.example.server.Exceptions.RefreshTokenExpirationException;
 import org.example.server.domain.dto.*;
 import org.example.server.domain.Models.account.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class AuthService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private JsonWebTokenService jsonWebTokenService;
+    private JsonAccessTokenService jsonAccessTokenService;
     @Autowired
     private RefreshTokenService refreshTokenService;
 
@@ -60,14 +61,22 @@ public class AuthService {
         return generateTokens(saveUser);
     }
 
-    public User getUserFromJwt(String accessToken){
-        return userService.getUserByUsername(jsonWebTokenService.extractAccessUserName(accessToken));
+    public User getUserFromAccessJwt(String accessToken){
+        return userService.getUserByUsername(jsonAccessTokenService.extractAccessUserName(accessToken));
     }
 
+    public JsonWebTokenResponse refreshToken(String refreshToken){
+        if(refreshTokenService.isRefreshTokenExpired(refreshToken))throw new RefreshTokenExpirationException(refreshToken);
+        String username = refreshTokenService.extractRefreshUserName(refreshToken);
+        User user = userService.getUserByUsername(username);
+        String accessJwt = jsonAccessTokenService.generateAccessToken(user);
+        String refreshJwt = refreshTokenService.generateRefreshToken(user);
+        return new JsonWebTokenResponse(accessJwt,refreshToken);
+    }
 
     private JsonWebTokenResponse generateTokens(UserDetails user){
-        String accessJwt = jsonWebTokenService.generateAccessToken(user);
-        String refreshToken = refreshTokenService.generateRefreshToken(user.getUsername());
+        String accessJwt = jsonAccessTokenService.generateAccessToken(user);
+        String refreshToken = refreshTokenService.generateRefreshToken(user);
         return new JsonWebTokenResponse(accessJwt,refreshToken);
     }
 }

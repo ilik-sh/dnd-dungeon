@@ -25,8 +25,6 @@ public class AccountController {
     private AuthService authService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private RefreshTokenService refreshTokenService;
 
     @PostMapping("/signUp")
     public ResponseEntity signUp(@RequestBody @Valid RegistrationDto user) {
@@ -42,9 +40,8 @@ public class AccountController {
     }
 
     @PostMapping("/refreshAccessToken")
-    public ResponseEntity refreshAccessToken(@RequestBody @Valid @NonNull String refreshToken,
-                                             @RequestHeader("Authorization") String accessToken){
-        return new ResponseEntity(refreshTokenService.refreshToken(refreshToken,authService.getUserFromJwt(accessToken.split(" ")[1]).getUsername()), HttpStatus.ACCEPTED);
+    public ResponseEntity refreshAccessToken(@RequestHeader ("Authorization") String refreshToken){
+        return new ResponseEntity(authService.refreshToken(refreshToken.split(" ")[1]), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/getUserByUsername")
@@ -59,6 +56,6 @@ public class AccountController {
     }
 
     public String getUserNameFromJwt(String accessToken){
-        return authService.getUserFromJwt(accessToken).getUsername();
+        return authService.getUserFromAccessJwt(accessToken).getUsername();
     }
 }
