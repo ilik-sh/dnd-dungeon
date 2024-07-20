@@ -2,6 +2,7 @@ package org.example.server.Services;
 
 import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
+import org.example.server.domain.dto.MapProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,24 +37,24 @@ public class MapControllingService {
         return mapService.getMapById(id);
     }
 
-    public ArrayList<Map> getByCreator(String id){
+    public ArrayList<MapProfileDto> getByCreator(String id){
         mapViewService.findALLByCreator(id);
         return mapViewService.findCurrentPage(0);
     }
 
-    public ArrayList<Map> getPage(int page){
+    public ArrayList<MapProfileDto> getPage(int page){
         return mapViewService.findCurrentPage(page);
     }
 
-    public ArrayList<Map> getAllMapsByDate(boolean isDesc){
+    public ArrayList<MapProfileDto> getAllMapsByDate(boolean isDesc){
         mapViewService.findAllByDate(isDesc);
         return mapViewService.findCurrentPage(0);
     }
-    public ArrayList<Map> getAllMapsByDuplicate(boolean isDesc){
+    public ArrayList<MapProfileDto> getAllMapsByDuplicate(boolean isDesc){
         mapViewService.findAllByDCount(isDesc);
         return mapViewService.findCurrentPage(0);
     }
-    public ArrayList<Map> getAllMapsByLike(boolean isDesc){
+    public ArrayList<MapProfileDto> getAllMapsByLike(boolean isDesc){
         mapViewService.findAllByLCount(isDesc);
         return mapViewService.findCurrentPage(0);
     }

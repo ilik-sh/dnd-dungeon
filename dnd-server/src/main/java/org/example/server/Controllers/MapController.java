@@ -55,6 +55,12 @@ public class MapController {
         return new ResponseEntity(mapControllingService.getMapById(id),HttpStatusCode.valueOf(200));
     }
 
+
+    @GetMapping("/getAllOfUser")
+    public ResponseEntity getAllOfUser(@RequestHeader ("Authorization") String accessToken){
+        User currnetUser = authService.getUserFromJwt(accessToken.split(" ")[1]);
+        return new ResponseEntity(mapControllingService.getByCreator(currnetUser.getId()),HttpStatusCode.valueOf(200));
+    }
     @GetMapping
     @RequestMapping("/getByCreator")
     public ResponseEntity getByCreator(@RequestParam String creatorId){

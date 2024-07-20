@@ -2,12 +2,12 @@ package org.example.server.Services;
 
 import org.example.server.AllConstants;
 import org.example.server.domain.Models.Map;
+import org.example.server.domain.dto.MapProfileDto;
 import org.example.server.repo.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Service
 public class MapViewService {
@@ -20,12 +20,12 @@ public class MapViewService {
         currentList = new ArrayList<>();
     }
 
-    public ArrayList<Map> findCurrentPage(int page){
+    public ArrayList<MapProfileDto> findCurrentPage(int page){
         if(page>maxPages)throw new IllegalArgumentException("No such page");
-        ArrayList<Map> tempList = new ArrayList<>();
+        ArrayList<MapProfileDto> tempList = new ArrayList<>();
         for(int i=0;i<AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();i++){
             if(i>=currentList.size()-page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue())return tempList;
-            tempList.add(currentList.get(page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue()+i));
+            tempList.add(toMapProfileDto(currentList.get(page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue()+i)));
         }
         return tempList;
     }
@@ -35,6 +35,7 @@ public class MapViewService {
         currentList.add(mapRepository.findByName(name).orElse(null));
         maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
     }
+
     public void findALLByCreator(String id){
         currentList.clear();
         mapRepository.findAllByCreatorId(id).forEach((Map -> currentList.add(Map)));
@@ -58,5 +59,13 @@ public class MapViewService {
         if(isDesc) mapRepository.findAllByOrderByLikeCountDesc().forEach((map -> currentList.add(map)));
         if(!isDesc) mapRepository.findAllByOrderByLikeCountAsc().forEach((map -> currentList.add(map)));
         maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
+    }
+
+    private MapProfileDto toMapProfileDto(Map map){
+        return new MapProfileDto(
+                map.getId(), map.getThumbnailUrl(),
+                map.getName(),map.getDuplicateCount(),
+                map.getLikeCount(), map.getCreatedAt(),
+                map.getCreator().getId(),map.getTags());
     }
 }
