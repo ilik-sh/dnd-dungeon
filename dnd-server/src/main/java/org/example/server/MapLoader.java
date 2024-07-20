@@ -25,7 +25,7 @@ public class MapLoader {
     }
 
     public Map loadMapById(String id){
-        Optional<Map> returnMap = mapRepository.findById(UUID.fromString(id));
+        Optional<Map> returnMap = mapRepository.findById(id);
         if(returnMap.isPresent()){
             return returnMap.get();
         }else throw new IllegalArgumentException("No such map with id: " +id);

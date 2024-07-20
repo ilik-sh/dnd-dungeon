@@ -5,10 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface MapRepository extends JpaRepository<Map, UUID> {
+public interface MapRepository extends JpaRepository<Map, String> {
     Optional<Map> findByName(String name);
     Iterable<Map> findAllByCreatorId(String creator);
     Iterable<Map> findAllByOrderByCreatedAtDesc();

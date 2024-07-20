@@ -1,11 +1,13 @@
 package org.example.server.domain.Models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.server.AllConstants;
 import org.example.server.Serializers.CellSerializer;
+import org.example.server.Serializers.CreatorSerializer;
 import org.example.server.domain.Models.account.User;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -30,6 +32,7 @@ public class Map {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @ManyToOne
+    @JsonDeserialize(using = CreatorSerializer.class)
     private User creator;
     @JdbcTypeCode(SqlTypes.JSON)
     private ArrayList<Tag> tags;

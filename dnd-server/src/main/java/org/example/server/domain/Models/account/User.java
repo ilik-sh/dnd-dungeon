@@ -1,10 +1,14 @@
 package org.example.server.domain.Models.account;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.server.Serializers.GrantedAuthorityDeserializer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +20,9 @@ import org.example.server.domain.Models.Map;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
+@JsonIgnoreProperties(value = "authorities")
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
@@ -47,7 +53,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return new ArrayList<>(List.of(new SimpleGrantedAuthority(role.name())));
     }
 
     @Override
