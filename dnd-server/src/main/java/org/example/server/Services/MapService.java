@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.example.server.domain.Models.Room;
 import org.example.server.RoomDirection;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 @Service
@@ -20,13 +21,18 @@ public class MapService {
     @Setter
     private Map map;
     @Autowired
-    private MapLoader mapLoader;
+    MapLoader mapLoader;
     {
-        map = new Map();
-        map.setMapInfo(new HashMap<>());
+        try {
+            mapLoader = new MapLoader();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void generateMapLayout(int xSize, int ySize){
+        map = new Map();
+        map.setMapInfo(new HashMap<>());
         Cell[][] newMapLayout  = new Cell[xSize][];
         for(int i = 0; i < newMapLayout.length ; i++){
             newMapLayout[i] = new Cell[ySize];
@@ -163,14 +169,21 @@ public class MapService {
         map.setMapLayout(newLayout);
     }
 
-    public void saveMap(Map map){
-        mapLoader.saveMap(map);
+    public Map saveMap(Map map){
+        return mapLoader.saveMap(map);
     }
 
-    public Map loadMap(String id){
-        return mapLoader.loadMaps(id);
+    public Map getMapById(String id){
+        return mapLoader.loadMapById(id);
     }
 
+    public void deleteMap(String id){
+        mapLoader.deleteMapById(id);
+    }
+
+
+
+    //System methods
     private Map layoutToSystemLayout(Map map){
         Cell[][] newLayout = new Cell[map.getMapLayout().length][];
         for (int i = 0;i < newLayout.length;i++){
