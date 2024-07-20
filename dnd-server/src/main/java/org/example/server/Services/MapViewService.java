@@ -24,6 +24,7 @@ public class MapViewService {
         if(page>maxPages)throw new IllegalArgumentException("No such page");
         ArrayList<Map> tempList = new ArrayList<>();
         for(int i=0;i<AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();i++){
+            if(i>=currentList.size()-page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue())return tempList;
             tempList.add(currentList.get(page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue()+i));
         }
         return tempList;

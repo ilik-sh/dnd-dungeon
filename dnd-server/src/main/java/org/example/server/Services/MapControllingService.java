@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class MapControllingService {
     @Autowired
     private MapService mapService;
+    @Autowired
     private MapViewService mapViewService;
 
     public String createMap(int mapSize, int tunnelLength, int crossroadChance, User user){
