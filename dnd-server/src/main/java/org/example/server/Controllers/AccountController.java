@@ -55,7 +55,9 @@ public class AccountController {
         return new ResponseEntity(userService.getUserById(id), HttpStatusCode.valueOf(200));
     }
 
-    public String getUserNameFromJwt(String accessToken){
-        return authService.getUserFromAccessJwt(accessToken).getUsername();
+    @GetMapping("/getUserProfileFromJwt")
+    @Transactional
+    public ResponseEntity getUserFromJwt(@RequestHeader ("Authorization") String accessToken){
+        return new ResponseEntity(authService.getUserProfileFromAccessJwt(accessToken.split(" ")[1]),HttpStatus.valueOf(200));
     }
 }

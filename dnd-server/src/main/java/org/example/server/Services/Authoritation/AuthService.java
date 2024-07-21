@@ -1,6 +1,7 @@
 package org.example.server.Services.Authoritation;
 
 
+import org.example.server.AllConstants;
 import org.example.server.Exceptions.IllegalUsersArgumentException;
 import org.example.server.Exceptions.IncorrectPasswordException;
 import org.example.server.Exceptions.RefreshTokenExpirationException;
@@ -57,12 +58,17 @@ public class AuthService {
         saveUser.setPassword(registrationDto.getPassword());
         saveUser.setEmail(registrationDto.getEmail());
         saveUser.setUsername(registrationDto.getUsername());
+        saveUser.setThumbnailUrl(AllConstants.StringConstants.DEFAULT_USERPROFILE_IMG.getValue());
         userService.saveUser(saveUser);
         return generateTokens(saveUser);
     }
 
     public User getUserFromAccessJwt(String accessToken){
         return userService.getUserByUsername(jsonAccessTokenService.extractAccessUserName(accessToken));
+    }
+    public UserProfileDto getUserProfileFromAccessJwt(String accessToken){
+        User user = getUserFromAccessJwt(accessToken);
+        return new UserProfileDto(user.getId(),user.getUsername(),user.getThumbnailUrl());
     }
 
     public JsonWebTokenResponse refreshToken(String refreshToken){
@@ -71,7 +77,7 @@ public class AuthService {
         User user = userService.getUserByUsername(username);
         String accessJwt = jsonAccessTokenService.generateAccessToken(user);
         String refreshJwt = refreshTokenService.generateRefreshToken(user);
-        return new JsonWebTokenResponse(accessJwt,refreshToken);
+        return new JsonWebTokenResponse(accessJwt,refreshJwt);
     }
 
     private JsonWebTokenResponse generateTokens(UserDetails user){

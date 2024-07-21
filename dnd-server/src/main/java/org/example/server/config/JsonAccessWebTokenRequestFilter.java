@@ -49,16 +49,16 @@ public class JsonAccessWebTokenRequestFilter extends OncePerRequestFilter {
             return;
         }
 
-        String accessJwt = header.substring(BEARER_PREFIX.length());
+        String jwt = header.substring(BEARER_PREFIX.length());
         try {
-            jsonAccessTokenService.isAccessTokenExpired(accessJwt);
+            jsonAccessTokenService.isAccessTokenExpired(jwt);
 
-            String username = jsonAccessTokenService.extractAccessUserName(accessJwt);
+            String username = jsonAccessTokenService.extractAccessUserName(jwt);
             if (!StringUtils.isEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userService
                         .userDetailsService()
                         .loadUserByUsername(username);
-                if (jsonAccessTokenService.isAccessTokenValid(accessJwt, userDetails)) {
+                if (jsonAccessTokenService.isAccessTokenValid(jwt, userDetails)) {
                     SecurityContext context = SecurityContextHolder.createEmptyContext();
 
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -79,8 +79,16 @@ public class JsonAccessWebTokenRequestFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write(String.valueOf(convertObjectToJson(res)));
         } catch (SignatureException e){
-            refreshTokenService.isRefreshTokenExpired(accessJwt);
-            filterChain.doFilter(request,response);
+            try{
+                refreshTokenService.isRefreshTokenExpired(jwt);
+                filterChain.doFilter(request,response);
+            }catch (Exception exception){
+                List<String> errors = Collections.singletonList(exception.getMessage());
+                Map<String , List<String>> res = new HashMap<>();
+                res.put("errors",errors);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write(String.valueOf(convertObjectToJson(res)));
+            }
         }
 
     }
