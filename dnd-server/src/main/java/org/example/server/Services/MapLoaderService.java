@@ -1,6 +1,8 @@
-package org.example.server;
+package org.example.server.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.server.domain.Models.Map;
 import org.example.server.repo.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +10,25 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
-public class MapLoader {
+public class MapLoaderService {
     @Autowired
-    MapRepository mapRepository;
-    private final ObjectMapper objectMapper;
+    private MapRepository mapRepository;
+    private MapLoaderService instance;
+    @Getter
+    @Setter
+    private ObjectMapper objectMapper;
 
-    public MapLoader() throws IOException {
+    private MapLoaderService(){
         objectMapper = new ObjectMapper();
+    }
+
+    public MapLoaderService getInstances(){
+        if(instance == null){
+            instance = new MapLoaderService();
+        }
+        return instance;
     }
 
     public Map saveMap(Map map) {

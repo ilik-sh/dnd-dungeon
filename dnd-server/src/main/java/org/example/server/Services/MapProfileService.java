@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class MapViewService {
+public class MapProfileService {
     @Autowired
-    MapRepository mapRepository;
+    private MapRepository mapRepository;
     private ArrayList<Map> currentList;
     private int maxPages;
 

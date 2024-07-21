@@ -13,12 +13,11 @@ public class MapControllingService {
     @Autowired
     private MapService mapService;
     @Autowired
-    private MapViewService mapViewService;
+    private MapProfileService mapProfileService;
 
     public String createMap(int mapSize, int tunnelLength, int crossroadChance, User user){
-        mapService.generateMapLayout(mapSize,mapSize);
-        mapService.generateDungeon(tunnelLength,crossroadChance);
-        Map newMap = mapService.getMap();
+        Map newMap = mapService.generateMapLayout(mapSize,mapSize);
+        newMap = mapService.generateDungeon(tunnelLength,crossroadChance, newMap);
         newMap.setCreator(user);
         newMap = mapService.saveMap(newMap);
         return newMap.getId();
@@ -38,24 +37,24 @@ public class MapControllingService {
     }
 
     public ArrayList<MapProfileDto> getByCreator(String id){
-        mapViewService.findALLByCreator(id);
-        return mapViewService.findCurrentPage(0);
+        mapProfileService.findALLByCreator(id);
+        return mapProfileService.findCurrentPage(0);
     }
 
     public ArrayList<MapProfileDto> getPage(int page){
-        return mapViewService.findCurrentPage(page);
+        return mapProfileService.findCurrentPage(page);
     }
 
     public ArrayList<MapProfileDto> getAllMapsByDate(boolean isDesc){
-        mapViewService.findAllByDate(isDesc);
-        return mapViewService.findCurrentPage(0);
+        mapProfileService.findAllByDate(isDesc);
+        return mapProfileService.findCurrentPage(0);
     }
     public ArrayList<MapProfileDto> getAllMapsByDuplicate(boolean isDesc){
-        mapViewService.findAllByDCount(isDesc);
-        return mapViewService.findCurrentPage(0);
+        mapProfileService.findAllByDCount(isDesc);
+        return mapProfileService.findCurrentPage(0);
     }
     public ArrayList<MapProfileDto> getAllMapsByLike(boolean isDesc){
-        mapViewService.findAllByLCount(isDesc);
-        return mapViewService.findCurrentPage(0);
+        mapProfileService.findAllByLCount(isDesc);
+        return mapProfileService.findCurrentPage(0);
     }
 }
