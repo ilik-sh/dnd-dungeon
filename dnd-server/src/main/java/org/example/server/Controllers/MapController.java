@@ -5,7 +5,9 @@ import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.MapControllingService;
 import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
+import org.example.server.domain.dto.MapDto;
 import org.example.server.domain.dto.MapIdDto;
+import org.example.server.domain.dto.MapProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +35,13 @@ public class MapController {
     }
 
     @PostMapping("/updateMap")
-    public ResponseEntity updateMap(@RequestBody Map map){
+    public ResponseEntity updateMap(@RequestBody MapDto map){
         mapControllingService.updateMap(map);
+        return new ResponseEntity(HttpStatusCode.valueOf(200));
+    }
+    @PostMapping("/updateMapProfile")
+    public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfile){
+        mapControllingService.updateMapProfile(mapProfile);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
 
