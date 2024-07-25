@@ -1,0 +1,1118 @@
+{
+    "id": "4383fbaf-3450-4e6f-8811-917958b3a31c",
+    "thumbnailUrl": "https://firebasestorage.googleapis.com/v0/b/dndhub-fb81c.appspot.com/o/defaults%2FmapThumbnail.png?alt=media&token=0ca8fb5d-1468-4e3c-b0fa-dd004a28ef49",
+    "name": "Dungeon",
+    "duplicateCount": 0,
+    "likeCount": 0,
+    "createdAt": "2024-07-20T16:28:11.593+00:00",
+    "creator": {
+        "id": "02e5728f-5c94-45d6-93c6-acd5780d311d",
+        "username": "Ilik",
+        "password": "$2a$10$qojqtH.NGQTXimjxv68m7ulvdPfcqA3jp4GxomGYJFjXQxm4UT.nC",
+        "email": "andrew.admin@gmail.com",
+        "role": "ROLE_USER",
+        "thumbnailUrl": null,
+        "createdMaps": [],
+        "enabled": true,
+        "accountNonLocked": true,
+        "accountNonExpired": true,
+        "credentialsNonExpired": true
+    },
+    "tags": [],
+    "mapLayout": [
+        [
+            {
+                "id": "b8b3052f-aa75-4fd6-a57a-d24fe6d6a1a6",
+                "currentRoom": "3cdb6e05-81cf-464a-aed0-1c3763f66489",
+                "rooms": [
+                    "3cdb6e05-81cf-464a-aed0-1c3763f66489"
+                ]
+            },
+            {
+                "id": "6debb997-2cf5-483e-82d9-74a35d357bda",
+                "currentRoom": "a4e829db-5b3f-42f4-9167-d89f1da5ef34",
+                "rooms": [
+                    "a4e829db-5b3f-42f4-9167-d89f1da5ef34"
+                ]
+            },
+            {
+                "id": "f51a86f9-8f90-4eef-aa58-c7defdf2ebe5",
+                "currentRoom": "f4ab4820-9b64-4ae5-9a2e-723e45d2a599",
+                "rooms": [
+                    "f4ab4820-9b64-4ae5-9a2e-723e45d2a599"
+                ]
+            },
+            {
+                "id": "fc19465c-1d69-40ae-891b-82dd187cbf27",
+                "currentRoom": "b8e10ba4-f580-4ab7-b16c-c0e0fddfda5a",
+                "rooms": [
+                    "b8e10ba4-f580-4ab7-b16c-c0e0fddfda5a"
+                ]
+            },
+            {
+                "id": "66414f15-def0-4f61-9284-4ec38a2f3044",
+                "currentRoom": "29cf93a6-6f97-4923-9c67-8f75c0f9dbe9",
+                "rooms": [
+                    "29cf93a6-6f97-4923-9c67-8f75c0f9dbe9"
+                ]
+            },
+            {
+                "id": "85b25d47-7553-4e69-8fb9-db4360eb857c",
+                "currentRoom": "5bb9618e-1ee6-4b4c-934c-9af18302c850",
+                "rooms": [
+                    "5bb9618e-1ee6-4b4c-934c-9af18302c850"
+                ]
+            },
+            {
+                "id": "91c29535-9118-464c-9cbd-3680b75c93e2",
+                "currentRoom": "505cc2c7-2b75-4e3d-8501-85b3f0462400",
+                "rooms": [
+                    "505cc2c7-2b75-4e3d-8501-85b3f0462400"
+                ]
+            }
+        ],
+        [
+            {
+                "id": "7090c85a-124c-48b9-8bf2-8a76d601e83b",
+                "currentRoom": "891eff9c-7103-4ab7-a5d9-0b1f79aaf2d3",
+                "rooms": [
+                    "891eff9c-7103-4ab7-a5d9-0b1f79aaf2d3"
+                ]
+            },
+            {
+                "id": "05601f04-576b-48c4-87bf-c4080ed142f8",
+                "currentRoom": "c4e01340-7509-4639-9ed8-00ce6f4111dd",
+                "rooms": [
+                    "c4e01340-7509-4639-9ed8-00ce6f4111dd"
+                ]
+            },
+            {
+                "id": "97768ccf-f030-43a1-b712-9e4d1d10a55d",
+                "currentRoom": "47de3c1e-116a-4ebb-b8f7-72b169da132e",
+                "rooms": [
+                    "47de3c1e-116a-4ebb-b8f7-72b169da132e"
+                ]
+            },
+            {
+                "id": "7e353fa9-ed83-44ad-bc96-d12e2fa85c29",
+                "currentRoom": "96ccdd65-8ed7-4f90-84cd-9e7ec84ecb25",
+                "rooms": [
+                    "96ccdd65-8ed7-4f90-84cd-9e7ec84ecb25"
+                ]
+            },
+            {
+                "id": "f36a142c-4db9-47ef-8ab4-fd8a07d218a1",
+                "currentRoom": "355cc286-85bc-4556-9d07-b2db1fd716ad",
+                "rooms": [
+                    "355cc286-85bc-4556-9d07-b2db1fd716ad"
+                ]
+            },
+            {
+                "id": "7df88fd7-08a4-4a2c-a3a1-b62fc1ce21f1",
+                "currentRoom": "36529693-4ac7-49bf-bdbf-7bc51c051596",
+                "rooms": [
+                    "36529693-4ac7-49bf-bdbf-7bc51c051596"
+                ]
+            },
+            {
+                "id": "3d76a799-7fa6-45c6-99d4-152f09781075",
+                "currentRoom": "7773ad68-3395-43d8-885a-c53aa7ac57e8",
+                "rooms": [
+                    "7773ad68-3395-43d8-885a-c53aa7ac57e8"
+                ]
+            }
+        ],
+        [
+            {
+                "id": "0723e7fb-f5b4-4fb7-af11-7f40ad2159b2",
+                "currentRoom": "e829caa3-a6c0-4faf-813f-c1efb880022c",
+                "rooms": [
+                    "e829caa3-a6c0-4faf-813f-c1efb880022c"
+                ]
+            },
+            {
+                "id": "b08d4a5b-b58a-4853-9635-5b1e098b7b6b",
+                "currentRoom": "4c3a25bb-eb4a-4580-a701-be62d7753290",
+                "rooms": [
+                    "4c3a25bb-eb4a-4580-a701-be62d7753290"
+                ]
+            },
+            {
+                "id": "acca6442-0951-4a5f-97a7-8c7677594566",
+                "currentRoom": "0e415b7d-9c23-4522-bcf3-04a1cd1504d5",
+                "rooms": [
+                    "0e415b7d-9c23-4522-bcf3-04a1cd1504d5"
+                ]
+            },
+            {
+                "id": "760e9adf-132f-441b-948b-64b0b770f894",
+                "currentRoom": "39ea4da3-ecd8-42c5-89e9-ba6467fd3c99",
+                "rooms": [
+                    "39ea4da3-ecd8-42c5-89e9-ba6467fd3c99"
+                ]
+            },
+            {
+                "id": "a05be0e2-d119-449c-a3f8-8da0eb244cad",
+                "currentRoom": "af8538f5-523c-4498-936c-b3495c3551ec",
+                "rooms": [
+                    "af8538f5-523c-4498-936c-b3495c3551ec"
+                ]
+            },
+            {
+                "id": "40b37fd4-2db5-4e3d-97e1-0aaaf3fbebc8",
+                "currentRoom": "5434cfc0-07db-4eff-9f6c-74c6b3289dc2",
+                "rooms": [
+                    "5434cfc0-07db-4eff-9f6c-74c6b3289dc2"
+                ]
+            },
+            {
+                "id": "6bde6b7d-b1a8-4030-831e-045236ebb3a2",
+                "currentRoom": "ca3afc3e-acba-4d71-9c57-148b6c186ba0",
+                "rooms": [
+                    "ca3afc3e-acba-4d71-9c57-148b6c186ba0"
+                ]
+            }
+        ],
+        [
+            {
+                "id": "0eef3c21-4508-458d-8bd5-11479cb29341",
+                "currentRoom": "461c50c3-2e54-4d57-98dd-0bb6be91b751",
+                "rooms": [
+                    "461c50c3-2e54-4d57-98dd-0bb6be91b751"
+                ]
+            },
+            {
+                "id": "7fa93704-9cfb-4f76-9da5-4e183340bed0",
+                "currentRoom": "0a85d187-d080-4194-8bb7-04d156c9489d",
+                "rooms": [
+                    "0a85d187-d080-4194-8bb7-04d156c9489d"
+                ]
+            },
+            {
+                "id": "8e150906-a584-4192-83c8-ddeb8c7531cf",
+                "currentRoom": "2f14d8d4-92ff-4e1c-b955-a0be32c73ea6",
+                "rooms": [
+                    "2f14d8d4-92ff-4e1c-b955-a0be32c73ea6"
+                ]
+            },
+            {
+                "id": "cf008b0c-1c5d-4902-b345-eb07886f98f2",
+                "currentRoom": "b36bb4e2-6e34-42da-a7b2-93390b632db9",
+                "rooms": [
+                    "b36bb4e2-6e34-42da-a7b2-93390b632db9"
+                ]
+            },
+            {
+                "id": "8cfd1721-22f2-4436-9b3b-f0a54b324cc0",
+                "currentRoom": "63bdb8e0-efa4-436d-8a94-dc156d758538",
+                "rooms": [
+                    "63bdb8e0-efa4-436d-8a94-dc156d758538"
+                ]
+            },
+            {
+                "id": "7f6757dc-9c06-4f3e-90b7-ec0c4d2e8a07",
+                "currentRoom": "eeafd3a3-7484-4850-aacc-3d9560802cd0",
+                "rooms": [
+                    "eeafd3a3-7484-4850-aacc-3d9560802cd0"
+                ]
+            },
+            {
+                "id": "69415a28-50ef-479d-b369-afe527fddaae",
+                "currentRoom": "520682cd-0889-44bc-9c74-8fbf863f1f4a",
+                "rooms": [
+                    "520682cd-0889-44bc-9c74-8fbf863f1f4a"
+                ]
+            }
+        ],
+        [
+            {
+                "id": "c493f701-cfcb-4569-8ff6-4b12f65e831f",
+                "currentRoom": "cad73293-a531-4d70-9dbf-c295119c17c2",
+                "rooms": [
+                    "cad73293-a531-4d70-9dbf-c295119c17c2"
+                ]
+            },
+            {
+                "id": "7baaca9b-ccae-480c-bfba-47b98b691aaf",
+                "currentRoom": "7662bb0d-fbde-4a61-ae0e-8c5b2cffa8b9",
+                "rooms": [
+                    "7662bb0d-fbde-4a61-ae0e-8c5b2cffa8b9"
+                ]
+            },
+            {
+                "id": "6e4353fe-6ae5-4f70-a063-3036c1a20b29",
+                "currentRoom": "2045ad5e-2405-46fc-83cf-11a6c0ef2cd3",
+                "rooms": [
+                    "2045ad5e-2405-46fc-83cf-11a6c0ef2cd3"
+                ]
+            },
+            {
+                "id": "17ee7d35-ac87-4b56-9d50-dc0f82197fef",
+                "currentRoom": "aff7c377-8711-465e-93e3-80f5c1bcb4ad",
+                "rooms": [
+                    "aff7c377-8711-465e-93e3-80f5c1bcb4ad"
+                ]
+            },
+            {
+                "id": "5d129911-94a6-44a5-85b5-661d656f39ce",
+                "currentRoom": "246b443d-ed15-483b-b6c2-3c772c10e0b3",
+                "rooms": [
+                    "246b443d-ed15-483b-b6c2-3c772c10e0b3"
+                ]
+            },
+            {
+                "id": "ae71050b-e881-490e-bec6-289f7db97125",
+                "currentRoom": "a38ae2eb-d58a-4a1d-8711-2ae09ebf520b",
+                "rooms": [
+                    "a38ae2eb-d58a-4a1d-8711-2ae09ebf520b"
+                ]
+            },
+            {
+                "id": "9af39dc3-1162-40e7-9cef-bb05c54dd320",
+                "currentRoom": "7578c718-7d02-4c35-bcf3-35ca509d948e",
+                "rooms": [
+                    "7578c718-7d02-4c35-bcf3-35ca509d948e"
+                ]
+            }
+        ],
+        [
+            {
+                "id": "040efbe9-d704-4e82-9936-e6e11c3026f1",
+                "currentRoom": "abf7c0a4-d4ef-49ce-9e84-0155cb244c18",
+                "rooms": [
+                    "abf7c0a4-d4ef-49ce-9e84-0155cb244c18"
+                ]
+            },
+            {
+                "id": "b9047d8f-188c-4552-90d5-4e7a6e8b8846",
+                "currentRoom": "7b51961d-5e8b-4c77-af0d-0c2e44504207",
+                "rooms": [
+                    "7b51961d-5e8b-4c77-af0d-0c2e44504207"
+                ]
+            },
+            {
+                "id": "f42e0c66-ee92-429c-a872-057f87122fc2",
+                "currentRoom": "be46e4e4-5b40-43d0-9d19-c53fc46becfe",
+                "rooms": [
+                    "be46e4e4-5b40-43d0-9d19-c53fc46becfe"
+                ]
+            },
+            {
+                "id": "75c33597-34c2-4744-be1f-b94b44cb2d5a",
+                "currentRoom": "fc9d683c-23ee-4780-a321-597bcca9491a",
+                "rooms": [
+                    "fc9d683c-23ee-4780-a321-597bcca9491a"
+                ]
+            },
+            {
+                "id": "b53fa917-44e7-485a-8d33-38423651b93c",
+                "currentRoom": "95c683e5-e681-43cb-8ffe-0c64f79dc62a",
+                "rooms": [
+                    "95c683e5-e681-43cb-8ffe-0c64f79dc62a"
+                ]
+            },
+            {
+                "id": "77cd8ce7-6510-47db-adc4-7133682734be",
+                "currentRoom": "296a078b-9810-48ff-a9cc-5add92625be6",
+                "rooms": [
+                    "296a078b-9810-48ff-a9cc-5add92625be6"
+                ]
+            },
+            {
+                "id": "c966ff5a-2b6a-4762-b6c9-d31ffd59478e",
+                "currentRoom": "8e15f4bb-2772-422f-ac34-208ab75c905f",
+                "rooms": [
+                    "8e15f4bb-2772-422f-ac34-208ab75c905f"
+                ]
+            }
+        ],
+        [
+            {
+                "id": "f4baedb8-92d8-4161-a267-e3af7584bff9",
+                "currentRoom": "6d8c24ec-ff53-49e3-9e98-920da265d3f1",
+                "rooms": [
+                    "6d8c24ec-ff53-49e3-9e98-920da265d3f1"
+                ]
+            },
+            {
+                "id": "07ec4c16-8f55-4b14-a532-3caea5d29b99",
+                "currentRoom": "937face7-0d40-49be-a3e3-37809d5a44c3",
+                "rooms": [
+                    "937face7-0d40-49be-a3e3-37809d5a44c3"
+                ]
+            },
+            {
+                "id": "e36cc23f-45e1-4803-a1fa-62b6510251fb",
+                "currentRoom": "2cb38a0f-2ef4-4d2d-ba48-ee48f990da8b",
+                "rooms": [
+                    "2cb38a0f-2ef4-4d2d-ba48-ee48f990da8b"
+                ]
+            },
+            {
+                "id": "53d8dff5-0f36-4b15-be31-3495ae24d9b1",
+                "currentRoom": "b8db0fbc-0c51-4f8c-935b-ed58c771838b",
+                "rooms": [
+                    "b8db0fbc-0c51-4f8c-935b-ed58c771838b"
+                ]
+            },
+            {
+                "id": "3d4df770-2f2e-477c-b3ec-a987c301b774",
+                "currentRoom": "8b7deac5-3a3e-4e73-a2b6-8322e3d50b37",
+                "rooms": [
+                    "8b7deac5-3a3e-4e73-a2b6-8322e3d50b37"
+                ]
+            },
+            {
+                "id": "8819f2b9-c4ec-4de1-94bf-17b23f32a585",
+                "currentRoom": "1c0fa132-dbe4-4054-8679-41247e215187",
+                "rooms": [
+                    "1c0fa132-dbe4-4054-8679-41247e215187"
+                ]
+            },
+            {
+                "id": "d218104d-7075-41b9-8153-db996b4c14af",
+                "currentRoom": "9ce9bad7-3e9b-4ee1-9247-dab2b6e0e306",
+                "rooms": [
+                    "9ce9bad7-3e9b-4ee1-9247-dab2b6e0e306"
+                ]
+            }
+        ]
+    ],
+    "mapInfo": {
+        "e829caa3-a6c0-4faf-813f-c1efb880022c": {
+            "id": "e829caa3-a6c0-4faf-813f-c1efb880022c",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "2f14d8d4-92ff-4e1c-b955-a0be32c73ea6": {
+            "id": "2f14d8d4-92ff-4e1c-b955-a0be32c73ea6",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "af8538f5-523c-4498-936c-b3495c3551ec": {
+            "id": "af8538f5-523c-4498-936c-b3495c3551ec",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "a38ae2eb-d58a-4a1d-8711-2ae09ebf520b": {
+            "id": "a38ae2eb-d58a-4a1d-8711-2ae09ebf520b",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "1c0fa132-dbe4-4054-8679-41247e215187": {
+            "id": "1c0fa132-dbe4-4054-8679-41247e215187",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "cad73293-a531-4d70-9dbf-c295119c17c2": {
+            "id": "cad73293-a531-4d70-9dbf-c295119c17c2",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "9ce9bad7-3e9b-4ee1-9247-dab2b6e0e306": {
+            "id": "9ce9bad7-3e9b-4ee1-9247-dab2b6e0e306",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "5434cfc0-07db-4eff-9f6c-74c6b3289dc2": {
+            "id": "5434cfc0-07db-4eff-9f6c-74c6b3289dc2",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "b36bb4e2-6e34-42da-a7b2-93390b632db9": {
+            "id": "b36bb4e2-6e34-42da-a7b2-93390b632db9",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "505cc2c7-2b75-4e3d-8501-85b3f0462400": {
+            "id": "505cc2c7-2b75-4e3d-8501-85b3f0462400",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "abf7c0a4-d4ef-49ce-9e84-0155cb244c18": {
+            "id": "abf7c0a4-d4ef-49ce-9e84-0155cb244c18",
+            "level": 4,
+            "type": "QUEST",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": true,
+                "TOP": false,
+                "TOP_RIGHT": true,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "296a078b-9810-48ff-a9cc-5add92625be6": {
+            "id": "296a078b-9810-48ff-a9cc-5add92625be6",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "b8e10ba4-f580-4ab7-b16c-c0e0fddfda5a": {
+            "id": "b8e10ba4-f580-4ab7-b16c-c0e0fddfda5a",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "3cdb6e05-81cf-464a-aed0-1c3763f66489": {
+            "id": "3cdb6e05-81cf-464a-aed0-1c3763f66489",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "b8db0fbc-0c51-4f8c-935b-ed58c771838b": {
+            "id": "b8db0fbc-0c51-4f8c-935b-ed58c771838b",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "355cc286-85bc-4556-9d07-b2db1fd716ad": {
+            "id": "355cc286-85bc-4556-9d07-b2db1fd716ad",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "be46e4e4-5b40-43d0-9d19-c53fc46becfe": {
+            "id": "be46e4e4-5b40-43d0-9d19-c53fc46becfe",
+            "level": 5,
+            "type": "QUEST",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": true,
+                "TOP": false,
+                "TOP_RIGHT": true,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "461c50c3-2e54-4d57-98dd-0bb6be91b751": {
+            "id": "461c50c3-2e54-4d57-98dd-0bb6be91b751",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "63bdb8e0-efa4-436d-8a94-dc156d758538": {
+            "id": "63bdb8e0-efa4-436d-8a94-dc156d758538",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "8e15f4bb-2772-422f-ac34-208ab75c905f": {
+            "id": "8e15f4bb-2772-422f-ac34-208ab75c905f",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "7b51961d-5e8b-4c77-af0d-0c2e44504207": {
+            "id": "7b51961d-5e8b-4c77-af0d-0c2e44504207",
+            "level": 4,
+            "type": "EVIL",
+            "roomDirections": {
+                "TOP_LEFT": true,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": true,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "c4e01340-7509-4639-9ed8-00ce6f4111dd": {
+            "id": "c4e01340-7509-4639-9ed8-00ce6f4111dd",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "36529693-4ac7-49bf-bdbf-7bc51c051596": {
+            "id": "36529693-4ac7-49bf-bdbf-7bc51c051596",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "937face7-0d40-49be-a3e3-37809d5a44c3": {
+            "id": "937face7-0d40-49be-a3e3-37809d5a44c3",
+            "level": 1,
+            "type": "NEUTRAL",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": true,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": true
+            },
+            "description": "",
+            "visited": false
+        },
+        "39ea4da3-ecd8-42c5-89e9-ba6467fd3c99": {
+            "id": "39ea4da3-ecd8-42c5-89e9-ba6467fd3c99",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "96ccdd65-8ed7-4f90-84cd-9e7ec84ecb25": {
+            "id": "96ccdd65-8ed7-4f90-84cd-9e7ec84ecb25",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "95c683e5-e681-43cb-8ffe-0c64f79dc62a": {
+            "id": "95c683e5-e681-43cb-8ffe-0c64f79dc62a",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "246b443d-ed15-483b-b6c2-3c772c10e0b3": {
+            "id": "246b443d-ed15-483b-b6c2-3c772c10e0b3",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "7578c718-7d02-4c35-bcf3-35ca509d948e": {
+            "id": "7578c718-7d02-4c35-bcf3-35ca509d948e",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "fc9d683c-23ee-4780-a321-597bcca9491a": {
+            "id": "fc9d683c-23ee-4780-a321-597bcca9491a",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "520682cd-0889-44bc-9c74-8fbf863f1f4a": {
+            "id": "520682cd-0889-44bc-9c74-8fbf863f1f4a",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "7773ad68-3395-43d8-885a-c53aa7ac57e8": {
+            "id": "7773ad68-3395-43d8-885a-c53aa7ac57e8",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "891eff9c-7103-4ab7-a5d9-0b1f79aaf2d3": {
+            "id": "891eff9c-7103-4ab7-a5d9-0b1f79aaf2d3",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "aff7c377-8711-465e-93e3-80f5c1bcb4ad": {
+            "id": "aff7c377-8711-465e-93e3-80f5c1bcb4ad",
+            "level": 4,
+            "type": "LOOT",
+            "roomDirections": {
+                "TOP_LEFT": true,
+                "BOTTOM_LEFT": true,
+                "TOP": false,
+                "TOP_RIGHT": true,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": true
+            },
+            "description": "",
+            "visited": false
+        },
+        "a4e829db-5b3f-42f4-9167-d89f1da5ef34": {
+            "id": "a4e829db-5b3f-42f4-9167-d89f1da5ef34",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "f4ab4820-9b64-4ae5-9a2e-723e45d2a599": {
+            "id": "f4ab4820-9b64-4ae5-9a2e-723e45d2a599",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "47de3c1e-116a-4ebb-b8f7-72b169da132e": {
+            "id": "47de3c1e-116a-4ebb-b8f7-72b169da132e",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "0a85d187-d080-4194-8bb7-04d156c9489d": {
+            "id": "0a85d187-d080-4194-8bb7-04d156c9489d",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "29cf93a6-6f97-4923-9c67-8f75c0f9dbe9": {
+            "id": "29cf93a6-6f97-4923-9c67-8f75c0f9dbe9",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "4c3a25bb-eb4a-4580-a701-be62d7753290": {
+            "id": "4c3a25bb-eb4a-4580-a701-be62d7753290",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "ca3afc3e-acba-4d71-9c57-148b6c186ba0": {
+            "id": "ca3afc3e-acba-4d71-9c57-148b6c186ba0",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "2045ad5e-2405-46fc-83cf-11a6c0ef2cd3": {
+            "id": "2045ad5e-2405-46fc-83cf-11a6c0ef2cd3",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "eeafd3a3-7484-4850-aacc-3d9560802cd0": {
+            "id": "eeafd3a3-7484-4850-aacc-3d9560802cd0",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "6d8c24ec-ff53-49e3-9e98-920da265d3f1": {
+            "id": "6d8c24ec-ff53-49e3-9e98-920da265d3f1",
+            "level": 5,
+            "type": "EVIL",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": true,
+                "TOP": false,
+                "TOP_RIGHT": true,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": true
+            },
+            "description": "",
+            "visited": false
+        },
+        "7662bb0d-fbde-4a61-ae0e-8c5b2cffa8b9": {
+            "id": "7662bb0d-fbde-4a61-ae0e-8c5b2cffa8b9",
+            "level": 3,
+            "type": "QUEST",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": true,
+                "BOTTOM_RIGHT": true,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "2cb38a0f-2ef4-4d2d-ba48-ee48f990da8b": {
+            "id": "2cb38a0f-2ef4-4d2d-ba48-ee48f990da8b",
+            "level": 4,
+            "type": "PEACE",
+            "roomDirections": {
+                "TOP_LEFT": true,
+                "BOTTOM_LEFT": true,
+                "TOP": true,
+                "TOP_RIGHT": true,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "0e415b7d-9c23-4522-bcf3-04a1cd1504d5": {
+            "id": "0e415b7d-9c23-4522-bcf3-04a1cd1504d5",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "5bb9618e-1ee6-4b4c-934c-9af18302c850": {
+            "id": "5bb9618e-1ee6-4b4c-934c-9af18302c850",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        },
+        "8b7deac5-3a3e-4e73-a2b6-8322e3d50b37": {
+            "id": "8b7deac5-3a3e-4e73-a2b6-8322e3d50b37",
+            "level": 1,
+            "type": "ABSENCE",
+            "roomDirections": {
+                "TOP_LEFT": false,
+                "BOTTOM_LEFT": false,
+                "TOP": false,
+                "TOP_RIGHT": false,
+                "BOTTOM_RIGHT": false,
+                "BOTTOM": false
+            },
+            "description": "",
+            "visited": false
+        }
+    }
+}
