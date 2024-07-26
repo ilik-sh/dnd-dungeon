@@ -20,6 +20,7 @@ public class Room {
     private HashMap<RoomDirection, Boolean> roomDirections;
     private String description;
     private boolean isVisited;
+    private String textureUrl;
 
     public Room(){
         this.id = String.valueOf(UUID.randomUUID());
@@ -34,5 +35,6 @@ public class Room {
         roomDirections.put(RoomDirection.TOP_RIGHT,false);
         this.description = "";
         this.isVisited = false;
+        this.textureUrl = "";
     }
 }
