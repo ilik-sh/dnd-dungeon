@@ -19,6 +19,7 @@ public class MapService {
     public Map generateMapLayout(int xSize, int ySize){
         Map map = new Map();
         map.setMapInfo(new HashMap<>());
+        map.setMapObjects(new HashMap<>());
         Cell[][] newMapLayout  = new Cell[xSize][];
         for(int i = 0; i < newMapLayout.length ; i++){
             newMapLayout[i] = new Cell[ySize];

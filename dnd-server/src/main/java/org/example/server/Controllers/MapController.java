@@ -3,7 +3,6 @@ package org.example.server.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.MapControllingService;
-import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.MapDto;
 import org.example.server.domain.dto.MapIdDto;

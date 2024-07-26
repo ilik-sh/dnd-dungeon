@@ -43,6 +43,8 @@ public class Map {
     private Cell[][] mapLayout;
     @JdbcTypeCode(SqlTypes.JSON)
     private HashMap<String, Room> mapInfo;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private HashMap<String, Model3D> mapObjects;
 
     public Map() {
         mapInfo = new HashMap<>();
