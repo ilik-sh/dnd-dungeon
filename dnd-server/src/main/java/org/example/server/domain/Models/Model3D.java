@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Data
@@ -18,6 +20,7 @@ public class Model3D {
     private String id;
 
     private String name;
+    @JdbcTypeCode(SqlTypes.JSON)
     private ModelPosition position;
     private String modelUrl;
     private String metalnessTextureUrl;
