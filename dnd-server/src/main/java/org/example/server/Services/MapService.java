@@ -54,7 +54,7 @@ public class MapService {
         String currentRoomId = newRoom.getId();
         map.getMapInfo().remove(map.getMapLayout()[x][y].getCurrentRoom());
         map.getMapInfo().put(currentRoomId,newRoom);
-        map.getMapLayout()[x][y] = new Cell(currentRoomId, (ArrayList<String>) Collections.singletonList(currentRoomId));
+        map.getMapLayout()[x][y] = new Cell(currentRoomId, new ArrayList<>(Collections.singleton(currentRoomId)));
         if (tunnelLength == 0) {
             return;
         }
