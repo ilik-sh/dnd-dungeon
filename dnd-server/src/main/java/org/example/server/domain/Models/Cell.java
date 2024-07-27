@@ -24,5 +24,8 @@ public class Cell implements Serializable {
         rooms = new ArrayList<>();
     }
 
-
+    public Cell(String currentRoom, ArrayList<String> rooms) {
+        this.currentRoom = currentRoom;
+        this.rooms = rooms;
+    }
 }

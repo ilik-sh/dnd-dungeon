@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.example.server.domain.Models.Room;
 import org.example.server.RoomDirection;
 
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 public class MapService {
@@ -28,7 +28,8 @@ public class MapService {
             }
         }
         map.setMapLayout(newMapLayout);
-        return fillLayoutGaps(map);
+        fillLayoutGaps(map);
+        return map;
     }
 
     public Map generateDungeon(int maxTunnelLength, int crossroadChance, Map map){
@@ -36,126 +37,56 @@ public class MapService {
         int startX = (int) (Math.random()*map.getMapLayout().length);
         int startY = Math.abs(((int) (Math.random()*map.getMapLayout().length+1))*2-(2-startX%2));
         this.crossroadChance = crossroadChance;
-        map = generateLabyrinth(startX,startY,maxTunnelLength,true,null,null,map);
-        return systemLayoutToLayout(map);
+        generateLabyrinth(startX, startY, maxTunnelLength, true, null, null, map);
+        systemLayoutToLayout(map);
+        return map;
     }
-    private Map generateLabyrinth(int x, int y, int tunnelLength, boolean tunnelDividing,
+
+    private void generateLabyrinth(int x, int y, int tunnelLength, boolean tunnelDividing,
                                    RoomDirection connectionDirection, RoomDirection tunnelDirection,
-                                  Map map) {
+                                   Map map) {
         if(map.getMapInfo().get(map.getMapLayout()[x][y].getCurrentRoom()).getType()!= RoomType.ABSENCE){
             map.getMapInfo().get(map.getMapLayout()[x][y].getCurrentRoom()).getRoomDirections().put(connectionDirection,true);
-            return map;
+            return;
         }
         Room newRoom = RoomService.generateRoom();
         newRoom.getRoomDirections().put(connectionDirection,true);
-        String currentRoom = newRoom.getId();
-        Cell newCell = new Cell();
-        newCell.setCurrentRoom(currentRoom);
-        newCell.getRooms().add(currentRoom);
+        String currentRoomId = newRoom.getId();
         map.getMapInfo().remove(map.getMapLayout()[x][y].getCurrentRoom());
-        map.getMapInfo().put(currentRoom,newRoom);
-        map.getMapLayout()[x][y] = newCell;
+        map.getMapInfo().put(currentRoomId,newRoom);
+        map.getMapLayout()[x][y] = new Cell(currentRoomId, (ArrayList<String>) Collections.singletonList(currentRoomId));
         if (tunnelLength == 0) {
-            return map;
+            return;
         }
         tunnelLength--;
         if (tunnelDividing) {
-            if (y > 1) {
-                if (map.getMapInfo().get(currentRoom).getRoomDirections().get(RoomDirection.TOP)) {
-                    map = generateLabyrinth(x, y - 2, tunnelLength, false, RoomDirection.BOTTOM, RoomDirection.TOP, map);
+            int finalTunnelLength = tunnelLength;
+            map.getMapInfo().get(currentRoomId).getRoomDirections().forEach((roomDirection, value) -> {
+                if (roomDirection != null) {
+                    if (value) {
+                        if (checkNextRoomPossibility(roomDirection,x,y,map))
+                            generateLabyrinth(x + roomDirection.getXChange(), y + roomDirection.getYChange(), finalTunnelLength,
+                                    false, RoomDirection.valueOf(roomDirection.getConnection()), roomDirection, map);
+                    }
                 }
-            }
-            if (y < map.getMapLayout()[0].length - 2) {
-                if (map.getMapInfo().get(currentRoom).getRoomDirections().get(RoomDirection.BOTTOM)) {
-                    map = generateLabyrinth(x, y + 2, tunnelLength, false, RoomDirection.TOP, RoomDirection.BOTTOM, map);
-                }
-            }
-
-            if (x > 0 && y > 0) {
-                if (map.getMapInfo().get(currentRoom).getRoomDirections().get(RoomDirection.TOP_LEFT)) {
-                    map = generateLabyrinth(x - 1, y - 1, tunnelLength, false, RoomDirection.BOTTOM_RIGHT, RoomDirection.TOP_LEFT, map);
-                }
-            }//lefttop
-            if (x < map.getMapLayout().length - 1 && y > 0) {
-                if (map.getMapInfo().get(currentRoom).getRoomDirections().get(RoomDirection.TOP_RIGHT)) {
-                    map = generateLabyrinth(x + 1, y - 1, tunnelLength, false, RoomDirection.BOTTOM_LEFT, RoomDirection.TOP_RIGHT, map);
-                }
-            }//rigthtop
-
-            if (x > 0 && y < map.getMapLayout()[0].length - 1) {
-                if (map.getMapInfo().get(currentRoom).getRoomDirections().get(RoomDirection.BOTTOM_LEFT)) {
-                    map = generateLabyrinth(x - 1, y + 1, tunnelLength, false, RoomDirection.TOP_RIGHT, RoomDirection.BOTTOM_LEFT, map);
-                }
-            }//leftbottom
-            if (x < map.getMapLayout().length - 1 && y < map.getMapLayout()[0].length - 1) {
-                if (map.getMapInfo().get(currentRoom).getRoomDirections().get(RoomDirection.BOTTOM_RIGHT)) {
-                    map = generateLabyrinth(x + 1, y + 1, tunnelLength, false, RoomDirection.TOP_LEFT, RoomDirection.BOTTOM_RIGHT, map);
-                }
-            }//rightbottom
+            });
         }
         if (!tunnelDividing) {
-            Map finalMap = map;
-            map.getMapInfo().get(currentRoom).getRoomDirections().forEach((direction, state) -> {
-                finalMap.getMapInfo().get(currentRoom).getRoomDirections().put(direction, false);
+            Room cRoom = map.getMapInfo().get(currentRoomId);
+            map.getMapInfo().get(currentRoomId).getRoomDirections().forEach((direction, state) -> {
+                if(direction.equals(connectionDirection)||direction.equals(tunnelDirection)){
+                    cRoom.getRoomDirections().put(direction,true);
+                }else {
+                    cRoom.getRoomDirections().put(direction,false);
+                }
             });
-            map.getMapInfo().get(currentRoom).getRoomDirections().put(connectionDirection, true);
-            map.getMapInfo().get(currentRoom).getRoomDirections().put(tunnelDirection, true);
-
-
             boolean currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
-            if (y > 1) {
-                if (tunnelDirection.equals(RoomDirection.TOP)) {
-                    map = generateLabyrinth(x, y - 2, tunnelLength, currentTunnelDividing, RoomDirection.BOTTOM, RoomDirection.TOP, map);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
-                }
-            }
-            if (y < map.getMapLayout()[0].length - 2) {
-                if (tunnelDirection.equals(RoomDirection.BOTTOM)) {
-                    map = generateLabyrinth(x, y + 2, tunnelLength, currentTunnelDividing, RoomDirection.TOP, RoomDirection.BOTTOM, map);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
-                }
-            }
-            if (x > 0 && y > 0) {
-                if (tunnelDirection.equals(RoomDirection.TOP_LEFT)) {
-                    map = generateLabyrinth(x - 1, y - 1, tunnelLength, currentTunnelDividing, RoomDirection.BOTTOM_RIGHT, RoomDirection.TOP_LEFT, map);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
-                }
-            }//lefttop
-            if (x < map.getMapLayout().length - 1 && y > 0) {
-                if (tunnelDirection.equals(RoomDirection.TOP_RIGHT)) {
-                    map = generateLabyrinth(x + 1, y - 1, tunnelLength, currentTunnelDividing, RoomDirection.BOTTOM_LEFT, RoomDirection.TOP_RIGHT, map);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
-                }
-            }//rigthtop
+            if (checkNextRoomPossibility(tunnelDirection,x,y,map))
+                            generateLabyrinth(x + tunnelDirection.getXChange(), y + tunnelDirection.getYChange(), tunnelLength,
+                                    currentTunnelDividing, RoomDirection.valueOf(tunnelDirection.getConnection()), tunnelDirection, map);;
+        }
 
-            if (x > 0 && y < map.getMapLayout()[0].length - 1) {
-                if (tunnelDirection.equals(RoomDirection.BOTTOM_LEFT)) {
-                    map = generateLabyrinth(x - 1, y + 1, tunnelLength, currentTunnelDividing, RoomDirection.TOP_RIGHT, RoomDirection.BOTTOM_LEFT, map);
-                    currentTunnelDividing = ((int) (Math.random() * 100)) < crossroadChance;
-                }
-            }//leftbottom
-            if (x < map.getMapLayout().length - 1 && y < map.getMapLayout()[0].length - 1) {
-                if (tunnelDirection.equals(RoomDirection.BOTTOM_RIGHT)) {
-                    map = generateLabyrinth(x + 1, y + 1, tunnelLength, currentTunnelDividing, RoomDirection.TOP_LEFT, RoomDirection.BOTTOM_RIGHT, map);
-                }
-            }//rightbottom
-        }
-        return map;
-    }
-    private Map fillLayoutGaps(Map map){
-        Cell[][] newLayout = map.getMapLayout();
-        for (int i = 0;i< newLayout.length;i++){
-            for(int j = 0 ;j< newLayout[i].length;j++){
-                if(newLayout[i][j].getCurrentRoom()==null){
-                    Room fillRoom = new Room();
-                    map.getMapInfo().put(fillRoom.getId(),fillRoom);
-                    newLayout[i][j].setCurrentRoom(fillRoom.getId());
-                    newLayout[i][j].getRooms().add(fillRoom.getId());
-                }
-            }
-        }
-        map.setMapLayout(newLayout);
-        return map;
+
     }
 
     public Map saveMap(Map map){
@@ -173,7 +104,22 @@ public class MapService {
 
 
     //System methods
-    private Map layoutToSystemLayout(Map map){
+    private void fillLayoutGaps(Map map){
+        Cell[][] newLayout = map.getMapLayout();
+        for (Cell[] cells : newLayout) {
+            for (Cell cell : cells) {
+                if (cell.getCurrentRoom() == null) {
+                    Room fillRoom = new Room();
+                    map.getMapInfo().put(fillRoom.getId(), fillRoom);
+                    cell.setCurrentRoom(fillRoom.getId());
+                    cell.getRooms().add(fillRoom.getId());
+                }
+            }
+        }
+        map.setMapLayout(newLayout);
+    }
+
+    private void layoutToSystemLayout(Map map){
         Cell[][] newLayout = new Cell[map.getMapLayout().length][];
         for (int i = 0;i < newLayout.length;i++){
             newLayout[i] = new Cell[map.getMapLayout()[i].length*2];
@@ -182,9 +128,9 @@ public class MapService {
             }
         }
         map.setMapLayout(newLayout);
-        return map;
     }
-    private Map systemLayoutToLayout(Map map){
+
+    private void systemLayoutToLayout(Map map){
         Cell[][] newLayout = new Cell[map.getMapLayout().length][];
         int count = 0;
         int yCount = 0;
@@ -202,6 +148,28 @@ public class MapService {
             yCount = 0;
         }
         map.setMapLayout(newLayout);
-        return map;
+    }
+
+    private boolean checkNextRoomPossibility(RoomDirection roomDirection, int x, int y, Map map){
+        String xClause = roomDirection.getXClause();
+        String yClause = roomDirection.getYClause();
+        boolean trueCase = true;
+        if (xClause.equals("none")) {
+        } else {
+            if (xClause.charAt(0) == '+') {
+                trueCase = x > Integer.parseInt(xClause);
+            } else {
+                trueCase = x < map.getMapLayout().length + Integer.parseInt(xClause);
+            }
+        }
+        if (yClause.equals("none")) {
+        } else {
+            if (yClause.charAt(0) == '+') {
+                trueCase = trueCase && y > Integer.parseInt(yClause);
+            } else {
+                trueCase = trueCase && y < map.getMapLayout()[0].length + Integer.parseInt(yClause);
+            }
+        }
+        return trueCase;
     }
 }
