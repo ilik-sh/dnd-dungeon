@@ -23,12 +23,8 @@ public class MapService {
         Cell[][] newMapLayout  = new Cell[xSize][];
         for(int i = 0; i < newMapLayout.length ; i++){
             newMapLayout[i] = new Cell[ySize];
-            for (int j = 0;j< newMapLayout[i].length;j++){
-                newMapLayout[i][j] = new Cell();
-            }
         }
         map.setMapLayout(newMapLayout);
-        fillLayoutGaps(map);
         return map;
     }
 
@@ -45,14 +41,15 @@ public class MapService {
     private void generateLabyrinth(int x, int y, int tunnelLength, boolean tunnelDividing,
                                    RoomDirection connectionDirection, RoomDirection tunnelDirection,
                                    Map map) {
-        if(map.getMapInfo().get(map.getMapLayout()[x][y].getCurrentRoom()).getType()!= RoomType.ABSENCE){
-            map.getMapInfo().get(map.getMapLayout()[x][y].getCurrentRoom()).getRoomDirections().put(connectionDirection,true);
-            return;
+        if(map.getMapLayout()[x][y] != null) {
+            if (map.getMapInfo().get(map.getMapLayout()[x][y].getCurrentRoom()).getType() != RoomType.ABSENCE) {
+                map.getMapInfo().get(map.getMapLayout()[x][y].getCurrentRoom()).getRoomDirections().put(connectionDirection, true);
+                return;
+            }
         }
         Room newRoom = RoomService.generateRoom();
         newRoom.getRoomDirections().put(connectionDirection,true);
         String currentRoomId = newRoom.getId();
-        map.getMapInfo().remove(map.getMapLayout()[x][y].getCurrentRoom());
         map.getMapInfo().put(currentRoomId,newRoom);
         map.getMapLayout()[x][y] = new Cell(currentRoomId, new ArrayList<>(Collections.singleton(currentRoomId)));
         if (tunnelLength == 0) {
@@ -104,21 +101,6 @@ public class MapService {
 
 
     //System methods
-    private void fillLayoutGaps(Map map){
-        Cell[][] newLayout = map.getMapLayout();
-        for (Cell[] cells : newLayout) {
-            for (Cell cell : cells) {
-                if (cell.getCurrentRoom() == null) {
-                    Room fillRoom = new Room();
-                    map.getMapInfo().put(fillRoom.getId(), fillRoom);
-                    cell.setCurrentRoom(fillRoom.getId());
-                    cell.getRooms().add(fillRoom.getId());
-                }
-            }
-        }
-        map.setMapLayout(newLayout);
-    }
-
     private void layoutToSystemLayout(Map map){
         Cell[][] newLayout = new Cell[map.getMapLayout().length][];
         for (int i = 0;i < newLayout.length;i++){
