@@ -25,6 +25,7 @@ public class Cell implements Serializable {
     }
 
     public Cell(String currentRoom, ArrayList<String> rooms) {
+        id = String.valueOf(UUID.randomUUID());
         this.currentRoom = currentRoom;
         this.rooms = rooms;
     }
