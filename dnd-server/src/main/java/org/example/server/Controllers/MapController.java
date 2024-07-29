@@ -5,6 +5,7 @@ import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.MapControllingService;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.MapDto;
+import org.example.server.domain.dto.MapLayoutDto;
 import org.example.server.domain.dto.MapIdDto;
 import org.example.server.domain.dto.MapProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +25,39 @@ public class MapController {
 
     @PostMapping
     @RequestMapping("/createMap")
-    public ResponseEntity createMap(@RequestParam int mapSize,
-                                    @RequestParam int tunnelLength,
-                                    @RequestParam int crossroadChance,
-                                    @RequestHeader ("Authorization") String accessToken){
+    public ResponseEntity createNewMap(@RequestParam int mapSize,
+                                       @RequestParam int tunnelLength,
+                                       @RequestParam int crossroadChance,
+                                       @RequestHeader ("Authorization") String accessToken){
         User currentUser = authService.getUserFromAccessJwt(accessToken.split(" ")[1]);
         String id = mapControllingService.createMap(mapSize,tunnelLength,crossroadChance,currentUser);
         return new ResponseEntity(new MapIdDto(id), HttpStatusCode.valueOf(200));
     }
 
+    @PostMapping
+    @RequestMapping("/recreateMap")
+    public ResponseEntity recreateDungeon(@RequestParam int mapSize,
+                                          @RequestParam int tunnelLength,
+                                          @RequestParam int crossroadChance,
+                                          @RequestParam String id){
+        mapControllingService.recreateMap(mapSize,tunnelLength,crossroadChance,id);
+        return new ResponseEntity(new MapIdDto(id), HttpStatusCode.valueOf(200));
+    }
+
     @PostMapping("/updateMap")
-    public ResponseEntity updateMap(@RequestBody MapDto map){
-        mapControllingService.updateMap(map);
+    public ResponseEntity updateMap(@RequestBody MapDto mapDto){
+        mapControllingService.updateMapProfile(mapDto.getMapProfileDto());
+        mapControllingService.updateMapLayout(mapDto.getMapLayoutDto());
+        return new ResponseEntity(HttpStatusCode.valueOf(200));
+    }
+    @PostMapping("/updateMapLayout")
+    public ResponseEntity updateMapLayout(@RequestBody MapLayoutDto mapLayoutDto){
+        mapControllingService.updateMapLayout(mapLayoutDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
     @PostMapping("/updateMapProfile")
-    public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfile){
-        mapControllingService.updateMapProfile(mapProfile);
+    public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfileDto){
+        mapControllingService.updateMapProfile(mapProfileDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
 

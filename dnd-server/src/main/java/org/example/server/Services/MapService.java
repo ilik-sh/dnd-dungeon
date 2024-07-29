@@ -16,26 +16,21 @@ public class MapService {
     @Autowired
     private MapLoaderService mapLoaderService;
 
-    public Map generateMapLayout(int xSize, int ySize){
-        Map map = new Map();
-        map.setMapInfo(new HashMap<>());
-        map.setMapObjects(new HashMap<>());
+    public Cell[][] generateMapLayout(int xSize, int ySize){
         Cell[][] newMapLayout  = new Cell[xSize][];
         for(int i = 0; i < newMapLayout.length ; i++){
             newMapLayout[i] = new Cell[ySize];
         }
-        map.setMapLayout(newMapLayout);
-        return map;
+        return newMapLayout;
     }
 
-    public Map generateDungeon(int maxTunnelLength, int crossroadChance, Map map){
+    public void generateDungeon(int maxTunnelLength, int crossroadChance, Map map){
         layoutToSystemLayout(map);
         int startX = (int) (Math.random()*map.getMapLayout().length);
         int startY = Math.abs(((int) (Math.random()*map.getMapLayout().length+1))*2-(2-startX%2));
         this.crossroadChance = crossroadChance;
         generateLabyrinth(startX, startY, maxTunnelLength, true, null, null, map);
         systemLayoutToLayout(map);
-        return map;
     }
 
     private void generateLabyrinth(int x, int y, int tunnelLength, boolean tunnelDividing,

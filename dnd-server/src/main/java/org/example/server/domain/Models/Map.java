@@ -48,10 +48,13 @@ public class Map {
 
     public Map() {
         mapInfo = new HashMap<>();
+        mapObjects = new HashMap<>();
+        mapLayout = new Cell[0][0];
         thumbnailUrl = AllConstants.StringConstants.DEFAULT_MAP_IMG.getValue();
         name = AllConstants.StringConstants.DEFAULT_MAP_NAME.getValue();
         duplicateCount = 0;
         likeCount = 0;
+        creator = null;
         createdAt = new Date(System.currentTimeMillis());
         tags = new ArrayList<>();
     }

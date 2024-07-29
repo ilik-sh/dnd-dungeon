@@ -2,7 +2,7 @@ package org.example.server.Services;
 
 import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
-import org.example.server.domain.dto.MapDto;
+import org.example.server.domain.dto.MapLayoutDto;
 import org.example.server.domain.dto.MapProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,22 @@ public class MapControllingService {
     private MapProfileService mapProfileService;
 
     public String createMap(int mapSize, int tunnelLength, int crossroadChance, User user){
-        Map newMap = mapService.generateMapLayout(mapSize,mapSize);
-        newMap = mapService.generateDungeon(tunnelLength,crossroadChance, newMap);
+        Map newMap = new Map();
+        newMap.setMapLayout(mapService.generateMapLayout(mapSize,mapSize));
+        mapService.generateDungeon(tunnelLength,crossroadChance, newMap);
         newMap.setCreator(user);
         newMap = mapService.saveMap(newMap);
         return newMap.getId();
     }
 
-    public void updateMap(MapDto map){
+    public void recreateMap(int mapSize, int tunnelLength, int crossroadChance, String mapId){
+        Map oldMap = mapService.getMapById(mapId);
+        oldMap.setMapLayout(mapService.generateMapLayout(mapSize,mapSize));
+        mapService.generateDungeon(tunnelLength,crossroadChance, oldMap);
+        mapService.saveMap(oldMap);
+    }
+
+    public void updateMapLayout(MapLayoutDto map){
         Map oldMap = mapService.getMapById(map.getId());
         oldMap.setName(map.getName());
         oldMap.setMapLayout(map.getMapLayout());

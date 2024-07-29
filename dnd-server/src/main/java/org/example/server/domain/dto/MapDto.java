@@ -1,19 +1,19 @@
 package org.example.server.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.example.server.domain.Models.Cell;
+import org.example.server.domain.Models.Model3D;
 import org.example.server.domain.Models.Room;
+import org.example.server.domain.Models.Tag;
 
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class MapDto {
-    private String id;
-    private String name;
-    private Cell[][] mapLayout;
-    private HashMap<String, Room> mapInfo;
+    private MapIdDto mapIdDto;
+    private MapProfileDto mapProfileDto;
+    private MapLayoutDto mapLayoutDto;
 }
