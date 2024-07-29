@@ -4,9 +4,9 @@ import dayjs from 'dayjs';
 const userMaps = dndApi.injectEndpoints({
   endpoints: (builder) => ({
     getUserMaps: builder.query({
+      providesTags: (result) => (result ? [result.map(({ id }) => ({ type: 'Map', id })), 'Map'] : ['Map']),
       query: () => ({ url: 'map/getAllOfUser' }),
       transformResponse: (response) => {
-        console.log(response);
         response.map((map) => {
           const date = dayjs(map.createdAt).toDate();
           const createdAt = date.toLocaleDateString();

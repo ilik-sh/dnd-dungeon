@@ -1,12 +1,13 @@
+import { ErrorBoundary } from 'react-error-boundary';
 import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react';
 
 import AppRoutes from 'app/routing/app.routes';
 import { initializeApp } from 'firebase/app';
 import { SnackbarProvider } from 'notistack';
+import { ServerErrorPage } from 'pages/server-error';
 import ThemeProvider from 'shared/theme';
-import store, { persistor } from 'store';
+import store from 'store';
 
 import { firebaseConfig } from './app/config/firebase-config';
 

@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import Header from 'pages/landing/ui/header.comp';
-import notFoundSmall from 'shared/assets/images/not-found/not-found-192.png';
-import notFoundBig from 'shared/assets/images/not-found/not-found-360.png';
+import LinkHeader from 'shared/ui/link-header.comp';
+
+import notFoundBig from './assets/not-found.webp';
+import notFoundSmall from './assets/not-found.webp';
 
 type Props = {};
 
@@ -27,6 +29,7 @@ const NotFoundBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
   gap: '100px',
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column-reverse',
@@ -38,6 +41,9 @@ const ImageContainer = styled(Box)(({ theme }) => ({
   background: `url(${notFoundBig})`,
   width: '360px',
   height: '360px',
+  backgroundSize: 'cover',
+  backgroundClip: 'content-box',
+  boxShadow: `inset 10px 10px 40px 35px ${theme.palette.landing.main}, inset -10px -10px 40px 35px ${theme.palette.landing.main}`,
   [theme.breakpoints.down('sm')]: {
     background: `url(${notFoundSmall})`,
     width: '192px',
@@ -78,7 +84,7 @@ export default function NotFoundPage({}: Props) {
 
   return (
     <StyledBox>
-      <Header />
+      <LinkHeader />
       <ContentBox>
         <NotFoundBox>
           <TextBox>

@@ -13,7 +13,7 @@ type Props = {
 const GridContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
   padding: '1rem',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
   gridAutoRows: 'minmax(100px, auto)',
   gap: '1rem',
 }));

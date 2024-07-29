@@ -83,9 +83,35 @@ const mapSlice = createSlice({
 
       cell.rooms = cell.rooms.filter((item) => item != payload.room.id);
     },
+    extendMap(state, { payload }: PayloadAction<{ direction: string }>) {
+      const direction = payload.direction;
+
+      if (direction === 'top') {
+        state.map.map((item) => item.unshift(null));
+      }
+      if (direction === 'bottom') {
+        state.map.map((item) => item.push(null));
+      }
+      if (direction === 'left') {
+        state.map.unshift(new Array(state.map[0].length).fill(null));
+      }
+      if (direction === 'right') {
+        state.map.push(new Array(state.map[0].length).fill(null));
+      }
+    },
   },
 });
 
-export const { setMap, setMapName, addRoom, updateRoom, setSelectedCell, deleteRoom, selectRoom, addCell, removeCell } =
-  mapSlice.actions;
+export const {
+  setMap,
+  setMapName,
+  addRoom,
+  updateRoom,
+  setSelectedCell,
+  deleteRoom,
+  selectRoom,
+  addCell,
+  removeCell,
+  extendMap,
+} = mapSlice.actions;
 export default mapSlice;

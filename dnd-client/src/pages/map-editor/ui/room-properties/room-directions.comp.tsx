@@ -1,3 +1,4 @@
+import { View } from '@react-three/drei';
 import { Control, useController } from 'react-hook-form';
 
 import { Box, Checkbox, styled, useMediaQuery } from '@mui/material';

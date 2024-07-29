@@ -1,4 +1,4 @@
-import { Environment } from '@react-three/drei';
+import { Environment, Preload, View } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
@@ -7,7 +7,9 @@ import { Vector2, Vector3 } from 'three';
 import { selectMap, selectMapId } from '../../model/store/map/map.selector';
 import { setSelectedCell } from '../../model/store/map/map.slice';
 import BlankCellObject from './blank-cell.comp';
+import BorderHex from './border-hex.comp';
 import CustomControls from './custom-controls.comp';
+import Model from './model.comp';
 import ScreenshotRecorder from './screenshot-recorder.comp';
 import { ThreeHexItem } from './three-hex-item.comp';
 
@@ -26,16 +28,18 @@ export default function ThreeHex() {
   const id = useAppSelector(selectMapId());
   const dispatch = useAppDispatch();
 
+  console.log('Rerender');
+
   const handleCanvasClick = () => {
     dispatch(setSelectedCell(null));
   };
 
   return (
     <Canvas
-      style={{ background: '#21212190' }}
       camera={{ position: [4, 15, 14] }}
       onClickCapture={handleCanvasClick}
       gl={{ preserveDrawingBuffer: true }}
+      style={{ background: '#21212190' }}
     >
       <Environment preset="forest" />
 
@@ -45,10 +49,16 @@ export default function ThreeHex() {
             cell ? (
               <ThreeHexItem cell={cell} position={calculateTilePosition(column, row, 1)} key={cell.id} />
             ) : (
-              <BlankCellObject position={calculateTilePosition(column, row, 1)} coordinates={{ x: column, y: row }} />
+              <BlankCellObject
+                position={calculateTilePosition(column, row, 1)}
+                coordinates={{ x: column, y: row }}
+                key={column + row}
+              />
             ),
           ),
         )}
+        {/* <Model /> */}
+        <BorderHex />
       </mesh>
       <ScreenshotRecorder mapId={id} />
       <CustomControls />

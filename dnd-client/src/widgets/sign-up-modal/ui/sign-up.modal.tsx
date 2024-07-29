@@ -8,6 +8,7 @@ import { enqueueSnackbar } from 'notistack';
 import { DungeonDoor } from 'shared/assets/icons/dungeon-door.icon';
 import { ModalLookup } from 'shared/libs/constants/modal-lookup';
 import { useAppDispatch } from 'shared/libs/hooks/redux.hooks';
+import { processReject } from 'shared/libs/utils/proccess-reject';
 import CustomLink from 'shared/ui/custom-link.comp';
 import IconTitle from 'shared/ui/icon-title.comp';
 import { ModalContext } from 'widgets/modals-provider';
@@ -69,9 +70,8 @@ export default function SignUpModal() {
         enqueueSnackbar('Succesfully signed up', { variant: 'success' });
         handleClose();
       })
-      .catch((rejected) => {
-        console.log(rejected);
-        enqueueSnackbar('Unknown error', { variant: 'error' });
+      .catch((reject) => {
+        processReject(reject);
       });
   };
 

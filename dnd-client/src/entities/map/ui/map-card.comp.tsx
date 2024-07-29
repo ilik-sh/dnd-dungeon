@@ -6,8 +6,8 @@ import { router } from 'App';
 import { MapView } from 'shared/model/types/map-view.dto';
 
 const MapCover = styled('img')({
-  objectFit: 'cover',
-  minWidth: '320px',
+  // objectFit: 'cover',
+  minWidth: '100%',
   height: '180px',
 });
 
@@ -76,7 +76,7 @@ export default function MapCard({ map }: MapCardProps) {
         <ImageWrapper>
           <MapCover
             loading="lazy"
-            sizes="(min-width: 736px) 50vw, (min-width: 1440px) 25vw, 100vw"
+            // sizes="(min-width: 736px) 50vw, (min-width: 1440px) 25vw, 100vw"
             alt={map.name}
             src={map.thumbnailUrl}
           />

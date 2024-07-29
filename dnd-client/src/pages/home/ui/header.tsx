@@ -24,6 +24,7 @@ const drawerWidth = 220;
 
 const StyledBox = styled(Box)(({ theme }) => ({
   background: theme.palette.background.paper,
+  height: 'var(--header-height)',
   borderBottom: `1px solid ${theme.palette.divider}`,
   position: 'sticky',
   top: '0px',
@@ -59,7 +60,6 @@ export default function Header(props: Props) {
             >
               <MenuIcon style={{ color: 'white' }} />
             </IconButton>
-            <Typography variant="body1">Home</Typography>
           </div>
           <CreateProjectMenu />
         </Toolbar>

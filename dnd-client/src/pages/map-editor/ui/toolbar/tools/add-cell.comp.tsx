@@ -5,21 +5,18 @@ import { Tools } from 'pages/map-editor/model/constants/tools';
 import { getSelectedTool } from 'pages/map-editor/model/store/tools/tools.selector';
 import { setTool } from 'pages/map-editor/model/store/tools/tools.slice';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
+import RoundButton from 'shared/ui/round-button.comp';
 
 import AddCell from '../../assets/icons/add-cell.icon';
 
 type Props = {};
 
-const RoundButton = styled(IconButton)(({ theme }) => ({
-  borderRadius: '1px',
-  height: '100%',
-  aspectRatio: '1/1',
-}));
-
 export default function AddCellButton({}: Props) {
   const tool = useAppSelector(getSelectedTool());
   const theme = useTheme();
   const dispatch = useAppDispatch();
+
+  const isSelected = tool === Tools.AddCell;
 
   const handleClick = () => {
     if (tool !== Tools.AddCell) {
@@ -29,11 +26,8 @@ export default function AddCellButton({}: Props) {
     dispatch(setTool({ tool: null }));
   };
   return (
-    <RoundButton
-      onClick={handleClick}
-      sx={tool === Tools.AddCell ? { backgroundColor: theme.palette.grey[800] } : null}
-    >
-      <AddCell sx={tool === Tools.AddCell ? { color: theme.palette.primary.main } : null} />
+    <RoundButton onClick={handleClick} sx={isSelected ? { backgroundColor: theme.palette.grey[800] } : null}>
+      <AddCell sx={isSelected ? { color: theme.palette.primary.main } : null} />
     </RoundButton>
   );
 }

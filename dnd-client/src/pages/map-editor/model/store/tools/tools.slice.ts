@@ -7,7 +7,7 @@ const initialState: ToolsState = {
 };
 
 const toolsSlice = createSlice({
-  name: 'map',
+  name: 'tools',
   initialState,
   reducers: {
     setTool(state, { payload }: PayloadAction<{ tool: string | null }>) {

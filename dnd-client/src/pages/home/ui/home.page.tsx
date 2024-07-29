@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { TabContext, TabPanel } from '@mui/lab';
 import { Box, styled } from '@mui/material';
 import { MapGrid, useGetUserMapsQuery } from 'entities/map';
 import { ModalsManager, ModalsProvider } from 'widgets/modals-provider';
 
+import { Tabs } from '../model/constants/tabs';
 import Header from './header';
+import HomeTabProvider from './home-tab.provider';
 import Sidebar from './sidebar.comp';
+import AssetsTab from './tabs/assets.tab';
+import MapsTab from './tabs/maps.tab';
 
 const HomeBox = styled(Box)({
   display: 'flex',
@@ -29,16 +34,24 @@ const StyledSidebar = styled(Sidebar)(({ theme }) => ({
 }));
 
 export default function HomePage() {
+  const [value, setValue] = useState('maps');
   const { data } = useGetUserMapsQuery(null);
   return (
     <HomeBox>
       <ModalsProvider>
-        <ModalsManager />
-        <StyledSidebar />
-        <ContentBox>
-          <Header></Header>
-          <MapGrid maps={data}></MapGrid>
-        </ContentBox>
+        <HomeTabProvider>
+          <ModalsManager />
+          <StyledSidebar />
+          <ContentBox>
+            <Header></Header>
+            <TabPanel value={Tabs.Maps}>
+              <MapsTab />
+            </TabPanel>
+            <TabPanel value={Tabs.Assets}>
+              <AssetsTab />
+            </TabPanel>
+          </ContentBox>
+        </HomeTabProvider>
       </ModalsProvider>
     </HomeBox>
   );
