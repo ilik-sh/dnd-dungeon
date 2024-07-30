@@ -48,6 +48,24 @@ public class MapControllingService {
         oldMap.setTags(mapProfile.getTags());
         mapService.saveMap(oldMap);
     }
+    public void updateMapPartly(Map map){
+        Map oldMap = mapService.getMapById(map.getId());
+        Class<?> mapClass = map.getClass();
+        Field[] fields = oldMap.getClass().getDeclaredFields();
+        for(Field field: fields){
+            field.setAccessible(true);
+            try {
+                Object value = field.get(mapClass);
+                if (value != null) {
+                    field.set(oldMap, value);
+                }
+            } catch (IllegalAccessException e){
+                e.printStackTrace();
+            }
+            field.setAccessible(false);
+        }
+        mapService.saveMap(oldMap);
+    }
 
     public void deleteMapById(String id){
         mapService.deleteMap(id);

@@ -45,11 +45,12 @@ public class MapController {
         mapControllingService.recreateMap(mapSize,tunnelLength,crossroadChance,id);
                                           @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, id);
+        mapControllingService.recreateMap(mapSize, tunnelLength, crossroadChance, id);
         return new ResponseEntity(new MapIdDto(id), HttpStatusCode.valueOf(200));
     }
 
     @PostMapping("/updateMap")
-    public ResponseEntity updateMap(@RequestBody MapDto mapDto){
+    public ResponseEntity updateMap(@RequestBody MapDto mapDto,
                                     @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, mapDto.getMapIdDto().getMapId());
         mapControllingService.updateMapProfile(mapDto.getMapProfileDto());
@@ -57,21 +58,27 @@ public class MapController {
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
     @PostMapping("/updateMapLayout")
-    public ResponseEntity updateMapLayout(@RequestBody MapLayoutDto mapLayoutDto){
+    public ResponseEntity updateMapLayout(@RequestBody MapLayoutDto mapLayoutDto,
                                           @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, mapLayoutDto.getId());
         mapControllingService.updateMapLayout(mapLayoutDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
     @PostMapping("/updateMapProfile")
-    public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfileDto){
+    public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfileDto,
                                            @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, mapProfileDto.getId());
         mapControllingService.updateMapProfile(mapProfileDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
+
+    @PatchMapping("/updateMapPartly")
+    public ResponseEntity updateMapPartly(@RequestBody Map map,
                                           @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, map.getId());
+        mapControllingService.updateMapPartly(map);
+        return new ResponseEntity(HttpStatusCode.valueOf(200));
+    }
 
     @DeleteMapping("/deleteMapById")
     public ResponseEntity deleteMapById(@RequestParam String id){
