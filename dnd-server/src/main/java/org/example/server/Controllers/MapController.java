@@ -22,6 +22,8 @@ public class MapController {
     MapControllingService mapControllingService;
     @Autowired
     AuthService authService;
+    @Autowired
+    RequestValidationService requestValidationService;
 
     @PostMapping
     @RequestMapping("/createMap")
@@ -41,28 +43,40 @@ public class MapController {
                                           @RequestParam int crossroadChance,
                                           @RequestParam String id){
         mapControllingService.recreateMap(mapSize,tunnelLength,crossroadChance,id);
+                                          @RequestHeader("Authorization") String accessToken) {
+        checkUser(accessToken, id);
         return new ResponseEntity(new MapIdDto(id), HttpStatusCode.valueOf(200));
     }
 
     @PostMapping("/updateMap")
     public ResponseEntity updateMap(@RequestBody MapDto mapDto){
+                                    @RequestHeader("Authorization") String accessToken) {
+        checkUser(accessToken, mapDto.getMapIdDto().getMapId());
         mapControllingService.updateMapProfile(mapDto.getMapProfileDto());
         mapControllingService.updateMapLayout(mapDto.getMapLayoutDto());
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
     @PostMapping("/updateMapLayout")
     public ResponseEntity updateMapLayout(@RequestBody MapLayoutDto mapLayoutDto){
+                                          @RequestHeader("Authorization") String accessToken) {
+        checkUser(accessToken, mapLayoutDto.getId());
         mapControllingService.updateMapLayout(mapLayoutDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
     @PostMapping("/updateMapProfile")
     public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfileDto){
+                                           @RequestHeader("Authorization") String accessToken) {
+        checkUser(accessToken, mapProfileDto.getId());
         mapControllingService.updateMapProfile(mapProfileDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
+                                          @RequestHeader("Authorization") String accessToken) {
+        checkUser(accessToken, map.getId());
 
     @DeleteMapping("/deleteMapById")
     public ResponseEntity deleteMapById(@RequestParam String id){
+                                        @RequestHeader("Authorization") String accessToken) {
+        checkUser(accessToken, id);
         mapControllingService.deleteMapById(id);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
@@ -82,6 +96,7 @@ public class MapController {
 
     @GetMapping("/getAllOfUser")
     public ResponseEntity getAllOfUser(@RequestHeader ("Authorization") String accessToken){
+                                       @RequestHeader("Authorization") String accessToken) {
         User currnetUser = authService.getUserFromAccessJwt(accessToken.split(" ")[1]);
         return new ResponseEntity(mapControllingService.getByCreator(currnetUser.getId()),HttpStatusCode.valueOf(200));
     }
@@ -105,4 +120,14 @@ public class MapController {
     public ResponseEntity getByLike(@RequestParam boolean isDesc){
         return new ResponseEntity(mapControllingService.getAllMapsByLike(isDesc),HttpStatusCode.valueOf(200));
     }
+
+    private boolean checkUser(String accessToken, String mapId) {
+        if (requestValidationService.checkForUserInMap(accessToken.split(" ")[1], mapId)) {
+            return true;
+        }
+        else {
+            throw new IllegalArgumentException("Users don't match");
+        }
+    }
 }
+

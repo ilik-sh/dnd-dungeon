@@ -35,10 +35,10 @@ public class UserService implements UserDetailsService {
         return (List<User>) userRepository.findAll();
     }
 
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         user.setRole(Role.ROLE_USER);
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public boolean deleteUser(UUID userId) {
