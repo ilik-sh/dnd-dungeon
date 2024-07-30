@@ -7,6 +7,7 @@ import org.example.server.domain.dto.MapProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 @Service
@@ -75,25 +76,21 @@ public class MapControllingService {
         return mapService.getMapById(id);
     }
 
-    public ArrayList<MapProfileDto> getByCreator(String id){
-        mapProfileService.findALLByCreator(id);
-        return mapProfileService.findCurrentPage(0);
+    public ArrayList<MapProfileDto> getByCreator(int page, String id){
+        return mapProfileService.findALLByCreator(page,id);
     }
 
     public ArrayList<MapProfileDto> getPage(int page){
         return mapProfileService.findCurrentPage(page);
     }
 
-    public ArrayList<MapProfileDto> getAllMapsByDate(boolean isDesc){
-        mapProfileService.findAllByDate(isDesc);
-        return mapProfileService.findCurrentPage(0);
+    public ArrayList<MapProfileDto> getAllMapsByDate(int page, boolean isDesc){
+        return mapProfileService.findAllByDate(page,isDesc);
     }
-    public ArrayList<MapProfileDto> getAllMapsByDuplicate(boolean isDesc){
-        mapProfileService.findAllByDCount(isDesc);
-        return mapProfileService.findCurrentPage(0);
+    public ArrayList<MapProfileDto> getAllMapsByDuplicate(int page, boolean isDesc){
+        return mapProfileService.findAllByDCount(page,isDesc);
     }
-    public ArrayList<MapProfileDto> getAllMapsByLike(boolean isDesc){
-        mapProfileService.findAllByLCount(isDesc);
-        return mapProfileService.findCurrentPage(0);
+    public ArrayList<MapProfileDto> getAllMapsByLike(int page, boolean isDesc){
+        return mapProfileService.findAllByLCount(page,isDesc);
     }
 }

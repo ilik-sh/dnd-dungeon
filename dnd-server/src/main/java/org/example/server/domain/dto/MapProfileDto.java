@@ -1,13 +1,8 @@
 package org.example.server.domain.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jakarta.persistence.*;
 import lombok.Data;
 import org.example.server.AllConstants;
-import org.example.server.Serializers.CreatorSerializer;
 import org.example.server.domain.Models.Tag;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,13 +15,8 @@ public class MapProfileDto {
     private String name;
     private long duplicateCount;
     private long likeCount;
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @ManyToOne
-    @JsonDeserialize(using = CreatorSerializer.class)
     private String creator;
-    @JdbcTypeCode(SqlTypes.JSON)
     private ArrayList<Tag> tags;
 
     public MapProfileDto() {

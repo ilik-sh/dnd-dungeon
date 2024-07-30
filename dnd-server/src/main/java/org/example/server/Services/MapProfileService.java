@@ -5,6 +5,11 @@ import org.example.server.domain.Models.Map;
 import org.example.server.domain.dto.MapProfileDto;
 import org.example.server.repo.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.QSort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,52 +18,45 @@ import java.util.ArrayList;
 public class MapProfileService {
     @Autowired
     private MapRepository mapRepository;
-    private ArrayList<Map> currentList;
-    private int maxPages;
-
-    {
-        currentList = new ArrayList<>();
-    }
 
     public ArrayList<MapProfileDto> findCurrentPage(int page){
-        if(page>maxPages)throw new IllegalArgumentException("No such page");
-        ArrayList<MapProfileDto> tempList = new ArrayList<>();
-        for(int i=0;i<AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();i++){
-            if(i>=currentList.size()-page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue())return tempList;
-            tempList.add(toMapProfileDto(currentList.get(page*AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue()+i)));
+        return findCurrentSortPage(page, null);
+    }
+
+    public MapProfileDto findByName(String name){
+        return toMapProfileDto(mapRepository.findByName(name).orElseThrow(()-> new IllegalArgumentException("No such map: "+name)));
+    }
+
+    public ArrayList<MapProfileDto> findALLByCreator(int page, String id){
+        Pageable pageable = PageRequest.of(page,AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue());
+        ArrayList <MapProfileDto> mapProfileDtos = new ArrayList<>();
+        Iterable<Map> maps = mapRepository.findAllByCreatorId(id,pageable);
+        for (Map map: maps){
+            mapProfileDtos.add(toMapProfileDto(map));
         }
-        return tempList;
+        return mapProfileDtos;
     }
 
-    public void findByName(String name){
-        currentList.clear();
-        currentList.add(mapRepository.findByName(name).orElse(null));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
+    public ArrayList<MapProfileDto> findAllByDate(int page, boolean isDesc){
+        if(isDesc){
+            return findCurrentSortPage(page, Sort.by("createdAt").descending());
+        } else {
+            return findCurrentSortPage(page, Sort.by("createdAt").ascending());
+        }
     }
-
-    public void findALLByCreator(String id){
-        currentList.clear();
-        mapRepository.findAllByCreatorId(id).forEach((Map -> currentList.add(Map)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
+    public ArrayList<MapProfileDto> findAllByDCount(int page, boolean isDesc){
+        if(isDesc){
+            return findCurrentSortPage(page, Sort.by("duplicateCount").descending());
+        } else {
+            return findCurrentSortPage(page, Sort.by("duplicateCount").ascending());
+        }
     }
-
-    public void findAllByDate(boolean isDesc){
-        currentList.clear();
-        if(isDesc) mapRepository.findAllByOrderByCreatedAtDesc().forEach((map -> currentList.add(map)));
-        if(!isDesc) mapRepository.findAllByOrderByCreatedAtAsc().forEach((map -> currentList.add(map)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
-    }
-    public void findAllByDCount(boolean isDesc){
-        currentList.clear();
-        if(isDesc) mapRepository.findAllByOrderByDuplicateCountDesc().forEach((map -> currentList.add(map)));
-        if(!isDesc) mapRepository.findAllByOrderByDuplicateCountAsc().forEach((map -> currentList.add(map)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
-    }
-    public void findAllByLCount(boolean isDesc){
-        currentList.clear();
-        if(isDesc) mapRepository.findAllByOrderByLikeCountDesc().forEach((map -> currentList.add(map)));
-        if(!isDesc) mapRepository.findAllByOrderByLikeCountAsc().forEach((map -> currentList.add(map)));
-        maxPages = currentList.size()/ AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue();
+    public ArrayList<MapProfileDto> findAllByLCount(int page, boolean isDesc){
+        if(isDesc){
+            return findCurrentSortPage(page, Sort.by("likeCount").descending());
+        } else {
+            return findCurrentSortPage(page, Sort.by("likeCount").ascending());
+        }
     }
 
     private MapProfileDto toMapProfileDto(Map map){
@@ -67,5 +65,18 @@ public class MapProfileService {
                 map.getName(),map.getDuplicateCount(),
                 map.getLikeCount(), map.getCreatedAt(),
                 map.getCreator().getId(),map.getTags());
+    }
+    private ArrayList<MapProfileDto> findCurrentSortPage(int page, Sort sort){
+        if(sort == null){
+            sort = QSort.unsorted();
+        }
+        Page<Map> pageList = mapRepository.findAll(
+                PageRequest.of(page,AllConstants.IntegerConstants.MAX_MAPVIEW_AMOUNT_ON_PAGE.getValue(),
+                        sort));
+        ArrayList<MapProfileDto> tempList = new ArrayList<>();
+        for (Map map: pageList){
+            tempList.add(toMapProfileDto(map));
+        }
+        return tempList;
     }
 }

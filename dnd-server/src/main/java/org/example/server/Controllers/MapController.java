@@ -3,6 +3,8 @@ package org.example.server.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.MapControllingService;
+import org.example.server.Services.RequestValidationService;
+import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.MapDto;
 import org.example.server.domain.dto.MapLayoutDto;
@@ -30,9 +32,9 @@ public class MapController {
     public ResponseEntity createNewMap(@RequestParam int mapSize,
                                        @RequestParam int tunnelLength,
                                        @RequestParam int crossroadChance,
-                                       @RequestHeader ("Authorization") String accessToken){
+                                       @RequestHeader("Authorization") String accessToken) {
         User currentUser = authService.getUserFromAccessJwt(accessToken.split(" ")[1]);
-        String id = mapControllingService.createMap(mapSize,tunnelLength,crossroadChance,currentUser);
+        String id = mapControllingService.createMap(mapSize, tunnelLength, crossroadChance, currentUser);
         return new ResponseEntity(new MapIdDto(id), HttpStatusCode.valueOf(200));
     }
 
@@ -41,8 +43,7 @@ public class MapController {
     public ResponseEntity recreateDungeon(@RequestParam int mapSize,
                                           @RequestParam int tunnelLength,
                                           @RequestParam int crossroadChance,
-                                          @RequestParam String id){
-        mapControllingService.recreateMap(mapSize,tunnelLength,crossroadChance,id);
+                                          @RequestParam String id,
                                           @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, id);
         mapControllingService.recreateMap(mapSize, tunnelLength, crossroadChance, id);
@@ -57,6 +58,8 @@ public class MapController {
         mapControllingService.updateMapLayout(mapDto.getMapLayoutDto());
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
+
+
     @PostMapping("/updateMapLayout")
     public ResponseEntity updateMapLayout(@RequestBody MapLayoutDto mapLayoutDto,
                                           @RequestHeader("Authorization") String accessToken) {
@@ -64,6 +67,7 @@ public class MapController {
         mapControllingService.updateMapLayout(mapLayoutDto);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
+
     @PostMapping("/updateMapProfile")
     public ResponseEntity updateMapProfile(@RequestBody MapProfileDto mapProfileDto,
                                            @RequestHeader("Authorization") String accessToken) {
@@ -81,7 +85,7 @@ public class MapController {
     }
 
     @DeleteMapping("/deleteMapById")
-    public ResponseEntity deleteMapById(@RequestParam String id){
+    public ResponseEntity deleteMapById(@RequestParam String id,
                                         @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, id);
         mapControllingService.deleteMapById(id);
@@ -90,42 +94,50 @@ public class MapController {
 
     @GetMapping
     @RequestMapping("/getPage")
-    public ResponseEntity getCurrentPage(@RequestParam int page){
-        return new ResponseEntity(mapControllingService.getPage(page),HttpStatusCode.valueOf(200));
+    public ResponseEntity getCurrentPage(@RequestParam int page) {
+        return new ResponseEntity(mapControllingService.getPage(page), HttpStatusCode.valueOf(200));
     }
 
     @GetMapping
     @RequestMapping("/getByMapId")
-    public ResponseEntity getById(@RequestParam String id){
-        return new ResponseEntity(mapControllingService.getMapById(id),HttpStatusCode.valueOf(200));
+    public ResponseEntity getById(@RequestParam String id) {
+        return new ResponseEntity(mapControllingService.getMapById(id), HttpStatusCode.valueOf(200));
     }
 
 
     @GetMapping("/getAllOfUser")
-    public ResponseEntity getAllOfUser(@RequestHeader ("Authorization") String accessToken){
+    public ResponseEntity getAllOfUser(@RequestParam int page,
                                        @RequestHeader("Authorization") String accessToken) {
         User currnetUser = authService.getUserFromAccessJwt(accessToken.split(" ")[1]);
-        return new ResponseEntity(mapControllingService.getByCreator(currnetUser.getId()),HttpStatusCode.valueOf(200));
+        return new ResponseEntity(mapControllingService.getByCreator(page, currnetUser.getId()), HttpStatusCode.valueOf(200));
     }
+
     @GetMapping
     @RequestMapping("/getByCreator")
-    public ResponseEntity getByCreator(@RequestParam String creatorId){
-        return new ResponseEntity(mapControllingService.getByCreator(creatorId),HttpStatusCode.valueOf(200));
+    public ResponseEntity getByCreator(@RequestParam int page,
+                                       @RequestParam String creatorId) {
+        return new ResponseEntity(mapControllingService.getByCreator(page, creatorId), HttpStatusCode.valueOf(200));
     }
+
     @GetMapping
     @RequestMapping("/getByDate")
-    public ResponseEntity getByDate(@RequestParam boolean isDesc){
-        return new ResponseEntity(mapControllingService.getAllMapsByDate(isDesc),HttpStatusCode.valueOf(200));
+    public ResponseEntity getByDate(@RequestParam int page,
+                                    @RequestParam boolean isDesc) {
+        return new ResponseEntity(mapControllingService.getAllMapsByDate(page, isDesc), HttpStatusCode.valueOf(200));
     }
+
     @GetMapping
     @RequestMapping("/getByDuplicate")
-    public ResponseEntity getByDuplicate(@RequestParam boolean isDesc){
-        return new ResponseEntity(mapControllingService.getAllMapsByDuplicate(isDesc),HttpStatusCode.valueOf(200));
+    public ResponseEntity getByDuplicate(@RequestParam int page,
+                                         @RequestParam boolean isDesc) {
+        return new ResponseEntity(mapControllingService.getAllMapsByDuplicate(page, isDesc), HttpStatusCode.valueOf(200));
     }
+
     @GetMapping
     @RequestMapping("/getByLike")
-    public ResponseEntity getByLike(@RequestParam boolean isDesc){
-        return new ResponseEntity(mapControllingService.getAllMapsByLike(isDesc),HttpStatusCode.valueOf(200));
+    public ResponseEntity getByLike(@RequestParam int page,
+                                    @RequestParam boolean isDesc) {
+        return new ResponseEntity(mapControllingService.getAllMapsByLike(page, isDesc), HttpStatusCode.valueOf(200));
     }
 
     private boolean checkUser(String accessToken, String mapId) {
