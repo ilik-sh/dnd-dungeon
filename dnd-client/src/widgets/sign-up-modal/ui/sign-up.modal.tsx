@@ -5,15 +5,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { CloseOutlined } from '@mui/icons-material';
 import { Container, Dialog, DialogContent, Divider, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
+
+import { ModalContext } from 'widgets/modals-provider';
+
 import { DungeonDoor } from 'shared/assets/icons/dungeon-door.icon';
-import { ModalLookup } from 'shared/libs/constants/modal-lookup';
-import { useAppDispatch } from 'shared/libs/hooks/redux.hooks';
+import { Modals } from 'shared/libs/constants/modals';
 import { processReject } from 'shared/libs/utils/proccess-reject';
 import CustomLink from 'shared/ui/custom-link.comp';
 import IconTitle from 'shared/ui/icon-title.comp';
-import { ModalContext } from 'widgets/modals-provider';
 
-import { ApiError } from '../../../shared/model/types/api.error';
 import { useSignUpMutation } from '../api/sign-up.mutation';
 import { SignUpForm as SignUpFormFields, signUpFormSchema } from '../model/validation-schemas/sign-up-form.schema';
 import SignUpForm from './sign-up-form.comp';
@@ -60,7 +60,7 @@ export default function SignUpModal() {
 
   const handleSignInLinkClicked = () => {
     closeModal();
-    openModal(ModalLookup.SignInModal.name);
+    openModal(Modals.SignInModal);
   };
 
   const onSubmit = async (data: SignUpFormFields) => {

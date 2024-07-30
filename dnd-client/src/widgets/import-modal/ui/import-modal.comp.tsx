@@ -2,6 +2,7 @@ import { DragEvent, useContext, useId } from 'react';
 
 import { Close } from '@mui/icons-material';
 import { alpha, Box, Button, Dialog, Divider, IconButton, styled, Typography, useTheme } from '@mui/material';
+
 import { ModalContext } from 'widgets/modals-provider';
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({}));

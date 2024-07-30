@@ -13,7 +13,11 @@
     "react",
     "<THIRD_PARTY_MODULES>",
     "^(cplibrary|cpicons|cputil|cpclient|@cpclient|cpshots).*$",
-    "components/.*$",
+    "pages/.*$",
+    "widgets/.*$",
+    "features/.*$",
+    "entities/.*$",
+    "shared/.*$",
     "^(constants|data|hooks|util|utils)/.*$",
     "^(\\.|\\.\\.)/(.(?!.(css|scss)))*$",
     "\\.(css|scss)$"

@@ -1,5 +1,6 @@
-import { CellDto } from 'entities/cell';
 import { v4 } from 'uuid';
+
+import { CellDto } from 'entities/cell';
 
 import { generateDefaultRoom } from './default-room';
 

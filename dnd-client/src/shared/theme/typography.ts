@@ -1,3 +1,5 @@
+import { CSSProperties } from '@mui/material/styles/createTypography';
+
 type Breakpoints = {
   sm: number;
   md: number;
@@ -27,7 +29,7 @@ export function responsiveFontSizes({ sm, md, lg }: Breakpoints) {
 }
 
 export const primaryFont = 'Roboto, sans-serif';
-export const secondaryFont = 'Jaini Purva';
+export const secondaryFont = 'Draconis Bold';
 
 export const typography = {
   fontFamily: primaryFont,

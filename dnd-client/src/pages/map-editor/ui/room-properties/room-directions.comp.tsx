@@ -1,18 +1,18 @@
-import { View } from '@react-three/drei';
 import { Control, useController } from 'react-hook-form';
 
-import { Box, Checkbox, styled, useMediaQuery } from '@mui/material';
+import { Box, Checkbox, styled } from '@mui/material';
+
 import { RoomFormYup } from 'pages/map-editor/model/validation-schemas/room-form.schema';
-import { DirectionAngles } from 'shared/libs/enums/direction-angles';
+
 import { Directions } from 'shared/libs/enums/directions.enum';
 import { RoomType } from 'shared/libs/enums/room-type.enum';
 import { TypeColors } from 'shared/libs/enums/type-colors.enum';
 
 import { Hex } from './hex';
 
-type HexDirectionsProps = {
+type RoomDirectionsProps = {
   control: Control<RoomFormYup, any>;
-  submit?: () => void;
+  submit?: React.FormEventHandler;
 };
 
 const CenteredBox = styled(Box)({
@@ -32,7 +32,7 @@ const StyledCheckbox = styled(Checkbox)({
   opacity: '0',
 });
 
-export default function RoomDirections({ control, submit }: HexDirectionsProps) {
+export default function RoomDirections({ control, submit }: RoomDirectionsProps) {
   const outerHex = new Hex(50);
 
   const { field } = useController({

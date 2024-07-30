@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Contrast, KeyboardArrowDown, Logout, Settings } from '@mui/icons-material';
 import { Avatar, Box, Button, Divider, Menu, MenuItem, styled, Typography } from '@mui/material';
 import { router } from 'App';
+
 import { useGetUserQuery } from 'entities/user';
-import { AuthResponse } from 'entities/user/model/types/auth.response';
+
 import { LocalStorageKeys } from 'shared/libs/enums/local-storage-keys.enum';
 
 import UserProfileMenuSkeleton from './user-profile-menu.skeleton';
@@ -45,10 +46,6 @@ const UserCredentialsBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-}));
-
-const EmailTypography = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.disabled,
 }));
 
 export default function UserProfileMenu({}: Props) {

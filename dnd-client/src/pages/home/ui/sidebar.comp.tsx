@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { KeyboardArrowDown } from '@mui/icons-material';
-import { TabContext, TabList } from '@mui/lab';
-import { Avatar, Button, Typography } from '@mui/material';
 import { Box, styled } from '@mui/system';
 
 import HomeTabs from './home-tabs-list.comp';

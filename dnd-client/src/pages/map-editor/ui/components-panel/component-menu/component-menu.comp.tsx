@@ -6,7 +6,7 @@ import ExpandableMenuItem from './expandable-menu-item.comp';
 import MenuItem from './menu-item.comp';
 
 type ComponentMenuProps = {
-  components: CellDto[];
+  components: (CellDto | null)[];
 };
 
 export default function ComponentMenu({ components }: ComponentMenuProps) {
@@ -14,6 +14,7 @@ export default function ComponentMenu({ components }: ComponentMenuProps) {
     <>
       {components.map((component, index) => {
         if (!component) return null;
+
         if (component.rooms && component.rooms.length > 0) {
           return <ExpandableMenuItem cell={component} key={index} title={'Cell ' + (index + 1)} />;
         }

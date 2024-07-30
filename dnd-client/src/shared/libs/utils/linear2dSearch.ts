@@ -1,6 +1,6 @@
-import { CellDto } from 'app/configuration/types/cell.dto';
+import { CellDto } from 'entities/cell/model/types/cell.dto';
 
-export const linear2dSearch = (arr: CellDto[][], target: string | null) => {
+export const linear2dSearch = (arr: (CellDto | null)[][], target: string | null) => {
   if (!target) {
     return null;
   }

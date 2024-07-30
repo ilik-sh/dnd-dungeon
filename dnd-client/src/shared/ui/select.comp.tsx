@@ -3,20 +3,20 @@ import { Control, useController } from 'react-hook-form';
 
 import {
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select as MuiSelect,
   SelectProps as MuiSelectProps,
   styled,
 } from '@mui/material';
+
 import { camelize } from 'shared/libs/utils/camelize';
 
 type SelectProps = MuiSelectProps & {
   control: Control<any, any>;
   name: string;
   selectValues: any[];
-  submit?: () => void;
+  submit?: React.FormEventHandler;
 };
 
 const StyledFormControl = styled(FormControl)(() => ({
@@ -44,7 +44,7 @@ export default function Select({ control, name, selectValues, submit, ...props }
         onChange={(e) => {
           field.onChange(e);
           if (submit) {
-            submit();
+            submit(e);
           }
         }}
       >

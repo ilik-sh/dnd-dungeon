@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 
 import { dndApi } from 'app/api/dnd-api';
-import { MapSnapshot } from 'entities/map/model/map-snapshot';
-import { useAppDispatch } from 'shared/libs/hooks/redux.hooks';
 import store from 'store';
+
+import { MapSnapshot } from 'entities/map/model/map-snapshot';
+
+import { useAppDispatch } from 'shared/libs/hooks/redux.hooks';
 
 type Props = {};
 
@@ -14,7 +16,7 @@ export default function Updater({}: Props) {
   const interval = setInterval(() => {
     let previousValue = currentValue;
     currentValue = store.getState().map;
-    const mapSnapshot: MapSnapshot = {
+    const mapSnapshot = {
       id: currentValue.id,
       name: currentValue.mapName,
       mapLayout: currentValue.map,
@@ -22,7 +24,7 @@ export default function Updater({}: Props) {
     };
 
     if (previousValue !== currentValue) {
-      dispatch(dndApi.endpoints.updateMap.initiate(mapSnapshot));
+      dispatch(dndApi.endpoints.patchMap.initiate(mapSnapshot));
     }
   }, 6000);
 

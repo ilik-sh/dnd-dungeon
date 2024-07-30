@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Hexagon } from '@mui/icons-material';
 import { Box, Link, styled, Typography } from '@mui/material';
+
 import Logo from 'shared/assets/icons/logo.icon';
 
 const StyledWrapper = styled(Box)(({ theme }) => ({

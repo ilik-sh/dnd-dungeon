@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 import { Box, styled } from '@mui/system';
-import Header from 'pages/landing/ui/header.comp';
+
 import LinkHeader from 'shared/ui/link-header.comp';
 
 import notFoundBig from './assets/not-found.webp';

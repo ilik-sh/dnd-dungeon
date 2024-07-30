@@ -1,6 +1,8 @@
-import { RoomType } from 'shared/libs/enums/room-type.enum';
-import { RoomDto } from 'shared/model/types/room.dto';
 import { v4 } from 'uuid';
+
+import { RoomDto } from 'entities/room/model/types/room.dto';
+
+import { RoomType } from 'shared/libs/enums/room-type.enum';
 
 import { defaultDirections } from './default-directions';
 

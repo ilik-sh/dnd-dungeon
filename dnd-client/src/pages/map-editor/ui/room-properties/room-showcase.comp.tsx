@@ -2,11 +2,13 @@ import { BaseSyntheticEvent, useState } from 'react';
 
 import { Tab, TabPanel, Tabs, TabsList } from '@mui/base';
 import { Check, Close, Hexagon } from '@mui/icons-material';
-import { Box, IconButton, styled } from '@mui/material';
+import { IconButton, styled } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
+
+import { RoomDto } from 'entities/room/model/types/room.dto';
+
 import { TypeColors } from 'shared/libs/enums/type-colors.enum';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
-import { RoomDto } from 'shared/model/types/room.dto';
 import Scrollable from 'shared/ui/scrollable.comp';
 
 import { getSelectedCell, roomsSelector } from '../../model/store/map/map.selector';

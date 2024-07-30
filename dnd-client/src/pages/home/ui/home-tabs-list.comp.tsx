@@ -21,9 +21,8 @@ const StyledTab = styled(Tab)(({ theme }) => ({
   '&.Mui-selected': {
     backgroundColor: theme.palette.landing.main,
   },
-
   padding: '24px',
-  fontFamily: 'Jaini Purva',
+  fontFamily: theme.typography.fontSecondaryFamily,
   fontSize: '24px',
 }));
 

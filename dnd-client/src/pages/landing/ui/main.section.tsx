@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box, Button, styled, Typography } from '@mui/material';
+
 import { responsiveFontSizes } from 'shared/theme/typography';
 
 const FullHeightSection = styled('section')({
@@ -37,19 +38,15 @@ const ButtonBox = styled(Box)(({ theme }) => ({
 }));
 
 const MainHeadingTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Jaini Purva',
+  fontFamily: theme.typography.fontSecondaryFamily,
   letterSpacing: '1px',
   textShadow: '1px 2px 10px black',
-  lineHeight: '2',
   textWrap: 'pretty',
   ...responsiveFontSizes({ sm: 64, md: 84, lg: 104 }),
-  [theme.breakpoints.down('sm')]: {
-    lineHeight: '1',
-  },
 }));
 
 const SecondaryHeadinTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Jaini Purva',
+  fontFamily: theme.typography.fontSecondaryFamily,
   textShadow: '1px 2px 10px black',
   color: theme.palette.grey[500],
 }));

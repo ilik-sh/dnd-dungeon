@@ -1,14 +1,19 @@
 import { Add } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
+
+import { CellDto } from 'entities/cell';
+
 import { useAppDispatch } from 'shared/libs/hooks/redux.hooks';
 
 import { generateDefaultRoom } from '../model/default-objects/default-room';
 import { addRoom } from '../model/store/map/map.slice';
 import RoomShowcase from './room-properties/room-showcase.comp';
 
-type CellPropertiesProps = {};
+type CellPropertiesProps = {
+  cell: CellDto;
+};
 
-export default function CellProperties({}: CellPropertiesProps) {
+export default function CellProperties({ cell }: CellPropertiesProps) {
   const dispatch = useAppDispatch();
 
   const handleAddRoomClick = () => {

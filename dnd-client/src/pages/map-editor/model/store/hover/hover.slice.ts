@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { debounce } from 'lodash';
 
 import { HoverState } from '../../types/hover.state';
-import { ToolsState } from '../../types/tools.state';
 
 const initialState: HoverState = {
   hoveringElementId: '',

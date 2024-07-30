@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { RootState } from 'store';
+
 import { useGetMapQuery } from 'entities/map';
+
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 import CenteredCircularProgress from 'shared/ui/centered-hex-progress.comp';
 import { VerticalContainer } from 'shared/ui/vertical-container.comp';
-import { RootState } from 'store';
 
 import { setMap } from '../model/store/map/map.slice';
 import ThreeHex from './3d-hex/3d-hex.comp';

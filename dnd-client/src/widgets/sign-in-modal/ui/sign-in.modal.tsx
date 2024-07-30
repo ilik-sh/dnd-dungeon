@@ -6,12 +6,14 @@ import { CloseOutlined } from '@mui/icons-material';
 import { Container, Dialog, DialogContent, Divider, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
 import { router } from 'App';
 import { enqueueSnackbar } from 'notistack';
+
+import { ModalContext } from 'widgets/modals-provider';
+
 import { DungeonDoor } from 'shared/assets/icons/dungeon-door.icon';
-import { ModalLookup } from 'shared/libs/constants/modal-lookup';
+import { Modals } from 'shared/libs/constants/modals';
 import { processReject } from 'shared/libs/utils/proccess-reject';
 import CustomLink from 'shared/ui/custom-link.comp';
 import IconTitle from 'shared/ui/icon-title.comp';
-import { ModalContext } from 'widgets/modals-provider';
 
 import { useSignInMutation } from '../api/sign-in.mutation';
 import { SignInForm as SignInFormFields, signInFormSchema } from '../model/validation-schemas/sign-in-form.schema';
@@ -40,7 +42,7 @@ export default function SignInModal() {
   };
 
   const handleSignUpLinkClicked = () => {
-    openModal(ModalLookup.SignUpModal.name);
+    openModal(Modals.SignUpModal);
   };
 
   const {

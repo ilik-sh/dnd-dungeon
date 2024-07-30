@@ -1,34 +1,32 @@
 import { Environment, Preload, View } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, Vector3 } from '@react-three/fiber';
 
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
-import { Vector2, Vector3 } from 'three';
 
 import { selectMap, selectMapId } from '../../model/store/map/map.selector';
 import { setSelectedCell } from '../../model/store/map/map.slice';
 import BlankCellObject from './blank-cell.comp';
 import BorderHex from './border-hex.comp';
 import CustomControls from './custom-controls.comp';
-import Model from './model.comp';
 import ScreenshotRecorder from './screenshot-recorder.comp';
 import { ThreeHexItem } from './three-hex-item.comp';
 
-const calculateTilePosition = (tileX: number, tileY: number, size: number) => {
-  let x = new Vector2();
-  return new Vector3(
+const calculateTilePosition: (arg0: number, arg1: number, arg2: number) => Vector3 | undefined = (
+  tileX: number,
+  tileY: number,
+  size: number,
+) => {
+  return [
     (tileX * size * 1.01 * 3) / 2,
-
     0,
     tileY * Math.sqrt(3) * size * 1.01 + (((tileX % 2) * Math.sqrt(3)) / 2) * size,
-  );
+  ];
 };
 
 export default function ThreeHex() {
   const map = useAppSelector(selectMap());
   const id = useAppSelector(selectMapId());
   const dispatch = useAppDispatch();
-
-  console.log('Rerender');
 
   const handleCanvasClick = () => {
     dispatch(setSelectedCell(null));

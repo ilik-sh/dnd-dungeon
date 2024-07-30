@@ -1,5 +1,6 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 
+import { AuthResponse } from 'entities/user/model/types/auth.response';
 import { LocalStorageKeys } from 'shared/libs/enums/local-storage-keys.enum';
 
 const baseQuery = fetchBaseQuery({
@@ -53,5 +54,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 
 export const dndApi = createApi({
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['Map'],
   endpoints: () => ({}),
 });

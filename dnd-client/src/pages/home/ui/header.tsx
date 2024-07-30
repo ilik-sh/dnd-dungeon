@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 
 import CreateProjectMenu from './create-project-menu.comp';
 import Sidebar from './sidebar.comp';

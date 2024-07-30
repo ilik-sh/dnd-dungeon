@@ -1,22 +1,26 @@
-import { ThreeEvent } from '@react-three/fiber';
+import { ThreeEvent, Vector3 } from '@react-three/fiber';
 import React from 'react';
 
 import { Tools } from 'pages/map-editor/model/constants/tools';
 import { layoutSelector } from 'pages/map-editor/model/store/map/map.selector';
 import { extendMap } from 'pages/map-editor/model/store/map/map.slice';
 import { getSelectedTool } from 'pages/map-editor/model/store/tools/tools.selector';
+
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
-import { Vector3 } from 'three';
 
 type Props = {};
 
-const calculateTilePosition = (tileX: number, tileY: number, size: number) => {
-  return new Vector3(
+const calculateTilePosition: (arg1: number, arg2: number, arg3: number) => Vector3 | undefined = (
+  tileX: number,
+  tileY: number,
+  size: number,
+) => {
+  return [
     (tileX * size * 1.01 * 3) / 2,
 
     0,
     tileY * Math.sqrt(3) * size * 1.01 + (((tileX % 2) * Math.sqrt(3)) / 2) * size,
-  );
+  ];
 };
 
 // const hex = new CylinderGeometry(1, 1, 1, 6, 1, false, Math.PI / 2, 2 * Math.PI);

@@ -1,5 +1,6 @@
-import { Box, styled } from '@mui/material';
 import React, { ReactNode } from 'react';
+
+import { Box, styled } from '@mui/material';
 
 type PanelProps = {
   children: ReactNode;

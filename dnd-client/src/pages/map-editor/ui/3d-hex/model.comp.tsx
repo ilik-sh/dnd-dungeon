@@ -2,7 +2,7 @@ import { DragControls, PivotControls, useFBX, useGLTF } from '@react-three/drei'
 import { useLoader } from '@react-three/fiber';
 import React, { useEffect, useMemo } from 'react';
 
-import { TextureLoader } from 'three';
+import { Mesh, TextureLoader } from 'three';
 
 type ModelProps = {
   id: string;

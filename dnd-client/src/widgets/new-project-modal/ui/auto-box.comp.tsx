@@ -5,11 +5,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { DrawTwoTone } from '@mui/icons-material';
 import { Box, styled, Typography } from '@mui/material';
 import { router } from 'App';
-import { processReject } from 'shared/libs/utils/proccess-reject';
+
 import {
   AutoForm as AutoFormFields,
   autoFormSchema,
 } from 'widgets/new-project-modal/model/validation-schemas/auto-form.schema';
+
+import { processReject } from 'shared/libs/utils/proccess-reject';
 
 import { useCreateProjectMutation } from '../api/create-project.mutation';
 import AutoForm from './auto.form';
@@ -54,7 +56,6 @@ export default function AutoBox({}: Props) {
     createProject(data)
       .unwrap()
       .then((response) => {
-        console.log(response.data);
         router.navigate(`/map/${response.mapId}`);
       })
       .catch((reject) => {

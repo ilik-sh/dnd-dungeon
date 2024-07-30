@@ -3,10 +3,11 @@ import React from 'react';
 import { Box, Hidden, Link, styled } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import { router } from 'App';
-import { MapView } from 'shared/model/types/map-view.dto';
+
+import { MapProfile } from '../model/types/map-profile.type';
 
 const MapCover = styled('img')({
-  // objectFit: 'cover',
+  objectFit: 'cover',
   minWidth: '100%',
   height: '180px',
 });
@@ -58,7 +59,7 @@ const MapNameLink = styled(Link)({
 });
 
 type MapCardProps = {
-  map: MapView;
+  map: MapProfile;
 };
 
 export default function MapCard({ map }: MapCardProps) {
@@ -66,20 +67,11 @@ export default function MapCard({ map }: MapCardProps) {
     router.navigate('/map/' + map.id);
   };
 
-  const handleAuthorClicked = () => {
-    router.navigate('/author/' + map.creator.id);
-  };
-
   return (
     <StyledBox onClick={handleCardClicked}>
       <StyledLink>
         <ImageWrapper>
-          <MapCover
-            loading="lazy"
-            // sizes="(min-width: 736px) 50vw, (min-width: 1440px) 25vw, 100vw"
-            alt={map.name}
-            src={map.thumbnailUrl}
-          />
+          <MapCover loading="lazy" alt={map.name} src={map.thumbnailUrl} />
         </ImageWrapper>
       </StyledLink>
       <InfoBox>

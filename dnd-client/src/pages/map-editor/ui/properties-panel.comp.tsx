@@ -1,11 +1,8 @@
-import { Close } from '@mui/icons-material';
-import { IconButton, styled } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
-import { linear2dSearch } from 'shared/libs/utils/linear2dSearch';
-import { RoomDto } from 'shared/model/types/room.dto';
+import { styled } from '@mui/material';
 
-import { getSelectedCell, mapSelector } from '../model/store/map/map.selector';
-import { deleteRoom, selectRoom, setSelectedCell } from '../model/store/map/map.slice';
+import { useAppSelector } from 'shared/libs/hooks/redux.hooks';
+
+import { getSelectedCell } from '../model/store/map/map.selector';
 import CellProperties from './cell-properties.comp';
 import Panel from './panel.comp';
 

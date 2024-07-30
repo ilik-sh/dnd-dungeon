@@ -1,10 +1,13 @@
-import React, { useContext, useId, useMemo, useState } from 'react';
+import React, { useId, useState } from 'react';
 
-import { BorderColor, ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, styled, useTheme } from '@mui/material';
-import { CellDto } from 'entities/cell/model/types/cell.dto';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { Collapse, IconButton, List, ListItemButton, ListItemText, styled, useTheme } from '@mui/material';
+
 import { isHoveringOverObject } from 'pages/map-editor/model/store/hover/hover.selector';
 import { setHoveringElement } from 'pages/map-editor/model/store/hover/hover.slice';
+
+import { CellDto } from 'entities/cell/model/types/cell.dto';
+
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
 import { isCellSelected } from '../../../model/store/map/map.selector';

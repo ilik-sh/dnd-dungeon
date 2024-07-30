@@ -1,5 +1,6 @@
-import { ListItem, ListItemText } from '@mui/material';
 import React from 'react';
+
+import { ListItem, ListItemText } from '@mui/material';
 
 type MenuItemProps = {
   title: string;

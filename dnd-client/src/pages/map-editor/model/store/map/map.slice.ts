@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { CellDto } from 'entities/cell/model/types/cell.dto';
 import { RoomDto } from 'entities/room';
-import CellProperties from 'pages/map-editor/ui/cell-properties.comp';
+
 import { linear2dSearch } from 'shared/libs/utils/linear2dSearch';
 
 import { MapState } from '../../types/map.state';

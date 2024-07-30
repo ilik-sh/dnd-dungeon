@@ -17,11 +17,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { router } from 'App';
-import Logo from 'shared/assets/icons/logo.icon';
-import { ModalLookup } from 'shared/libs/constants/modal-lookup';
-import { useAppDispatch } from 'shared/libs/hooks/redux.hooks';
-import { useAuth } from 'shared/libs/hooks/use-auth.hook';
+
 import { ModalContext } from 'widgets/modals-provider';
+
+import Logo from 'shared/assets/icons/logo.icon';
+import { Modals } from 'shared/libs/constants/modals';
+import { useAuth } from 'shared/libs/hooks/use-auth.hook';
 
 interface Props {
   /**
@@ -49,7 +50,7 @@ export default function Header(props: Props) {
 
   const handleHomeClicked = () => {
     if (!isAuth) {
-      openModal(ModalLookup.SignInModal.name);
+      openModal(Modals.SignInModal);
     }
     if (isAuth) {
       router.navigate('home');
@@ -96,7 +97,7 @@ export default function Header(props: Props) {
             </IconButton>
 
             <StyledLink to="/" sx={{ display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none' }}>
-              <Logo sx={{ width: '36px', height: '36px', color: 'transparent' }} />
+              <Logo color="primary" sx={{ width: '36px', height: '36px' }} />
               <Typography variant="body2" sx={{ fontWeight: '800', fontSize: '36px' }}>
                 DnDHub
               </Typography>

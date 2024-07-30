@@ -1,25 +1,8 @@
-// import React from 'react';
-// import { styled } from '@mui/material';
-// type Props = {};
-// const StyledDiv = styled('div')(({ theme }) => ({
-//   backgroundImage: `url(${server})`,
-//   backgroundSize: 'cover',
-//   width: '100%',
-//   height: '100%',
-// }));
-// export default function ServerErrorPage({}: Props) {
-//   return <StyledDiv>ServerErrorPage</StyledDiv>;
-// }
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
-import { alpha, Button, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import { router } from 'App';
-import Header from 'pages/landing/ui/header.comp';
-import notFoundSmall from 'shared/assets/images/not-found/not-found-192.png';
-import notFoundBig from 'shared/assets/images/not-found/not-found-360.png';
-import LinkHeader from 'shared/ui/link-header.comp';
 
 import serverSmall from './assets/images/server-error-small.webp';
 import server from './assets/images/server-error.webp';
@@ -105,7 +88,7 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
 
 export default function ServerErrorPage({ error, resetErrorBoundary }: ServerErrorPageProps) {
   useEffect(() => {
-    document.title = 'Not Found';
+    document.title = 'Error';
   });
 
   const handleGoBackClicked = () => {
@@ -121,7 +104,7 @@ export default function ServerErrorPage({ error, resetErrorBoundary }: ServerErr
             <TitleTypography variant="h1">Oops</TitleTypography>
             <TextTypography>
               Someone casted a random teleportation spell on our server. We are trying our best to find it. Try
-              refreshing in a few minutes
+              refreshing in a few minutes {error.message} {error.message} {error.stack}
             </TextTypography>
             <ButtonContainer>
               <StyledButton variant="contained" fullWidth onClick={resetErrorBoundary}>

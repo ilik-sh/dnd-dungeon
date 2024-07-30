@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { linear2dSearch } from 'shared/libs/utils/linear2dSearch';
 import { RootState } from 'store';
+
+import { linear2dSearch } from 'shared/libs/utils/linear2dSearch';
 
 export const mapSelector = (state: RootState) => state.map;
 

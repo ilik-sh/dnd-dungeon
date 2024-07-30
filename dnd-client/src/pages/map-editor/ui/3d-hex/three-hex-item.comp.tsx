@@ -1,24 +1,26 @@
-import { ThreeEvent } from '@react-three/fiber';
+import { GroupProps, ThreeEvent } from '@react-three/fiber';
 import { memo, useRef } from 'react';
 
 import { useTheme } from '@mui/material';
-import { CellDto } from 'entities/cell/model/types/cell.dto';
-import { isHoveringOverObject } from 'pages/map-editor/model/store/hover/hover.selector';
-import { setHoveringElement } from 'pages/map-editor/model/store/hover/hover.slice';
-import { DirectionAngles } from 'shared/libs/enums/direction-angles';
-import { TypeColors } from 'shared/libs/enums/type-colors.enum';
-import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 import { BoxGeometry, BufferGeometry, CylinderGeometry, Group } from 'three';
 import { mergeBufferGeometries } from 'three-stdlib';
 import { degToRad } from 'three/src/math/MathUtils';
+
+import { isHoveringOverObject } from 'pages/map-editor/model/store/hover/hover.selector';
+import { setHoveringElement } from 'pages/map-editor/model/store/hover/hover.slice';
+
+import { CellDto } from 'entities/cell/model/types/cell.dto';
+
+import { DirectionAngles } from 'shared/libs/enums/direction-angles';
+import { TypeColors } from 'shared/libs/enums/type-colors.enum';
+import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
 import { getSelectedRoom, isCellSelected } from '../../model/store/map/map.selector';
 import { setSelectedCell } from '../../model/store/map/map.slice';
 
 type ThreeHexItemProps = {
   cell: CellDto;
-  isHovering: boolean;
-};
+} & GroupProps;
 
 const hex = new CylinderGeometry(1, 1, 1, 6, 1, false, Math.PI / 2, 2 * Math.PI);
 

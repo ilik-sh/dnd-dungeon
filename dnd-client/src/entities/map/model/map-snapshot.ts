@@ -1,5 +1,5 @@
 import { CellDto } from 'entities/cell/model/types/cell.dto';
-import { RoomDto } from 'shared/model/types/room.dto';
+import { RoomDto } from 'entities/room/model/types/room.dto';
 
 export type MapSnapshot = {
   id: string;

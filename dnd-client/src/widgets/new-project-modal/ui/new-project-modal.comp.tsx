@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 
 import { Box, Dialog, styled } from '@mui/material';
+
 import { ModalContext } from 'widgets/modals-provider';
 
-import auto from './assets/auto.png';
+import auto from './assets/auto.webp';
 import AutoBox from './auto-box.comp';
 
 const ContentBox = styled(Box)(({ theme }) => ({

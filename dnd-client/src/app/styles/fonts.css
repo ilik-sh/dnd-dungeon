@@ -1,4 +1,5 @@
 @font-face {
-  font-family: 'Jaini Purva';
-  src: url(../../shared/assets/fonts/jaini-purva.ttf) format('truetype');
+  font-family: 'Draconis Bold';
+  font-display: 'swap';
+  src: url(../../shared/assets/fonts/draconis-bold.woff2) format('woff2');
 }

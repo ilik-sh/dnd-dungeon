@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { Box, styled, Typography } from '@mui/material';
-import Map from 'entities/map/ui/map-card.comp';
+
+import { MapCard } from 'entities/map';
+
 import Scrollable from 'shared/ui/scrollable.comp';
 
 const StyledSection = styled('section')(({ theme }) => ({
@@ -29,6 +31,8 @@ const map = {
   thumbnailUrl:
     'https://firebasestorage.googleapis.com/v0/b/dndhub-fb81c.appspot.com/o/defaults%2FmapThumbnail.png?alt=media&token=0ca8fb5d-1468-4e3c-b0fa-dd004a28ef49',
   createdAt: '2024',
+  duplicateCount: 12,
+  likeCount: 1,
   creator: {
     id: 'dsae',
     name: 'Vova',
@@ -44,12 +48,12 @@ export default function MapShowcaseSection() {
           Community created maps
         </Typography>
         <StyledScroll>
-          <Map map={map}></Map>
-          <Map map={map}></Map>
-          <Map map={map}></Map>
-          <Map map={map}></Map>
-          <Map map={map}></Map>
-          <Map map={map}></Map>
+          <MapCard map={map}></MapCard>
+          <MapCard map={map}></MapCard>
+          <MapCard map={map}></MapCard>
+          <MapCard map={map}></MapCard>
+          <MapCard map={map}></MapCard>
+          <MapCard map={map}></MapCard>
         </StyledScroll>
       </StyledWrapper>
     </StyledSection>

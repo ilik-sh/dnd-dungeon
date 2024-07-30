@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { TabContext, TabPanel } from '@mui/lab';
+import { TabPanel } from '@mui/lab';
 import { Box, styled } from '@mui/material';
-import { MapGrid, useGetUserMapsQuery } from 'entities/map';
+
 import { ModalsManager, ModalsProvider } from 'widgets/modals-provider';
 
 import { Tabs } from '../model/constants/tabs';
@@ -34,8 +34,6 @@ const StyledSidebar = styled(Sidebar)(({ theme }) => ({
 }));
 
 export default function HomePage() {
-  const [value, setValue] = useState('maps');
-  const { data } = useGetUserMapsQuery(null);
   return (
     <HomeBox>
       <ModalsProvider>

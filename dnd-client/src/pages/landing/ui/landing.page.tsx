@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 
 import { alpha } from '@mui/material';
 import { Box, styled } from '@mui/system';
-import main from 'shared/assets/images/main/main.png';
+
 import { ModalsManager, ModalsProvider } from 'widgets/modals-provider';
-import { SignInModal } from 'widgets/sign-in-modal';
+
+import main from 'shared/assets/images/main/main.webp';
 
 import Footer from './footer.comp';
 import Header from './header.comp';

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Box, styled, Typography } from '@mui/material';
-import { MapView } from 'shared/model/types/map-view.dto';
 
+import { MapProfile } from '../model/types/map-profile.type';
 import MapCardSkeleton from './map-card-skeleton.comp';
 import MapCard from './map-card.comp';
 
 type Props = {
-  maps: MapView[];
+  maps: MapProfile[] | undefined;
 };
 
 const GridContainer = styled(Box)(({ theme }) => ({

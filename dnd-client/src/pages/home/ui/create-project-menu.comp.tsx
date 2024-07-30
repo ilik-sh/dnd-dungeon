@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 
 import { Create, KeyboardArrowDown, UploadFile } from '@mui/icons-material';
 import { Button, Divider, Menu, MenuItem } from '@mui/material';
-import { ModalLookup } from 'shared/libs/constants/modal-lookup';
+
 import { ModalContext } from 'widgets/modals-provider';
+
+import { Modals } from 'shared/libs/constants/modals';
 
 export default function CreateProjectMenu() {
   const [menuAnchorElement, setMenuAnchorElement] = useState<null | HTMLElement>(null);
@@ -19,12 +21,12 @@ export default function CreateProjectMenu() {
   };
 
   const handleNewProjectClicked = () => {
-    openModal(ModalLookup.NewProjectModal.name);
+    openModal(Modals.NewProjectModal);
     handleMenuClose();
   };
 
   const handleImportClicked = () => {
-    openModal(ModalLookup.ImportModal.name);
+    openModal(Modals.ImportModal);
     handleMenuClose();
   };
 

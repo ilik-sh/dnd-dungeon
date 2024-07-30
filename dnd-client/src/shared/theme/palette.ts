@@ -1,6 +1,15 @@
 import { alpha } from '@mui/material';
 import { blueGrey, grey } from '@mui/material/colors';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    landing: Palette['primary'];
+  }
+  interface PaletteOptions {
+    landing: PaletteOptions['primary'];
+  }
+}
+
 export const primary = {
   light: '#F68C00',
   main: '#FF9100',

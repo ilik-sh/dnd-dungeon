@@ -2,12 +2,13 @@ import { FC } from 'react';
 import { Control, useController } from 'react-hook-form';
 
 import { TextField as MUITextField, TextFieldProps } from '@mui/material';
+
 import { camelize } from 'shared/libs/utils/camelize';
 
 interface CustomTextFieldProps extends TextFieldProps<'standard'> {
   name: string;
   control: Control<any, any>;
-  submit?: () => void;
+  submit?: React.FormEventHandler;
 }
 
 const TextField: FC<CustomTextFieldProps> = ({ name, control, submit, ...props }) => {
@@ -27,7 +28,7 @@ const TextField: FC<CustomTextFieldProps> = ({ name, control, submit, ...props }
       onBlur={(e) => {
         field.onBlur(e);
         if (submit) {
-          submit();
+          submit(e);
         }
       }}
       id={camelize(name)}

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
 
-import { Button, styled } from '@mui/material';
+import { styled } from '@mui/material';
+
 import { RoomFormYup } from 'pages/map-editor/model/validation-schemas/room-form.schema';
+
 import { RoomType } from 'shared/libs/enums/room-type.enum';
 import Select from 'shared/ui/select.comp';
 import TextField from 'shared/ui/text-field.comp';
 
-import HexDirections from './room-directions.comp';
+import RoomDirections from './room-directions.comp';
 
 type RoomFormProps = {
   onSubmit: React.FormEventHandler;
@@ -61,7 +63,7 @@ export default function RoomForm({ onSubmit, control, validationErorrs }: RoomFo
           error={!!validationErorrs.description}
           helperText={validationErorrs.description?.message}
         />
-        <HexDirections control={control} submit={onSubmit}></HexDirections>
+        <RoomDirections control={control} submit={onSubmit}></RoomDirections>
       </SelectPart>
     </StyledForm>
   );

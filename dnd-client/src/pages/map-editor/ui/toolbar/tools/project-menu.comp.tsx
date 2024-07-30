@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
-import { ArrowDownward, Delete, Home, KeyboardArrowDown, Refresh } from '@mui/icons-material';
+import { Delete, Home, KeyboardArrowDown, Refresh } from '@mui/icons-material';
 import { Divider, Menu, MenuItem, styled, useTheme } from '@mui/material';
 import { router } from 'App';
-import { useDeleteMapMutation } from 'entities/map/api/delete-map.mutation';
 import { enqueueSnackbar } from 'notistack';
+
 import { Tools } from 'pages/map-editor/model/constants/tools';
 import { selectMapId } from 'pages/map-editor/model/store/map/map.selector';
 import { getSelectedTool } from 'pages/map-editor/model/store/tools/tools.selector';
 import { setTool } from 'pages/map-editor/model/store/tools/tools.slice';
+
+import { useDeleteMapMutation } from 'entities/map/api/delete-map.mutation';
+
 import Logo from 'shared/assets/icons/logo.icon';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 import { processReject } from 'shared/libs/utils/proccess-reject';
@@ -76,7 +79,14 @@ export default function ProjectMenu({}: Props) {
     <>
       <RoundButton onClick={handleMenuOpen} sx={isSelected ? { backgroundColor: theme.palette.grey[800] } : null}>
         <Logo sx={isSelected ? { color: theme.palette.primary.main } : null} />
-        <KeyboardArrowDown fontSize="small" sx={isSelected ? { color: theme.palette.primary.main } : null} />
+        <KeyboardArrowDown
+          fontSize="small"
+          sx={{
+            color: isSelected ? theme.palette.primary.main : '',
+            marginTop: isSelected ? '0.5rem' : '',
+            transition: 'margin-top 0.1s ease-in-out',
+          }}
+        />
       </RoundButton>
       <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={handleMenuClose} disableScrollLock>
         <MenuItem onClick={handleHomeClicked}>
