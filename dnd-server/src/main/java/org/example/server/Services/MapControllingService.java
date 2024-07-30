@@ -49,7 +49,7 @@ public class MapControllingService {
         oldMap.setTags(mapProfile.getTags());
         mapService.saveMap(oldMap);
     }
-    public void updateMapPartly(Map map){
+    public void patchMap(Map map){
         Map oldMap = mapService.getMapById(map.getId());
         Class<?> mapClass = map.getClass();
         Field[] fields = oldMap.getClass().getDeclaredFields();

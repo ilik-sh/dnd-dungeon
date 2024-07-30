@@ -76,11 +76,11 @@ public class MapController {
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
 
-    @PatchMapping("/updateMapPartly")
-    public ResponseEntity updateMapPartly(@RequestBody Map map,
-                                          @RequestHeader("Authorization") String accessToken) {
+    @PatchMapping("/patchMap")
+    public ResponseEntity patchMap(@RequestBody Map map,
+                                   @RequestHeader("Authorization") String accessToken) {
         checkUser(accessToken, map.getId());
-        mapControllingService.updateMapPartly(map);
+        mapControllingService.patchMap(map);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
 
