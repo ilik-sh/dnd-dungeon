@@ -1,6 +1,7 @@
+import React, { ReactNode, useRef, useState } from 'react';
+
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { Box, IconButton, styled } from '@mui/material';
-import React, { ReactNode, useRef, useState } from 'react';
 
 type ScrollableProps = {
   children: ReactNode;
@@ -41,7 +42,6 @@ export default function Scrollable({ children, scrollButtons, ...props }: Scroll
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     const { scrollWidth, scrollLeft, clientWidth } = e.currentTarget;
-    console.log(scrollWidth, scrollLeft, clientWidth);
 
     const end = scrollWidth - scrollLeft - clientWidth <= 1;
     const start = scrollLeft === 0;
