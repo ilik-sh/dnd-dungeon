@@ -1,5 +1,8 @@
 package org.example.server.Services;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
 import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.MapLayoutDto;
@@ -7,7 +10,6 @@ import org.example.server.domain.dto.MapProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 @Service
@@ -16,6 +18,8 @@ public class MapControllingService {
     private MapService mapService;
     @Autowired
     private MapProfileService mapProfileService;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public String createMap(int mapSize, int tunnelLength, int crossroadChance, User user){
         Map newMap = new Map();
@@ -49,23 +53,14 @@ public class MapControllingService {
         oldMap.setTags(mapProfile.getTags());
         mapService.saveMap(oldMap);
     }
-    public void patchMap(Map map){
-        Map oldMap = mapService.getMapById(map.getId());
-        Class<?> mapClass = map.getClass();
-        Field[] fields = oldMap.getClass().getDeclaredFields();
-        for(Field field: fields){
-            field.setAccessible(true);
-            try {
-                Object value = field.get(mapClass);
-                if (value != null) {
-                    field.set(oldMap, value);
-                }
-            } catch (IllegalAccessException e){
-                e.printStackTrace();
-            }
-            field.setAccessible(false);
+    public void patchMap(String id, JsonPatch patchMap){
+        Map oldMap = mapService.getMapById(id);
+        try {
+            JsonNode patched = patchMap.apply(objectMapper.convertValue(oldMap, JsonNode.class));
+            mapService.saveMap(objectMapper.treeToValue(patched, Map.class));
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        mapService.saveMap(oldMap);
     }
 
     public void deleteMapById(String id){

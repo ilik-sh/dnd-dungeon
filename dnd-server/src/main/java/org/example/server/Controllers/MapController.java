@@ -1,10 +1,10 @@
 package org.example.server.Controllers;
 
+import com.github.fge.jsonpatch.JsonPatch;
 import lombok.RequiredArgsConstructor;
 import org.example.server.Services.Authoritation.AuthService;
 import org.example.server.Services.MapControllingService;
 import org.example.server.Services.RequestValidationService;
-import org.example.server.domain.Models.Map;
 import org.example.server.domain.Models.account.User;
 import org.example.server.domain.dto.MapDto;
 import org.example.server.domain.dto.MapLayoutDto;
@@ -76,11 +76,12 @@ public class MapController {
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
 
-    @PatchMapping("/patchMap")
-    public ResponseEntity patchMap(@RequestBody Map map,
+    @PatchMapping(value = "/patchMap", consumes = "application/json-patch+json")
+    public ResponseEntity patchMap(@RequestParam String mapId,
+                                   @RequestBody JsonPatch mapPatch,
                                    @RequestHeader("Authorization") String accessToken) {
-        checkUser(accessToken, map.getId());
-        mapControllingService.patchMap(map);
+        checkUser(accessToken, mapId);
+        mapControllingService.patchMap(mapId,mapPatch);
         return new ResponseEntity(HttpStatusCode.valueOf(200));
     }
 
