@@ -1,21 +1,29 @@
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 
 import { Tab, TabPanel, Tabs, TabsList } from '@mui/base';
 import { Check, Close, Hexagon } from '@mui/icons-material';
 import { IconButton, styled } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 
+import { getSelectedCell, roomsSelector } from '../../../../pages/map-editor/model/store/map/map.selector';
+import { deleteRoom, selectRoom } from '../../../../pages/map-editor/model/store/map/map.slice';
+
+import { CellDto } from 'entities/cell';
 import { RoomDto } from 'entities/room/model/types/room.dto';
 
 import { TypeColors } from 'shared/libs/enums/type-colors.enum';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 import Scrollable from 'shared/ui/scrollable.comp';
 
-import { getSelectedCell, roomsSelector } from '../../model/store/map/map.selector';
-import { deleteRoom, selectRoom } from '../../model/store/map/map.slice';
 import RoomProperties from './room-properties.comp';
 
-type RoomShowcaseProps = {};
+type RoomShowcaseProps = {
+  deleteAction: (room: RoomDto) => void;
+  selectAction: (room: RoomDto) => void;
+  updateAction: (room: RoomDto) => void;
+  rooms: RoomDto[];
+  cell: CellDto;
+};
 
 const StyledTabsList = styled(TabsList)({
   display: 'flex',
@@ -66,24 +74,12 @@ const CloseIcon = styled(Close)(({ theme }) => ({
   fontSize: '12px',
 }));
 
-export default function RoomShowcase({}: RoomShowcaseProps) {
-  const dispatch = useAppDispatch();
-  const rooms = useAppSelector(roomsSelector);
-  const cell = useAppSelector(getSelectedCell())!;
+export default function RoomShowcase({ selectAction, deleteAction, updateAction, rooms, cell }: RoomShowcaseProps) {
+  const [value, setValue] = useState(cell.currentRoom);
 
-  const [value, setValue] = useState(rooms[cell.currentRoom].id);
-
-  const handleRoomDelete = (room: RoomDto) => {
-    if (cell.currentRoom === room.id) {
-      enqueueSnackbar(`Can't delete currently selected room`, { variant: 'warning' });
-      return;
-    }
-    dispatch(deleteRoom({ room, cell }));
-  };
-
-  const handleRoomSelect = (room: RoomDto) => {
-    dispatch(selectRoom({ room, cell }));
-  };
+  useEffect(() => {
+    setValue(cell.currentRoom);
+  }, [cell]);
 
   const handleChange = (e: BaseSyntheticEvent | null, newValue: string | number | null) => {
     if (newValue) {
@@ -92,19 +88,19 @@ export default function RoomShowcase({}: RoomShowcaseProps) {
   };
 
   return (
-    <Tabs onChange={handleChange} value={value}>
+    <Tabs onChange={handleChange} value={value} defaultValue={value}>
       <StyledTabsList>
         <Scrollable scrollButtons={true}>
-          {cell.rooms.map((roomId) => (
-            <StyledTab slots={{ root: 'div' }} key={roomId} value={roomId}>
-              {cell.currentRoom === roomId ? <Selected /> : null}
-              <Hexagon fontSize="large" sx={{ color: `${TypeColors[rooms[roomId].type].light}` }} />
+          {rooms.map((room) => (
+            <StyledTab slots={{ root: 'div' }} key={room.id} value={room.id}>
+              {cell.currentRoom === room.id ? <Selected /> : null}
+              <Hexagon fontSize="large" sx={{ color: `${TypeColors[room.type].light}` }} />
               <DeleteButton
                 disableRipple
                 onClick={(e) => {
                   e.preventDefault();
-                  setValue(rooms[cell.currentRoom].id);
-                  handleRoomDelete(rooms[roomId]);
+                  setValue(room.id);
+                  deleteAction(room);
                 }}
               >
                 <CloseIcon></CloseIcon>
@@ -113,9 +109,9 @@ export default function RoomShowcase({}: RoomShowcaseProps) {
           ))}
         </Scrollable>
       </StyledTabsList>
-      {cell.rooms.map((roomId) => (
-        <TabPanel key={roomId} value={roomId}>
-          <RoomProperties room={rooms[roomId]} onRoomSelectButtonClicked={handleRoomSelect} />
+      {rooms.map((room) => (
+        <TabPanel key={room.id} value={room.id}>
+          <RoomProperties room={room} updateAction={updateAction} />
         </TabPanel>
       ))}
     </Tabs>

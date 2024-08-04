@@ -2,12 +2,11 @@ import { Control, useController } from 'react-hook-form';
 
 import { Box, Checkbox, styled } from '@mui/material';
 
-import { RoomFormYup } from 'pages/map-editor/model/validation-schemas/room-form.schema';
-
 import { Directions } from 'shared/libs/enums/directions.enum';
 import { RoomType } from 'shared/libs/enums/room-type.enum';
 import { TypeColors } from 'shared/libs/enums/type-colors.enum';
 
+import { RoomFormYup } from '../../model/validation-schemas/room-form.schema';
 import { Hex } from './hex';
 
 type RoomDirectionsProps = {
