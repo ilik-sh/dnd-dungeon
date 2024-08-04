@@ -142,6 +142,9 @@ export function overrides(theme: Theme) {
       },
     },
     MuiIconButton: {
+      defaultProps: {
+        disableTouchRipple: true,
+      },
       styleOverrides: {
         root: {
           '&:hover': {
