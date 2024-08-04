@@ -8,4 +8,5 @@ export interface RoomDto {
   roomDirections: Record<Direction, boolean>;
   description?: string;
   visited: boolean;
+  textureUrl: string;
 }
