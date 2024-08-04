@@ -63,13 +63,13 @@ export default function Header(props: Props) {
         MUI
       </Typography>
       <Divider />
-      <List>
+      {/* <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary={'Docs'} />
           </ListItemButton>
         </ListItem>
-      </List>
+      </List> */}
     </Box>
   );
 
@@ -103,9 +103,9 @@ export default function Header(props: Props) {
               </Typography>
             </StyledLink>
 
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {/* <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Button sx={{ color: '#fff' }}>Docs</Button>
-            </Box>
+            </Box> */}
           </Box>
 
           <Button variant="contained" onClick={handleHomeClicked}>

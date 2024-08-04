@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Hexagon } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 
 type MenuItemProps = {
@@ -8,7 +9,7 @@ type MenuItemProps = {
 
 export default function MenuItem({ title }: MenuItemProps) {
   return (
-    <ListItem button>
+    <ListItem sx={{ paddingLeft: '15%' }}>
       <ListItemText primary={title} color="white" />
     </ListItem>
   );

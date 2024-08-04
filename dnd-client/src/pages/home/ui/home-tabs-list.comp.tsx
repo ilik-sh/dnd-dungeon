@@ -35,8 +35,8 @@ export default function HomeTabs({}: Props) {
 
   return (
     <StyledTabList onChange={handleClick}>
-      <StyledTab label="Maps" value={Tabs.Maps} />
-      <StyledTab label="Assets" value={Tabs.Assets} />
+      <StyledTab label="Maps" value={Tabs.Maps} disableRipple />
+      <StyledTab label="Assets" value={Tabs.Assets} disableRipple />
     </StyledTabList>
   );
 }

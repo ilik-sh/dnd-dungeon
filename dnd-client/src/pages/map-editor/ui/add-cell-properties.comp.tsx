@@ -8,16 +8,20 @@ import { RoomDto } from 'entities/room';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
 import { generateDefaultRoom } from '../model/default-objects/default-room';
-import { getCellRooms, getSelectedCell } from '../model/store/map/map.selector';
-import { addRoom, deleteRoom, selectRoom, updateRoom } from '../model/store/map/map.slice';
+import { cellSelector, roomsSelector } from '../model/store/add-cell/add-cell.selector';
+import { addRoom, deleteRoom, selectRoom, updateRoom } from '../model/store/add-cell/add-cell.slice';
+import { getCellRooms } from '../model/store/map/map.selector';
 
-type CellPropertiesProps = {
-  cell: CellDto;
-};
+type CellPropertiesProps = {};
 
-export default function CellProperties({ cell }: CellPropertiesProps) {
+export default function AddCellProperties({}: CellPropertiesProps) {
   const dispatch = useAppDispatch();
-  const rooms = useAppSelector(getCellRooms(cell));
+  const roomsDictionary = useAppSelector(roomsSelector);
+  const cell = useAppSelector(cellSelector);
+
+  const rooms = Object.keys(roomsDictionary).map((key) => {
+    return roomsDictionary[key];
+  });
 
   const handleAddRoomClick = () => {
     const defaultRoom = generateDefaultRoom();
@@ -25,19 +29,20 @@ export default function CellProperties({ cell }: CellPropertiesProps) {
   };
 
   const handleDelete = (room: RoomDto) => {
-    dispatch(deleteRoom({ room, cell }));
+    dispatch(deleteRoom({ room }));
   };
 
   const handleSelect = (room: RoomDto) => {
-    dispatch(selectRoom({ room, cell }));
+    dispatch(selectRoom({ room }));
   };
 
   const handleUpdate = (room: RoomDto) => {
-    dispatch(updateRoom(room));
+    dispatch(updateRoom({ room }));
   };
 
   return (
     <div style={{ outline: '1px solid grey', padding: '10px' }}>
+      <Typography variant="h6">Adding cell</Typography>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h6">Rooms</Typography>
         <IconButton

@@ -1,5 +1,6 @@
 import { Environment, Preload, View } from '@react-three/drei';
 import { Canvas, Vector3 } from '@react-three/fiber';
+import { Suspense } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
@@ -8,6 +9,7 @@ import { setSelectedCell } from '../../model/store/map/map.slice';
 import BlankCellObject from './blank-cell.comp';
 import BorderHex from './border-hex.comp';
 import CustomControls from './custom-controls.comp';
+import HexItemSkeleton from './hex-item-skeleton.comp';
 import ScreenshotRecorder from './screenshot-recorder.comp';
 import { ThreeHexItem } from './three-hex-item.comp';
 
@@ -40,12 +42,13 @@ export default function ThreeHex() {
       style={{ background: '#21212190' }}
     >
       <Environment preset="forest" />
-
       <mesh>
         {map.map((item, column) =>
           item.map((cell, row) =>
             cell ? (
-              <ThreeHexItem cell={cell} position={calculateTilePosition(column, row, 1)} key={cell.id} />
+              <Suspense key={cell.id} fallback={<HexItemSkeleton position={calculateTilePosition(column, row, 1)} />}>
+                <ThreeHexItem cell={cell} position={calculateTilePosition(column, row, 1)} />
+              </Suspense>
             ) : (
               <BlankCellObject
                 position={calculateTilePosition(column, row, 1)}

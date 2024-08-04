@@ -5,10 +5,9 @@ import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
 import { PerspectiveCamera } from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 
-import { layoutSelector, selectMapId } from 'pages/map-editor/model/store/map/map.selector';
+import { layoutSelector } from 'pages/map-editor/model/store/map/map.selector';
 
 import { usePatchMapMutation } from 'entities/map/api/patch-map.mutation';
-import { useUpdateMapProfileMutation } from 'entities/map/api/update-map-profile.mutation';
 
 import { useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
@@ -47,7 +46,7 @@ export default function ScreenshotRecorder({ mapId }: Props) {
     const mapImage = gl.domElement.toDataURL('image/webp');
     uploadString(mapImageRef, mapImage, 'data_url').then(() => {
       getDownloadURL(mapImageRef).then((url) => {
-        patchMap({ name: mapId, thumbnailUrl: url });
+        patchMap({ id: mapId, thumbnailUrl: url });
       });
     });
   }, []);

@@ -73,7 +73,16 @@ export default function UserProfileMenu({}: Props) {
 
   return (
     <>
-      <StyledButton onClick={handleMenuOpen} endIcon={<KeyboardArrowDown />}>
+      <StyledButton
+        onClick={handleMenuOpen}
+        endIcon={
+          <KeyboardArrowDown
+            sx={{
+              rotate: open ? '180deg' : '',
+            }}
+          />
+        }
+      >
         <StyledAvatar />
         <StyledTypography variant="body1">{data.username}</StyledTypography>
       </StyledButton>

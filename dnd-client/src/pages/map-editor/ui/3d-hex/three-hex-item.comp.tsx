@@ -1,8 +1,9 @@
-import { GroupProps, ThreeEvent } from '@react-three/fiber';
-import { memo, useRef } from 'react';
+import { useTexture } from '@react-three/drei';
+import { GroupProps, ThreeEvent, useLoader } from '@react-three/fiber';
+import { memo, Suspense, useRef } from 'react';
 
-import { useTheme } from '@mui/material';
-import { BoxGeometry, BufferGeometry, CylinderGeometry, Group } from 'three';
+import { alpha, useTheme } from '@mui/material';
+import { BoxGeometry, BufferGeometry, CylinderGeometry, Group, TextureLoader } from 'three';
 import { mergeBufferGeometries } from 'three-stdlib';
 import { degToRad } from 'three/src/math/MathUtils';
 
@@ -17,12 +18,11 @@ import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
 import { getSelectedRoom, isCellSelected } from '../../model/store/map/map.selector';
 import { setSelectedCell } from '../../model/store/map/map.slice';
+import { hex } from './geometries';
 
 type ThreeHexItemProps = {
   cell: CellDto;
 } & GroupProps;
-
-const hex = new CylinderGeometry(1, 1, 1, 6, 1, false, Math.PI / 2, 2 * Math.PI);
 
 const ThreeHexItem = memo(function ThreeHexItem({ cell, ...props }: ThreeHexItemProps) {
   const dispatch = useAppDispatch();
@@ -30,6 +30,12 @@ const ThreeHexItem = memo(function ThreeHexItem({ cell, ...props }: ThreeHexItem
   const isSelected = useAppSelector(isCellSelected(cell.id));
   const isHovering = useAppSelector(isHoveringOverObject(cell.id));
   const theme = useTheme();
+
+  const grass = useTexture(
+    room.textureUrl
+      ? room.textureUrl
+      : 'https://firebasestorage.googleapis.com/v0/b/dndhub-fb81c.appspot.com/o/textures%2F04c539f2-50f6-41af-b2e0-d93f6e286621?alt=media&token=9253a487-14db-4f4a-9691-0aafdb80aa1e',
+  );
 
   const groupRef = useRef<Group>(null);
 
@@ -51,26 +57,6 @@ const ThreeHexItem = memo(function ThreeHexItem({ cell, ...props }: ThreeHexItem
     }
   });
 
-  function animatePosition() {
-    if (Math.floor(groupRef.current?.position.y) < 1) {
-      groupRef.current?.position.setY(groupRef.current?.position.y + 0.1);
-      requestAnimationFrame(animatePosition);
-    } else {
-      cancelAnimationFrame(animatePosition);
-    }
-  }
-
-  function deanimatePosition() {
-    if (groupRef.current?.position.y > 0.1) {
-      groupRef.current?.position.setY(groupRef.current?.position.y - 0.1);
-      requestAnimationFrame(deanimatePosition);
-    } else {
-      cancelAnimationFrame(deanimatePosition);
-    }
-  }
-
-  isSelected ? animatePosition() : deanimatePosition();
-
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
     dispatch(setSelectedCell(cell));
@@ -86,24 +72,39 @@ const ThreeHexItem = memo(function ThreeHexItem({ cell, ...props }: ThreeHexItem
     dispatch(setHoveringElement({ hoveringElementId: '' }));
   };
 
+  let color;
+
+  if (isHovering) {
+    color = theme.palette.secondary.main;
+  }
+
+  if (isSelected) {
+    color = theme.palette.primary.main;
+  }
+
   return (
-    <group
-      onClick={handleClick}
-      onPointerEnter={handlePointerOver}
-      onPointerOut={handlePointerOut}
-      ref={groupRef}
-      {...props}
-    >
-      <mesh geometry={hex}>
-        <meshStandardMaterial
-          color={isHovering ? theme.palette.secondary.main : TypeColors[room.type].dark}
-          flatShading={true}
-        ></meshStandardMaterial>
-      </mesh>
-      <mesh geometry={wallBuffer}>
-        <meshStandardMaterial color={'#212121'}></meshStandardMaterial>
-      </mesh>
-    </group>
+    <Suspense fallback={null}>
+      <group
+        onClick={handleClick}
+        onPointerEnter={handlePointerOver}
+        onPointerOut={handlePointerOut}
+        ref={groupRef}
+        {...props}
+      >
+        <mesh geometry={hex}>
+          <meshStandardMaterial
+            map={grass}
+            color={color ? color : TypeColors[room.type].dark}
+            transparent={true}
+            opacity={color ? 0.8 : 1}
+            flatShading={true}
+          ></meshStandardMaterial>
+        </mesh>
+        <mesh geometry={wallBuffer}>
+          <meshStandardMaterial color={color ? color : '#212121'}></meshStandardMaterial>
+        </mesh>
+      </group>
+    </Suspense>
   );
 });
 

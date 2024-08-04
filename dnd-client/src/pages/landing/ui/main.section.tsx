@@ -60,8 +60,8 @@ export default function MainSection() {
     <FullHeightSection>
       <StyledWrapper>
         <MainTextBox>
-          <MainHeadingTypography variant="h1">Dopple Dungeon</MainHeadingTypography>
-          <SecondaryHeadinTypography variant="h2">Your way to perfect adventure</SecondaryHeadinTypography>
+          <MainHeadingTypography variant="h1">This place</MainHeadingTypography>
+          <SecondaryHeadinTypography variant="h2">is your way to perfect adventure</SecondaryHeadinTypography>
         </MainTextBox>
         <ButtonBox>
           <TryButton variant="contained">Try It Yourself</TryButton>

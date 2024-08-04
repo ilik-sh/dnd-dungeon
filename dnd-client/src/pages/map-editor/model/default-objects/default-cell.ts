@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 
 import { CellDto } from 'entities/cell';
+import { RoomDto } from 'entities/room';
 
 import { generateDefaultRoom } from './default-room';
 
@@ -13,5 +14,8 @@ export function generateDefaultCell() {
     rooms: [defaultRoom.id],
   };
 
-  return { cell: defaultCell, room: defaultRoom };
+  const roomDictionary: Record<string, RoomDto> = {};
+  roomDictionary[defaultRoom.id] = defaultRoom;
+
+  return { cell: defaultCell, room: defaultRoom, roomDictionary };
 }

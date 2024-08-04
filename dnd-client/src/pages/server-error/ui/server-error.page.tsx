@@ -104,7 +104,7 @@ export default function ServerErrorPage({ error, resetErrorBoundary }: ServerErr
             <TitleTypography variant="h1">Oops</TitleTypography>
             <TextTypography>
               Someone casted a random teleportation spell on our server. We are trying our best to find it. Try
-              refreshing in a few minutes {error.message} {error.message} {error.stack}
+              refreshing in a few minutes
             </TextTypography>
             <ButtonContainer>
               <StyledButton variant="contained" fullWidth onClick={resetErrorBoundary}>

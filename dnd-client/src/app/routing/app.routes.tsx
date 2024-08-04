@@ -3,6 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Route, Routes } from 'react-router-dom';
 
 import { ServerErrorPage } from 'pages/server-error';
+
 import ProtectedRoute from 'shared/ui/protected-route.comp';
 import Suspend from 'shared/ui/suspend';
 

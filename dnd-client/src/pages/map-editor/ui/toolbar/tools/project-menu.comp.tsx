@@ -83,8 +83,8 @@ export default function ProjectMenu({}: Props) {
           fontSize="small"
           sx={{
             color: isSelected ? theme.palette.primary.main : '',
-            marginTop: isSelected ? '0.5rem' : '',
-            transition: 'margin-top 0.1s ease-in-out',
+            rotate: isSelected ? '180deg' : '',
+            transition: 'rotate 0.15s ease-in-out',
           }}
         />
       </RoundButton>

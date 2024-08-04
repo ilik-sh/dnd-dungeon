@@ -1,12 +1,16 @@
 import { ThreeEvent, Vector3 } from '@react-three/fiber';
 import React from 'react';
 
+import { CylinderGeometry } from 'three';
+
 import { Tools } from 'pages/map-editor/model/constants/tools';
 import { layoutSelector } from 'pages/map-editor/model/store/map/map.selector';
 import { extendMap } from 'pages/map-editor/model/store/map/map.slice';
 import { getSelectedTool } from 'pages/map-editor/model/store/tools/tools.selector';
 
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
+
+import { blankSpace } from './geometries';
 
 type Props = {};
 
@@ -22,9 +26,6 @@ const calculateTilePosition: (arg1: number, arg2: number, arg3: number) => Vecto
     tileY * Math.sqrt(3) * size * 1.01 + (((tileX % 2) * Math.sqrt(3)) / 2) * size,
   ];
 };
-
-// const hex = new CylinderGeometry(1, 1, 1, 6, 1, false, Math.PI / 2, 2 * Math.PI);
-// const blankSpace = new CylinderGeometry(1, 1, 0.0, 6, 1, false, Math.PI / 2, 2 * Math.PI);
 
 export default function BorderHex({}: Props) {
   const map = useAppSelector(layoutSelector);
@@ -60,8 +61,7 @@ export default function BorderHex({}: Props) {
       <mesh onClick={handleLeftClicked}>
         {map[0].map((_, index) => {
           return (
-            <mesh position={calculateTilePosition(-1, index + 1, 1)}>
-              <cylinderGeometry args={[1, 1, 0.0, 6, 1, false, Math.PI / 2, 2 * Math.PI]} />
+            <mesh position={calculateTilePosition(-1, index + 1, 1)} geometry={blankSpace}>
               <meshStandardMaterial color={'forestGreen'} transparent={true} opacity={0.3}></meshStandardMaterial>
             </mesh>
           );
@@ -70,8 +70,7 @@ export default function BorderHex({}: Props) {
       <mesh onClick={handleTopClicked}>
         {map.map((_, index) => {
           return (
-            <mesh position={calculateTilePosition(index, -1, 1)}>
-              <cylinderGeometry args={[1, 1, 0.0, 6, 1, false, Math.PI / 2, 2 * Math.PI]} />
+            <mesh position={calculateTilePosition(index, -1, 1)} geometry={blankSpace}>
               <meshStandardMaterial color={'forestGreen'} transparent={true} opacity={0.3}></meshStandardMaterial>
             </mesh>
           );
@@ -80,8 +79,7 @@ export default function BorderHex({}: Props) {
       <mesh onClick={handleRightClicked}>
         {map[0].map((_, index) => {
           return (
-            <mesh position={calculateTilePosition(map.length, index, 1)}>
-              <cylinderGeometry args={[1, 1, 0.0, 6, 1, false, Math.PI / 2, 2 * Math.PI]} />
+            <mesh position={calculateTilePosition(map.length, index, 1)} geometry={blankSpace}>
               <meshStandardMaterial color={'forestGreen'} transparent={true} opacity={0.3}></meshStandardMaterial>
             </mesh>
           );
@@ -90,8 +88,7 @@ export default function BorderHex({}: Props) {
       <mesh onClick={handleBottomClicked}>
         {map.map((_, index) => {
           return (
-            <mesh position={calculateTilePosition(index, map[0].length, 1)}>
-              <cylinderGeometry args={[1, 1, 0.0, 6, 1, false, Math.PI / 2, 2 * Math.PI]} />
+            <mesh position={calculateTilePosition(index, map[0].length, 1)} geometry={blankSpace}>
               <meshStandardMaterial color={'forestGreen'} transparent={true} opacity={0.3}></meshStandardMaterial>
             </mesh>
           );

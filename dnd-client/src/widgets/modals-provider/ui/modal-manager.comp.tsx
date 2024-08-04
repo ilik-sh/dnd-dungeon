@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 
 import { ModalLookup } from 'shared/libs/constants/modal-lookup';
-import { SignInModal } from 'widgets/sign-in-modal';
 
 import { ModalContext } from '../model/modal.context';
 

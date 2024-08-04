@@ -41,9 +41,11 @@ const mapSlice = createSlice({
     },
     addCell(
       state,
-      { payload }: PayloadAction<{ room: RoomDto; cell: CellDto; coordinates: { x: number; y: number } }>,
+      { payload }: PayloadAction<{ rooms: RoomDto[]; cell: CellDto; coordinates: { x: number; y: number } }>,
     ) {
-      state.rooms[payload.room.id] = payload.room;
+      payload.rooms.map((room) => {
+        state.rooms[room.id] = room;
+      });
       state.map[payload.coordinates.x][payload.coordinates.y] = payload.cell;
     },
     removeCell(state, { payload }: PayloadAction<{ cell: CellDto; coordinates: { x: number; y: number } }>) {
@@ -53,7 +55,28 @@ const mapSlice = createSlice({
       payload.cell.rooms.map((roomId) => {
         delete state.rooms[roomId];
       });
+
       state.map[payload.coordinates.x][payload.coordinates.y] = null;
+    },
+    removeSelectedCell(state) {
+      if (!state.selectedCellId) {
+        return;
+      }
+      const cell = linear2dSearch(state.map, state.selectedCellId);
+      if (cell) {
+        cell.rooms.map((roomId) => {
+          delete state.rooms[roomId];
+        });
+      }
+
+      state.map = state.map.map((column) =>
+        column.map((innerCell) => {
+          if (innerCell) {
+            return innerCell.id === state.selectedCellId ? null : innerCell;
+          }
+          return innerCell;
+        }),
+      );
     },
 
     // ROOM Actions
@@ -114,5 +137,6 @@ export const {
   addCell,
   removeCell,
   extendMap,
+  removeSelectedCell,
 } = mapSlice.actions;
 export default mapSlice;

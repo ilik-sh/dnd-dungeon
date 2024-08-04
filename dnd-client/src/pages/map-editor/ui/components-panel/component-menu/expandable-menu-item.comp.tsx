@@ -1,7 +1,7 @@
-import React, { useId, useState } from 'react';
+import React, { MouseEvent, PointerEvent, useId, useState } from 'react';
 
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Collapse, IconButton, List, ListItemButton, ListItemText, styled, useTheme } from '@mui/material';
+import { ArrowRight } from '@mui/icons-material';
+import { alpha, Collapse, IconButton, List, ListItemButton, ListItemText, styled, useTheme } from '@mui/material';
 
 import { isHoveringOverObject } from 'pages/map-editor/model/store/hover/hover.selector';
 import { setHoveringElement } from 'pages/map-editor/model/store/hover/hover.slice';
@@ -21,9 +21,11 @@ type ExpandableMenuItemProps = {
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   padding: '2px',
+}));
+
+const NoHoverIconButton = styled(IconButton)(({ theme }) => ({
   '&:hover': {
-    outlineOffset: '-2px',
-    outline: '1px solid dodgerBlue',
+    background: 'none',
   },
 }));
 
@@ -32,22 +34,21 @@ export default function ExpandableMenuItem({ cell, title }: ExpandableMenuItemPr
 
   const isSelected = useAppSelector(isCellSelected(cell.id));
   const dispatch = useAppDispatch();
-  const isHovering = useAppSelector(isHoveringOverObject(cell.id));
 
   const theme = useTheme();
   const id = useId();
 
-  const toggleCollapse = (event: MouseEvent) => {
+  const toggleCollapse = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setOpen((prev) => !prev);
   };
 
-  const handlePointerEnter = (e: MouseEvent) => {
+  const handlePointerEnter = (e: PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
     dispatch(setHoveringElement({ hoveringElementId: cell.id }));
   };
 
-  const handlePointerOut = (e: MouseEvent) => {
+  const handlePointerOut = (e: PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
     dispatch(setHoveringElement({ hoveringElementId: '' }));
   };
@@ -61,25 +62,30 @@ export default function ExpandableMenuItem({ cell, title }: ExpandableMenuItemPr
       <StyledListItemButton
         disableRipple
         sx={{
-          background: isSelected ? theme.palette.grey[800] : '',
-          outlineOffset: isHovering ? '-2px' : '',
-          outline: isHovering ? '1px solid' : '',
-          outlineColor: isHovering ? theme.palette.secondary.main : '',
+          background: isSelected ? alpha(theme.palette.primary.light, 0.7) : '',
+          '&:hover': {
+            background: isSelected ? alpha(theme.palette.primary.light, 0.7) : theme.palette.grey[800],
+          },
         }}
         onClick={handleCLick}
-        onMouseOver={handlePointerEnter}
-        onMouseOut={handlePointerOut}
+        onPointerOver={handlePointerEnter}
+        onPointerOut={handlePointerOut}
         id={id}
       >
-        <IconButton disableRipple onClick={toggleCollapse}>
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </IconButton>
+        <NoHoverIconButton disableTouchRipple onClick={toggleCollapse} size="small">
+          <ArrowRight
+            sx={{
+              rotate: open ? '90deg' : '',
+              transition: 'rotate 0.1s ease-in-out',
+            }}
+          />
+        </NoHoverIconButton>
         <ListItemText primary={title ? title : cell.id} color="white" />
       </StyledListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {cell.rooms.map((item, index) => (
-            <MenuItem title={item} key={index}></MenuItem>
+            <MenuItem title={'Room ' + (index + 1)} key={index}></MenuItem>
           ))}
         </List>
       </Collapse>
