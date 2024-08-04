@@ -3,6 +3,7 @@ package org.example.server.domain.Models;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.example.server.AllConstants;
 import org.example.server.RoomDirection;
 import org.example.server.Serializers.RoomDirectionSerializer;
 import org.example.server.RoomType;
@@ -35,6 +36,6 @@ public class Room {
         roomDirections.put(RoomDirection.TOP_RIGHT,false);
         this.description = "";
         this.isVisited = false;
-        this.textureUrl = "";
+        this.textureUrl = AllConstants.StringConstants.DEFAULT_ROOM_TEXTURE.getValue();
     }
 }
