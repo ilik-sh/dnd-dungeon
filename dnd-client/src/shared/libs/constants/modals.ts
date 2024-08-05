@@ -3,4 +3,5 @@ export const Modals = {
   NewProjectModal: 'NewProjectModal',
   SignInModal: 'SignInModal',
   SignUpModal: 'SignUpModal',
+  ImportModelModal: 'ImportModelModal',
 };

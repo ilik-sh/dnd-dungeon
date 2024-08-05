@@ -1,4 +1,4 @@
-export function jsonPatchTransformer(object: Object) {
+export function jsonPatchTransformer(object: Omit<Object, 'id'>) {
   return Object.keys(object).map((key) => {
     return {
       op: 'replace',

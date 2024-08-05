@@ -3,15 +3,11 @@ import { useForm } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Check } from '@mui/icons-material';
-import { Box, IconButton, styled, Typography } from '@mui/material';
-
-import { getSelectedCell } from '../../../../pages/map-editor/model/store/map/map.selector';
-import { updateRoom } from '../../../../pages/map-editor/model/store/map/map.slice';
+import { Box, styled, Typography } from '@mui/material';
 
 import { RoomDto } from 'entities/room/model/types/room.dto';
 
 import { RoomType } from 'shared/libs/enums/room-type.enum';
-import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
 
 import { roomFormSchema, RoomFormYup } from '../../model/validation-schemas/room-form.schema';
 import RoomForm from './room-properties.form';
@@ -53,9 +49,12 @@ export default function RoomProperties({ room, updateAction }: RoomPropertiesPro
     },
   });
 
+  console.log(getValues());
+
   const onSubmit = () => {
     const values = getValues();
     const newRoom: RoomDto = { ...values, id: room.id, type: values.type as RoomType };
+    console.log('update');
     updateAction(newRoom);
     reset(newRoom);
   };

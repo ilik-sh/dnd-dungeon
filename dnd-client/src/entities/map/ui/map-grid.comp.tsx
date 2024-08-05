@@ -29,8 +29,8 @@ export default function MapGrid({ maps }: Props) {
   if (!maps) {
     return (
       <GridContainer>
-        {Array.from(Array(4)).map((_) => (
-          <MapCardSkeleton />
+        {Array.from(Array(4)).map((value, index) => (
+          <MapCardSkeleton key={index} />
         ))}
       </GridContainer>
     );

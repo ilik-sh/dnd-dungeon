@@ -78,7 +78,7 @@ export default function RoomTextureLoader({ control, submit }: RoomTextureLoader
       },
       () => {
         setUpload(false);
-        // enqueueSnackbar('Succesfully uploaded texture', { variant: 'success' });
+        enqueueSnackbar('Succesfully uploaded texture', { variant: 'success' });
         getDownloadURL(textureRef).then((url) => {
           field.onChange(url);
           if (submit) {

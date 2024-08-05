@@ -1,16 +1,12 @@
 import { ThreeEvent, Vector3 } from '@react-three/fiber';
-import React from 'react';
-
-import { CylinderGeometry } from 'three';
 
 import { Tools } from 'pages/map-editor/model/constants/tools';
 import { layoutSelector } from 'pages/map-editor/model/store/map/map.selector';
 import { extendMap } from 'pages/map-editor/model/store/map/map.slice';
 import { getSelectedTool } from 'pages/map-editor/model/store/tools/tools.selector';
 
+import { blankSpace } from '../../../../shared/ui/geometries';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
-
-import { blankSpace } from './geometries';
 
 type Props = {};
 

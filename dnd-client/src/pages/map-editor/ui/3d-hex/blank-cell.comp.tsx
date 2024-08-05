@@ -9,9 +9,8 @@ import { addCell } from 'pages/map-editor/model/store/map/map.slice';
 import { getSelectedTool } from 'pages/map-editor/model/store/tools/tools.selector';
 import { setTool } from 'pages/map-editor/model/store/tools/tools.slice';
 
+import { blankSpace, hex } from '../../../../shared/ui/geometries';
 import { useAppDispatch, useAppSelector } from 'shared/libs/hooks/redux.hooks';
-
-import { blankSpace, hex } from './geometries';
 
 type Props = {
   coordinates: {

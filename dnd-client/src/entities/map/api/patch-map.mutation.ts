@@ -9,6 +9,7 @@ const patchMap = dndApi.injectEndpoints({
       query: (map) => ({
         url: 'map/patchMap',
         body: jsonPatchTransformer(map),
+        params: { mapId: map.id },
         method: 'PATCH',
         headers: { 'content-type': 'application/json-patch+json' },
       }),

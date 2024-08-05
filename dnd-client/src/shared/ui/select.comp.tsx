@@ -44,7 +44,7 @@ export default function Select({ control, name, selectValues, submit, ...props }
         onChange={(e) => {
           field.onChange(e);
           if (submit) {
-            submit(e);
+            submit();
           }
         }}
       >

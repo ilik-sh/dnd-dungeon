@@ -71,9 +71,7 @@ export default function RoomDirections({ control, submit }: RoomDirectionsProps)
                     const prev = field.value;
                     prev[e.target.name as Directions] = e.target.checked;
                     field.onChange(prev);
-                    if (submit) {
-                      submit();
-                    }
+                    submit(e);
                   }}
                   checked={field.value[`${key as Directions}`]}
                   value={`${key}`}
