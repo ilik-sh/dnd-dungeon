@@ -4,13 +4,15 @@ import { Box, Hidden, Link, styled } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import { router } from 'App';
 
+import { MemoizedImage } from 'shared/ui/image-comp';
+
 import { MapProfile } from '../model/types/map-profile.type';
 
-const MapCover = styled('img')({
-  objectFit: 'cover',
-  minWidth: '100%',
-  height: '180px',
-});
+// const MapCover = styled('img')({
+//   objectFit: 'cover',
+//   minWidth: '100%',
+//   height: '180px',
+// });
 
 const StyledLink = styled('a')({});
 
@@ -71,7 +73,7 @@ export default function MapCard({ map }: MapCardProps) {
     <StyledBox onClick={handleCardClicked}>
       <StyledLink>
         <ImageWrapper>
-          <MapCover loading="lazy" alt={map.name} src={map.thumbnailUrl} />
+          <MemoizedImage loading="lazy" alt={map.name} src={map.thumbnailUrl} width={'100%'} height={'180px'} />
         </ImageWrapper>
       </StyledLink>
       <InfoBox>

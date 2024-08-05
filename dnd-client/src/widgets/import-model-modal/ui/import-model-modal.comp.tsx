@@ -5,8 +5,6 @@ import { Box, Dialog, IconButton, styled, Typography } from '@mui/material';
 
 import { ModalContext } from 'widgets/modals-provider';
 
-type Props = {};
-
 const DialogTitleBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   padding: '1rem',
