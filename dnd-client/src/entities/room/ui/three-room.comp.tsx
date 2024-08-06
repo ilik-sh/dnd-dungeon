@@ -62,6 +62,9 @@ export default function ThreeRoom({ room, selected, hovering, ...props }: ThreeR
 
   return (
     <>
+    <instancedMesh ref={} args={[]}>
+
+    </instancedMesh>
       <mesh geometry={hex}>
         <meshStandardMaterial
           map={texture}

@@ -50,7 +50,7 @@ const UserCredentialsBox = styled(Box)(({ theme }) => ({
 
 export default function UserProfileMenu({}: Props) {
   const [menuAnchorElement, setMenuAnchorElement] = useState<null | HTMLElement>(null);
-  const { data, isLoading, isError, error } = useGetUserQuery();
+  const { data, isLoading } = useGetUserQuery();
   const open = Boolean(menuAnchorElement);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,6 +69,10 @@ export default function UserProfileMenu({}: Props) {
 
   if (isLoading) {
     return <UserProfileMenuSkeleton />;
+  }
+
+  if (!data) {
+    return null;
   }
 
   return (

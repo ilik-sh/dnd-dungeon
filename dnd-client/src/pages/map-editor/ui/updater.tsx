@@ -26,7 +26,7 @@ export default function Updater({}: Props) {
     if (previousValue !== currentValue) {
       dispatch(dndApi.endpoints.patchMap.initiate(mapSnapshot));
     }
-  }, 6000);
+  }, 60000);
 
   function stopInterval() {
     clearInterval(interval);

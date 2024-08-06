@@ -6,7 +6,7 @@ export const autoFormSchema = yup.object().shape({
 
     .required('Map size is required')
     .min(1, 'Map size must not be less than 1')
-    .max(20, 'Map size must not be more than 20')
+    .max(2000, 'Map size must not be more than 20')
     .typeError('Map size must be a number'),
   tunnelLength: yup
     .number()

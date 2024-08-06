@@ -23,6 +23,7 @@ export default function MapCanvas() {
       onClickCapture={handleCanvasClick}
       gl={{ preserveDrawingBuffer: true }}
       style={{ background: '#21212190' }}
+      frameloop="demand"
     >
       <Environment preset="forest" />
       <ThreeMap />

@@ -17,7 +17,7 @@ import { MapProfile } from '../model/types/map-profile.type';
 const StyledLink = styled('a')({});
 
 const StyledBox = styled(Box)({
-  minWidth: '300px',
+  // minWidth: '300px',
   '&:hover img': {
     filter: 'brightness(85%)',
   },
@@ -26,7 +26,8 @@ const StyledBox = styled(Box)({
 const ImageWrapper = styled(Box)({
   borderRadius: '12px',
   border: '1px solid grey',
-  display: 'flex',
+  aspectRatio: '5 / 3',
+  // display: 'flex',
   cursor: 'pointer',
   overflow: 'hidden',
 });
@@ -73,7 +74,7 @@ export default function MapCard({ map }: MapCardProps) {
     <StyledBox onClick={handleCardClicked}>
       <StyledLink>
         <ImageWrapper>
-          <MemoizedImage loading="lazy" alt={map.name} src={map.thumbnailUrl} width={'100%'} height={'180px'} />
+          <MemoizedImage loading="lazy" alt={map.name} src={map.thumbnailUrl} width={'100%'} height={'100%'} />
         </ImageWrapper>
       </StyledLink>
       <InfoBox>

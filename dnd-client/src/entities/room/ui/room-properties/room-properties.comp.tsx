@@ -49,8 +49,6 @@ export default function RoomProperties({ room, updateAction }: RoomPropertiesPro
     },
   });
 
-  console.log(getValues());
-
   const onSubmit = () => {
     const values = getValues();
     const newRoom: RoomDto = { ...values, id: room.id, type: values.type as RoomType };
