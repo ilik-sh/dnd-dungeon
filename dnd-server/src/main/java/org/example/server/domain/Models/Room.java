@@ -3,8 +3,9 @@ package org.example.server.domain.Models;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.example.server.AllConstants;
 import org.example.server.RoomDirection;
-import org.example.server.RoomDirectionSerializer;
+import org.example.server.Serializers.RoomDirectionSerializer;
 import org.example.server.RoomType;
 
 import java.util.HashMap;
@@ -13,16 +14,17 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class Room {
-    private UUID id;
+    private String id;
     private int level;
     private RoomType type;
     @JsonSerialize(using = RoomDirectionSerializer.class)
     private HashMap<RoomDirection, Boolean> roomDirections;
     private String description;
     private boolean isVisited;
+    private String textureUrl;
 
     public Room(){
-        this.id = UUID.randomUUID();
+        this.id = String.valueOf(UUID.randomUUID());
         this.level = 1;
         this.type = RoomType.ABSENCE;
         this.roomDirections = new HashMap<>();
@@ -34,5 +36,6 @@ public class Room {
         roomDirections.put(RoomDirection.TOP_RIGHT,false);
         this.description = "";
         this.isVisited = false;
+        this.textureUrl = AllConstants.StringConstants.DEFAULT_ROOM_TEXTURE.getValue();
     }
 }

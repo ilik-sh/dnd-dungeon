@@ -1,58 +1,77 @@
 package org.example.server.Services.Authoritation;
 
-import org.example.server.Exceptions.NoSuchTokenException;
-import org.example.server.Exceptions.RefreshTokenExpirationException;
-import org.example.server.domain.Models.RefreshToken;
-import org.example.server.domain.dto.RefreshTokenDto;
-import org.example.server.repo.RefreshTokenRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.example.server.domain.Models.account.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.time.Duration;
 import java.util.Date;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 @Service
 public class RefreshTokenService {
     @Value("${jwt.secret.refresh}")
     private String refreshSecret;
     @Value("${jwt.duration.refresh}")
-    private Duration accessDuration;
+    private Duration refreshDuration;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
 
-    public RefreshTokenDto generateRefreshToken(String username){
-        RefreshToken newRefreshToken = new RefreshToken();
-        UUID newToken = UUID.randomUUID();
-        newRefreshToken.setFinalToken(bCryptPasswordEncoder.encode(bCryptPasswordEncoder.encode(String.valueOf(newToken))+refreshSecret));
-        newRefreshToken.setUsername(username);
-        newRefreshToken.setExpiryDate(new Date(System.currentTimeMillis()+accessDuration.toMillis()));
-        refreshTokenRepository.findByUsername(username).ifPresent(checkToken -> refreshTokenRepository.delete(checkToken));
-        refreshTokenRepository.save(newRefreshToken);
-        return new RefreshTokenDto(newToken, username);
+    public String extractRefreshUserName(String token) {
+        return extractAccessClaim(token, Claims::getSubject);
     }
 
-    public RefreshTokenDto refreshToken(RefreshTokenDto refreshTokenDto){
-        String checkToken = String.valueOf(refreshTokenDto.getRefreshToken());
-        checkToken = bCryptPasswordEncoder.encode(checkToken);
-        checkToken = bCryptPasswordEncoder.encode(checkToken+refreshSecret);
-        RefreshToken refreshToken = refreshTokenRepository.findByFinalToken(checkToken).orElseThrow(()->
-            new NoSuchTokenException("No such token: "+refreshTokenDto.getRefreshToken()));
-        if(refreshToken.getExpiryDate().compareTo(new Date(System.currentTimeMillis()))<0){
-            refreshTokenRepository.delete(refreshToken);
-            throw new RefreshTokenExpirationException("Refresh token "+refreshTokenDto.getRefreshToken()+" is expired. Please make a new login");
+    public String generateRefreshToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        if (userDetails instanceof User customUserDetails) {
+            claims.put("id", customUserDetails.getId());
         }
-        refreshTokenRepository.delete(refreshToken);
-        UUID newToken = UUID.randomUUID();
-        RefreshToken newRefreshToken = new RefreshToken();
-        newRefreshToken.setFinalToken(bCryptPasswordEncoder.encode(bCryptPasswordEncoder.encode(String.valueOf(newToken))+refreshSecret));
-        newRefreshToken.setUsername(refreshTokenDto.getUsername());
-        newRefreshToken.setExpiryDate(new Date(System.currentTimeMillis()+accessDuration.toMillis()));
-        refreshTokenRepository.save(newRefreshToken);
-        return new RefreshTokenDto(newToken, refreshTokenDto.getUsername());
+        return generateRefreshToken(claims, userDetails);
+    }
+
+    public boolean isAccessTokenValid(String token, UserDetails userDetails) {
+        final String userName = extractRefreshUserName(token);
+        return (userName.equals(userDetails.getUsername()));
+    }
+
+    private <T> T extractAccessClaim(String token, Function<Claims, T> claimsResolvers) {
+        final Claims claims = extractAllRefreshClaims(token);
+        return claimsResolvers.apply(claims);
+    }
+
+    private String generateRefreshToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + refreshDuration.toMillis()))
+                .signWith(getAccessSigningKey()).compact();
+    }
+
+    public boolean isRefreshTokenExpired(String token) {
+        Date tokenTime = extractRefreshExpiration(token);
+        Date checkTime = new Date();
+        return checkTime.compareTo(tokenTime)>0;
+    }
+
+    private Date extractRefreshExpiration(String token) {
+        return extractAccessClaim(token, Claims::getExpiration);
+    }
+
+    private Claims extractAllRefreshClaims(String token) {
+        return Jwts.parser().setSigningKey(getAccessSigningKey()).build().parseSignedClaims(token).getPayload();
+    }
+
+    private Key getAccessSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(refreshSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

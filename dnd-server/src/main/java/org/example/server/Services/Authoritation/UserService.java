@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -25,22 +26,22 @@ public class UserService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-    public User findUserById(long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+    public User getUserById(String userId) {
+        Optional<User> userFromDb = userRepository.findById(UUID.fromString(userId));
+        return userFromDb.orElseThrow(()-> new UsernameNotFoundException("No such user: "+userId));
     }
 
     public List<User> findAllUsers() {
         return (List<User>) userRepository.findAll();
     }
 
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         user.setRole(Role.ROLE_USER);
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
-    public boolean deleteUser(Long userId) {
+    public boolean deleteUser(UUID userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
             return true;
@@ -56,7 +57,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByEmail(email);
     }
 
-    public User getByUsername(String username) {
+    public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't Find user"));
     }
@@ -73,6 +74,6 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDetailsService userDetailsService() {
-        return this::getByUsername;
+        return this::getUserByUsername;
     }
 }

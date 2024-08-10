@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JsonWebTokenService {
+public class JsonAccessTokenService {
     @Value("${jwt.secret.access}")
     private String accessSecret;
     @Value("${jwt.duration.access}")
