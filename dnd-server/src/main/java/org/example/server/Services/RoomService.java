@@ -2,7 +2,7 @@ package org.example.server.Services;
 
 import org.springframework.stereotype.Service;
 import org.example.server.AllConstants;
-import org.example.server.Models.Room;
+import org.example.server.domain.Models.Room;
 import org.example.server.RoomDirection;
 import org.example.server.RoomType;
 
@@ -15,7 +15,7 @@ public class RoomService {
     public static Room generateRoom(){
         Room returnRoom = new Room();
         returnRoom.setLevel(generateRoomLevel());
-        returnRoom.setRoomType(generateRoomType());
+        returnRoom.setType(generateRoomType());
         returnRoom.setRoomDirections(generateRoomDirections());
         returnRoom.setVisited(false);
         return returnRoom;

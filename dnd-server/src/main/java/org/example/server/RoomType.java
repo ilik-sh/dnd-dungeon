@@ -5,7 +5,8 @@ public enum RoomType {
     PEACE(3),
     QUEST( 5),
     NEUTRAL(8),
-    EVIL(10);
+    EVIL(10),
+    ABSENCE(0);
 
 
     private int value;
